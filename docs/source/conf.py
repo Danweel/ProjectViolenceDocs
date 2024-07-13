@@ -35,12 +35,12 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'furo'
-html_static_path = ['build\html\source\_static']
-html_theme_options = {
-    "light_css_variables": {
-        "color-brand-primary": "red",
-        "color-brand-content": "#CC3333",
-        "color-admonition-background": "orange",
-    },
-}
+#html_theme = 'furo'
+#html_static_path = ['build\html\source\_static']
+#html_theme_options = {
+#    "light_css_variables": {
+#        "color-brand-primary": "red",
+#        "color-brand-content": "#CC3333",
+#        "color-admonition-background": "orange",
+#    },
+#}
