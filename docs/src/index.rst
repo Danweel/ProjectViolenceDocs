@@ -6,11 +6,10 @@
 Welcome to TheViolenceDocs's documentation!
 ===========================================
 
-For now, all entries will refer to example project "Lumache", but will be later updated to point to Fred's tool instead.
-EXAMPLE:
+Check out the :doc:`usage` section for how to use the Tool, including how to
+:ref:`install <installation>` the script into Blender.
 
-Check out the :doc:`usage` section for further information, including how to
-:ref:`install <installation>` the project.
+
 
 
 .. toctree::
@@ -32,6 +31,9 @@ Contents
 
 .. toctree::
 
+   setup
    usage
-   modules
+   modules*
 
+
+.. Note There may be references to Lumache - this was part of the starter template, plz ignore.
