@@ -1,50 +1,55 @@
-[tool.poetry]
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
+# -----------------------------------------------------------------
+# PEP 621 metadata
+# -----------------------------------------------------------------
+[project]
 name = "projectviolencedocs"
 version = "0.1.0"
-description = "Documentation package for the Violence Tool"
-authors = ["Danweel <daniil.woodland@pm.me>", Community]
+description = "Documentation for Project Violence"
 readme = "README.md"
 license = "MIT"
+# licence files = ["LICENSE"]  #OPTIONAL, points to a licence file
+authors = [
+    {name = "Danweel", email = "daniil.woodland@pm.me"},
+    {name = "Community"}          # optional second author
+]
+requires-python = ">=3.9"           # mirrors Poetry’s python requirement
+dependencies = [                    # PEP 621‑style runtime deps
+    "sphinx>=7.2",
+    "sphinx-rtd-theme>=2.0"
+]
+
 # -----------------------------------------------------------------
-# Disable packaging for Poetry - we only need dependancies, not to be pip-install-ed, which Poetry will normally assumes for other Python projects.
-package-mode = false
-#
-# Simplicity – the repo’s purpose is documentation, not a distributable library.
-# Compatibility – Read‑the‑Docs expects a requirements.txt or a pyproject.toml that lists only the docs‑related dependencies.
-# No extra folder – you avoid creating an empty projectviolencedocs/ package that serves no functional purpose.
-#
-# If later you decide the code itself should be installable (e.g., you want to expose a Python API alongside the docs), 
-# you can convert the repo to a full package by adding the package folder and removing package-mode = false. 
-# Until then, keeping it docs‑only is the standard approach.
+# Poetry‑specific configuration (kept for compatibility)
 # -----------------------------------------------------------------
+[tool.poetry]
+# `package-mode` is a Setuptools‑specific option; Poetry ignores it,
+# but we keep it here in case other tools still read it.
+package-mode = false   # docs-only repo, disables packaging
+
+# -----------------------------------------------------------------
+# Poetry dependency groups (new format)
+# -----------------------------------------------------------------
+[tool.poetry.group.docs.dependencies]  # use poetry install --with docs for regular contributors (light, strips out unnecessary tools)
+sphinx = "^7.2"
+sphinx-rtd-theme = "^2.0"
+readthedocs-build = "^2.0"
+
+[tool.poetry.group.dev.dependencies]   # replaces deprecated [dev-dependencies]
+sphinx = "^7.2"
+sphinx-rtd-theme = "^2.0"
+readthedocs-build = "^2.0"             # use poetry install --with dev for all additional tools (heavier) 
+
+# For now they are the same, but additional tools I find I need on the dev end will be added eventually (if necessary). 
+# This is just a note about options for now.
 
 
-[tool.poetry.dependencies]
-python = "^3.10"
-poetry = "^1.8"
-# sphinx = "TBD"
-# sphinx-rtd-theme = "TBD"
 # -----------------------------------------------------------------
-# The following line was introduced when building the project but it appears to have no use, commenting out for now.
-# requests = "^2.32.3"
-# Requests is an HTTP client. They might be necessary if using custom Sphinx extensions, conf scripts or examples that fetch from APIs?
-# Delete if this is still here after some time of working correctly.
+# OPTIONAL: keep the old Poetry block for tools that still expect it
 # -----------------------------------------------------------------
-
-
-# [tool.poetry.dev-dependencies]
-# optional, e.g. for linting the docs
-# TBD flake8 = "^7.0" Not sure what linter we're using, if any.
-
-
-[build-system]
-# -----------------------------------------------------------------
-requires = ["poetry-core>=1.8.0"]
-# Read the Docs installs the poetry‑core package (the lightweight part of Poetry that implements PEP 517/518). 
-# It provides the build-backend entry point.
-# -----------------------------------------------------------------
-build-backend = "poetry.core.masonry.api"
-# The standard backend used by Poetry‑managed projects. 
-# It tells the build tool (pip/RTD) how to resolve the dependencies listed in [tool.poetry.dependencies].
-# -----------------------------------------------------------------
-# With the above [build-system] block, the documentation builds correctly on both RTD and any local environment that respects PEP 517.
+# If you want Poetry to continue reading the dependencies from its
+# legacy section, add them to `project.dynamic` and leave the block
+# unchanged.  Otherwise you can delete the whole block.
