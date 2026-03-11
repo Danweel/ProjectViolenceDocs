@@ -29,13 +29,13 @@ The script will:
 
 When the script finishes you can run the most common commands:
 
-| Command                                                 | What it does                     |                  |
-| ---------------------------------------------------------| ----------------------------------| ------------------|
-| `poetry run sphinx-build -b html docs docs/_build/html` | Build the documentation locally. |                  |
-| `poetry run pytest`                                     | Execute the test suite.          | *not implemented |
-| `poetry run ruff check .`                               | Lint the source code.            | *not implemented |
+| Command                                                 | What it does                     |     |
+| ---------------------------------------------------------| ----------------------------------| -----|
+| `poetry run sphinx-build -b html docs docs/_build/html` | Build the documentation locally. |     |
+| `poetry run pytest`                                     | Execute the test suite.          |     |
+| `poetry run ruff check .`                               | Lint the source code.            |     |
 
-You'll then have to install VSCodium and add the extensions below:
+You'll then have to install VSCodium and add the extensions below.
 ---
 
 ### Step‑by‑step setup (manual control)
@@ -71,16 +71,17 @@ After the script completes, you are ready to edit, test, and preview the documen
 
 #### Recommended VSCodium extensions
 
-| Extension               | Install command                                                  | Why you need it                                                                        |
-| -------------------------| ------------------------------------------------------------------| ----------------------------------------------------------------------------------------|
-| **Esbonio**             | `code --install-extension swyddfa.esbonio`                       | Live Sphinx preview, directive/role completion, inline diagnostics.                    |
-| **Python**              | `code --install-extension ms-python.python`                      | IntelliSense, linting, and virtual‑env activation for `conf.py` and custom extensions. |
-| **GitHub Pull‑Request** | `code --install-extension GitHub.vscode-pull-request-github`     | Create, review, and checkout PRs without leaving the editor.                           |
-| **GitLens**             | `code --install-extension eamodio.gitlens`                       | Inline blame, history, and repository insights.                                        |
-| **Code Spell Checker**  | `code --install-extension streetsidesoftware.code-spell-checker` | Highlights misspellings in `.rst` and `.md` files.                                     |
-| **Markdown All‑in‑One** | `code --install-extension yzhang.markdown-all-in-one`            | Syntax highlighting, preview, and linting for any Markdown files.                      |
-| **EditorConfig**        | `code --install-extension EditorConfig.EditorConfig`             | Enforces the project’s indentation, line‑ending, and charset rules.                    |
+| Extension                    | Install command                                                  | Why you need it                                                                        |
+| ------------------------------| ------------------------------------------------------------------| ----------------------------------------------------------------------------------------|
+| **Esbonio**                  | `code --install-extension swyddfa.esbonio`                       | Live Sphinx preview, directive/role completion, inline diagnostics.                    |
+| **Python**                   | `code --install-extension ms-python.python`                      | IntelliSense, linting, and virtual‑env activation for `conf.py` and custom extensions. |
+| **GitHub Pull‑Request**      | `code --install-extension GitHub.vscode-pull-request-github`     | Create, review, and checkout PRs without leaving the editor.                           |
+| **GitLens**                  | `code --install-extension eamodio.gitlens`                       | Inline blame, history, and repository insights.                                        |
+| **Code Spell Checker**       | `code --install-extension streetsidesoftware.code-spell-checker` | Highlights misspellings in `.rst` and `.md` files.                                     |
+| **Markdown All‑in‑One**      | `code --install-extension yzhang.markdown-all-in-one`            | Syntax highlighting, preview, and linting for any Markdown files.                      |
+| **EditorConfig**             | `code --install-extension EditorConfig.EditorConfig`             | Enforces the project’s indentation, line‑ending, and charset rules.                    |
+| **Nearest venv interpreter** | `code --install-extension thespacebar.nearest-venv`              | Will make sure VSCodium handles the interpreter for you.                               |
 
-[![Install extensions](https://img.shields.io/badge/Install%20extensions-Click%20to%20install-blue?logo=visual-studio-code)](vscode://vscode.github-authentication/did-authenticate?windowId=1&extensionIds=esbonio.sphinx,ms-python.python,GitHub.vscode-pull-request-github,eamodio.gitlens,streetsidesoftware.code-spell-checker,EditorConfig.EditorConfig,yzhang.markdown-all-in-one)
+[![Install extensions](https://img.shields.io/badge/Install%20extensions-Click%20to%20install-blue?logo=visual-studio-code)](vscode://vscode.github-authentication/did-authenticate?windowId=1&extensionIds=svydfa.esbonio,ms-python.python,GitHub.vscode-pull-request-github,eamodio.gitlens,streetsidesoftware.code-spell-checker,EditorConfig.EditorConfig,yzhang.markdown-all-in-one,thespacebar.nearest-venv)
 
 *Click the badge to install all of the above extensions automatically.*
