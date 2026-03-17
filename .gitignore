@@ -112,7 +112,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-poetry.lock
+# poetry.lock Removing this from lock ensures all contributors (including RTD) install the exact same dependency version
 
 # Spyder project settings
 .spyderproject
