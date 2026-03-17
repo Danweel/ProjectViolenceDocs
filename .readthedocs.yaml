@@ -28,13 +28,16 @@ sphinx:
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
 python:
   install:
-    - method: pip          # pip is the preferred installer over Poetry, for now (March 2026). Updated if needed.
-      path: .              # root of the repo
+    - method: poetry       # pip is the preferred installer over Poetry, for now (March 2026) - BUT, not for documentation-only projects.
+      path: .              # Comment out this line if using pip, Poetry knows how to handle this.
       extra_requirements:  # Don't use the depreciated `extras: [docs]` format.
         - docs
         # You can add other dev tools (pytest, ruff, etc.) here.
 
-
+# This section ensures Poetry is installed first
+jobs:
+  post_create_environment:
+    - pip install poetry
 
 # Optionally build your docs in additional formats such as PDF and ePub
 # formats:
