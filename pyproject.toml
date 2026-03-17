@@ -20,12 +20,12 @@ authors = [
 # ---- core runtime dependencies (inside the same [project] table) ----
 requires-python = ">=3.9"   # Once this line is present, the resolver no longer falls back to the historic “>=2.7,<2.8” default.
 
-dependencies = [
-    "sphinx>=7.2",
-    "sphinx-rtd-theme>=2.0,<3.0",
-    "readthedocs-build>=2.0"
-]
-
+# dependencies = [
+#    "sphinx>=7.2",
+#    "sphinx-rtd-theme>=2.0,<3.0",
+#    "readthedocs-build>=2.0"
+#]
+# Not needed here if Poetry is handling them (see the Yaml)
 # -----------------------------------------------------------------
 # Poetry Groups
 # -----------------------------------------------------------------
