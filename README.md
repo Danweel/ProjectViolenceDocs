@@ -125,5 +125,7 @@ After the script completes, you are ready to edit, test, and preview the documen
 --- 
 
 For further information on this Github page, contact the current repo owner.
-Please support the development of this tool and maintenance of the docs:
-https://www.patreon.com/afoxinspace
+
+Please support the development of this tool and maintenance of the docs here: [Fred @ A Fox in Space](https://www.patreon.com/afoxinspace)
+
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
