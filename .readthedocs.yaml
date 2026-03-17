@@ -41,12 +41,6 @@ python:
         # You can add other dev tools (pytest, ruff, etc.) here.
 
 
-
-# This section ensures Poetry is installed first
-jobs:
-  post_create_environment:
-    - pip install poetry
-
 # Optionally build your docs in additional formats such as PDF and ePub
 # formats:
 #    - pdf
