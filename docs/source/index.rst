@@ -10,8 +10,6 @@ Check out the :doc:`usage` section for how to use the Tool, including how to
 :ref:`install <installation>` the script into Blender.
 
 
-
-
 .. toctree::
    :maxdepth: 2
    :caption: Contents:

@@ -10,7 +10,7 @@ name = "projectviolencedocs"
 version = "0.1.0"
 description = "Documentation for Project Violence"
 readme = "README.md"
-license = "MIT"
+license = {text = "CC-BY-SA-4.0"}
 # licence files = ["LICENSE"]  #OPTIONAL, points to a licence file
 authors = [
     {name = "Danweel", email = "daniil.woodland@pm.me"},
@@ -26,11 +26,12 @@ requires-python = ">=3.9"   # Once this line is present, the resolver no longer 
 #    "readthedocs-build>=2.0"
 #]
 # Not needed here if Poetry is handling them (see the Yaml)
+
 # -----------------------------------------------------------------
 # Poetry Groups
 # -----------------------------------------------------------------
 [tool.poetry]
-package-mode = false   # ← tells Poetry not to expect a Python package
+package-mode = false   # ← tells Poetry not to expect a Python package (for now, we can add the script optionally later)
 packages = []          # ← no Python package to install
 
 [tool.poetry.extras]   # ← this defines the dependancies to install, then 'dependancy groups' below define the minimum requirements for each item.

@@ -29,19 +29,57 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
     'sphinx.ext.doctest'
+    'notfound.extension'
+    'sphinxcontrib.mermaid'
 ]
 
 templates_path = ['_templates']
+# -- 'Not Found Extension' Template -----------------------------------------
+# Optional: customize the 404 page
+notfound_template = '404.html'  # Custom template
+notfound_context = {
+    'title': 'Page Not Found',
+    'body': 'The page you are looking for does not exist.',
+}
+# Optional: add URLs that should always work
+notfound_urls_prefix = '/en/latest/'  # For versioned docs
+
+# --------------------------------------------------------------------------
+# -- 'Sphinx Contrib for Mermaid' Template ---------------------------------
+# Mermaid allows for text-based charts that are more versionable than images
+
+mermaid_version = "9.4.0"  # Specific Mermaid.js version
+mermaid_init_js = "mermaid.initialize({startOnLoad:true});"
+
+# Example usage
+## .. mermaid::
+
+#   graph LR
+#      A[Start] --> B{Decision}
+#      B -->|Yes| C[Process]
+#      B -->|No| D[End]
+#      C --> D
+
+# .. mermaid::
+
+#   sequenceDiagram
+#      Client->>Server: Request
+#      Server->>Database: Query
+#      Database-->>Server: Result
+#      Server-->>Client: Response
+
+# --------------------------------------------------------------------------
+# -- General configuration (cont)---------------------------------------------------
 
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # Mock imports for modules that don't exist yet:
-autodoc_mock_imports = ['pymodulefordocs']
+autodoc_mock_imports = ['pymodulefordocs'] # The python script these docs are about
 
 # -- TODO #1 Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-#html_theme = 'furo'
+html_theme = 'groundwork'
 #html_static_path = ['build\html\source\_static']
 #html_theme_options = {
 #    "light_css_variables": {
