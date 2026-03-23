@@ -15,15 +15,6 @@ Check out the :doc:`usage` section for how to use the Tool, including how to
    :caption: Contents:
 
 
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-
 Contents
 --------
 
@@ -36,4 +27,9 @@ Contents
    maintenance
    
 
-.. Note There may be references to Lumache - this was part of the starter template, plz ignore.
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

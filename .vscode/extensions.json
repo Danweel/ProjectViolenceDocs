@@ -3,8 +3,9 @@
         "matt-rudge.auto-open-preview-panel",
         "swyddfa.esbonio",
         "zaaack.markdown-editor",
-        "swyddfa.esbonio",
         "github.vscode-pull-request-github",
         "myst_parser",
+        "lextudio.restructuredtext",
+        "trond-snekvik.simple-rst",
     ]
 }

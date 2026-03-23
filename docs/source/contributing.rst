@@ -54,4 +54,4 @@ There's always a good chance that this project isn't set up exactly like what yo
    Renaming the folder manually can break Poetry's internal tracking, causing it to think the environment is missing and recreate a new one. Keeping it inside the project folder (as we have done here) makes it easier to see exactly which environment belongs to which project at a glance.
 
 
-.._maintenance
+.. _maintenance:
