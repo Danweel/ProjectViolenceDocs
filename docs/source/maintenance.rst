@@ -1,5 +1,3 @@
-.. _maintenance:
-
 Maintenance Guide
 =================
 
