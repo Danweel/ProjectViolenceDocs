@@ -3,9 +3,8 @@
         "matt-rudge.auto-open-preview-panel",
         "swyddfa.esbonio",
         "zaaack.markdown-editor",
-        "thespacebar.nearest-venv",
         "swyddfa.esbonio",
         "github.vscode-pull-request-github",
-        "sphinx.myst_parser",
+        "myst_parser",
     ]
 }

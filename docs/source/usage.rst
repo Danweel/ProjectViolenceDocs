@@ -45,3 +45,21 @@ Post your results in the Grease Pencil #channel on Discord for feedback.
 Extra practice files, such as for specific characters or other useful oddities.
 
 *placeholdler for practice files*
+
+*temporary test*
+Testing Mermaid Diagrams
+=========================
+
+Here's a simple flowchart to test the integration:
+
+.. mermaid::
+
+   graph TD
+       A[Start] --> B{Is it working?}
+       B -->|Yes| C[Great!]
+       B -->|No| D[Check config]
+       D --> E[Update conf.py]
+       E --> B
+       
+       style A fill:#f9f,stroke:#333,stroke-width:2px
+       style C fill:#bbf,stroke:#333,stroke-width:2px

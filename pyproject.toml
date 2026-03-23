@@ -18,7 +18,7 @@ authors = [
 ]
 
 # ---- core runtime dependencies (inside the same [project] table) ----
-requires-python = ">=3.10"   # Once this line is present, the resolver no longer falls back to the historic “>=2.7,<2.8” default.
+requires-python = ">=3.11"   # Once this line is present, the resolver no longer falls back to the historic “>=2.7,<2.8” default.
 
 # dependencies = [
 #    "sphinx>=7.2",
@@ -43,16 +43,20 @@ dev = ["sphinx", "groundwork", "readthedocs-build", "pytest", "ruff"]
 # Poetry Dependency Groups
 # -----------------------------------------------------------------
 [tool.poetry.group.docs.dependencies]  # use poetry install --with docs for regular contributors (light, strips out unnecessary tools)
-sphinx = "^7.2"                        # because these are defined in the Core dependencies, this isn't strictly needed, but I'm using it in the setup script for clarity.
-sphinx-rtd-theme = "^2.0"
+sphinx = "^8.0"     
+groundwork-sphinx-theme = "^1.1.1"                   # because these are defined in the Core dependencies, this isn't strictly needed, but I'm using it in the setup script for clarity.
 readthedocs-build = "^2.0"
+sphinxcontrib-mermaid = "^2.0.1"
+myst-parser = "^5.0.0"
 
 [tool.poetry.group.dev.dependencies]   # replaces deprecated [dev-dependencies], use poetry install --with dev to install everything required to maintain the Read the Docs project.
-sphinx = "^7.2"
-sphinx-rtd-theme = "^2.0"
+sphinx = "^8.0"
+groundwork-sphinx-theme = "^1.1.1"
 readthedocs-build = "^2.0"
 pytest = "^8.0"                        # I think optional in our case, but I'm including it for now until I'm sure we don't need it.
-ruff = "^0.6"           
+ruff = "^0.6"
+sphinxcontrib-mermaid = "^2.0.1"
+myst-parser = "^5.0.0"
 
 # For now they are roughly the same except the linter, but additional tools I find I need on the dev end will be added eventually (if necessary). 
 # This is just a note about how to set installation options for now.

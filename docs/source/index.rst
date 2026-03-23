@@ -29,7 +29,6 @@ Contents
 
 .. toctree::
 
-   index
    installation
    usage
    modules
