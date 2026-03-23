@@ -18,7 +18,7 @@ authors = [
 ]
 
 # ---- core runtime dependencies (inside the same [project] table) ----
-requires-python = ">=3.9"   # Once this line is present, the resolver no longer falls back to the historic “>=2.7,<2.8” default.
+requires-python = ">=3.10"   # Once this line is present, the resolver no longer falls back to the historic “>=2.7,<2.8” default.
 
 # dependencies = [
 #    "sphinx>=7.2",
@@ -35,8 +35,8 @@ package-mode = false   # ← tells Poetry not to expect a Python package (for no
 packages = []          # ← no Python package to install
 
 [tool.poetry.extras]   # ← this defines the dependancies to install, then 'dependancy groups' below define the minimum requirements for each item.
-docs = ["sphinx", "sphinx-rtd-theme", "readthedocs-build"]  
-dev = ["sphinx", "sphinx-rtd-theme", "readthedocs-build", "pytest", "ruff"]
+docs = ["sphinx", "groundwork", "readthedocs-build"]  
+dev = ["sphinx", "groundwork", "readthedocs-build", "pytest", "ruff"]
 
 
 # -----------------------------------------------------------------
@@ -65,3 +65,7 @@ ruff = "^0.6"
 # legacy section, add them to `project.dynamic` and leave the block
 # unchanged.  Otherwise you can delete the whole block.
 # We aren't doing this, but I'm leaving this instruction here in case we need it later.
+[tool.poetry.dependencies]
+sphinx-notfound-page = "^1.1.0"
+sphinxcontrib-mermaid = "^2.0.1"
+groundwork-sphinx-theme = "^1.1.1"

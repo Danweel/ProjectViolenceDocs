@@ -29,9 +29,12 @@ Contents
 
 .. toctree::
 
-   setup
+   index
+   installation
    usage
    modules
-
+   contributing
+   maintenance
+   
 
 .. Note There may be references to Lumache - this was part of the starter template, plz ignore.

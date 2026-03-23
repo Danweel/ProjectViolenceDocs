@@ -1,7 +1,10 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
 *.py[cod]
 *$py.class
+
+# Python cache
+__pycache__/
+*.pyc
 
 # C extensions
 *.so
@@ -131,3 +134,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/envs.toml
+
+# User Files
+lumo_helper.sh

@@ -28,9 +28,9 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.napoleon',
     'sphinx.ext.todo',
-    'sphinx.ext.doctest'
-    'notfound.extension'
-    'sphinxcontrib.mermaid'
+    'sphinx.ext.doctest',
+    'notfound.extension',          # For sphinx-notfound-page
+    'sphinxcontrib.mermaid',       # For sphinxcontrib-mermaid
 ]
 
 templates_path = ['_templates']
@@ -48,7 +48,9 @@ notfound_urls_prefix = '/en/latest/'  # For versioned docs
 # -- 'Sphinx Contrib for Mermaid' Template ---------------------------------
 # Mermaid allows for text-based charts that are more versionable than images
 
-mermaid_version = "9.4.0"  # Specific Mermaid.js version
+# Pinning Mermaid JS version to ensure build stability.
+# Update this version only after testing with the new Mermaid release.
+mermaid_version = '11.13.0'  # Specific Mermaid.js version
 mermaid_init_js = "mermaid.initialize({startOnLoad:true});"
 
 # Example usage
@@ -81,10 +83,10 @@ autodoc_mock_imports = ['pymodulefordocs'] # The python script these docs are ab
 
 html_theme = 'groundwork'
 #html_static_path = ['build\html\source\_static']
-#html_theme_options = {
+html_theme_options = {
 #    "light_css_variables": {
 #        "color-brand-primary": "red",
 #        "color-brand-content": "#CC3333",
 #        "color-admonition-background": "orange",
 #    },
-#}
+}

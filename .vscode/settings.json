@@ -1,3 +1,11 @@
 {
-    "iis.configDir": ""
+    "python.defaultInterpreterPath": "/home/danweel/Documents/VSCodiumFiles/ProjectViolenceDocs/projectviolencedocs-CjdI7n0o-py3.12/bin/python",
+    "esbonio.server.enabled": true,
+    "esbonio.server.pythonPath": "/home/danweel/Documents/VSCodiumFiles/ProjectViolenceDocs/projectviolencedocs-CjdI7n0o-py3.12/bin/python",
+    "python.analysis.extraPaths": [],
+    "terminal.integrated.env.linux": {
+        "PATH": "/home/danweel/.local/bin:${env:PATH}"
+    },
+    "markdown.extension.completion.enabled": false,
+    "markdown.extension.tableFormatter.enabled": false
 }
