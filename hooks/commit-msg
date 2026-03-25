@@ -1,0 +1,34 @@
+#!/bin/sh
+# .git/hooks/commit-msg
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Enforce conventional commit format (e.g., "docs: updated usage guide")
+if ! echo "$COMMIT_MSG" | grep -qE '^(DOCS: |REPO: |WEB: |PLUGIN: |FIX: |CLEANUP: |TEST: )'; then
+    echo "❌ ERROR: Commit message must start with one of the types. Please include the issue number for regression purposes."
+    echo "   Example: 'DOCS: (#224): Added screenshot for installation'"
+    echo "   Example: 'FIX: (#98): Bolded all instances of the word Fred'"
+    exit 1
+fi
+
+# Optional: Check line length (first line)
+FIRST_LINE=$(echo "$COMMIT_MSG" | head -n1)
+if [ ${#FIRST_LINE} -gt 72 ]; then
+    echo "⚠️ WARNING: First line of commit message is longer than 72 characters."
+    echo "   Length: ${#FIRST_LINE}"
+fi
+
+# Require issue reference (e.g., #123)
+if ! echo "$COMMIT_MSG" | grep -qE '#[0-9]+'; then
+    echo "⚠️  WARNING: No issue reference found in commit message."
+    echo "   Add #123 to link to GitHub issue #123"
+    echo ""
+    read -p "Continue anyway? (y/N) " -n 1 -r
+    echo
+    if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
+        exit 1
+    fi
+fi
+
+exit 0

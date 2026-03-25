@@ -1,0 +1,39 @@
+#!/bin/sh
+# .git/hooks/pre-push
+
+cleanup() {
+    rm -rf docs/_build/test_build
+}
+
+trap cleanup EXIT
+
+echo "📚 Building documentation..."
+
+# Verify Sphinx build succeeds
+echo "Checking if docs build successfully..."
+
+# Using poetry run to ensure we use the correct environment
+# Build to test directory to avoid polluting actual output
+if ! poetry run sphinx-build -b html docs/source docs/_build/test_build > /dev/null 2>&1; then
+    echo "❌ ERROR: Sphinx build failed. Fix errors before trying again."
+    echo "   Run 'sphinx-build -b html docs/source docs/_build/debug' locally to see error."
+    exit 1
+fi
+
+echo "✅ Build check passed!"
+
+
+# Branch naming convention check
+BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||')
+
+echo "Add a prefix denoting the branch intention: eg: docs/, repo/, bugfixes/, updates/, etc."
+if ! echo "$BRANCH" | grep -qE '^(DOCS: |REPO: |WEB: |PLUGIN: |CLEANUP: |TEST: |OTHER: )/'; then
+    echo "❌ ERROR: Branch must start with a prefix matching your commit type: (DOCS: |REPO: |WEB: |PLUGIN: |REFACTOR: |TEST: |OTHER: )"
+    echo "   Example: 'DOCS: Adding content to Installation'"
+    echo "   Example: 'WEB: Changing website theme'"
+    exit 1
+fi
+echo "✅ Branch starts with intention!"
+
+echo "✅ Pre-push checks complete. Proceeding with push."
+exit 0

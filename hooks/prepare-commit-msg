@@ -1,0 +1,24 @@
+#!/bin/sh
+# .git/hooks/prepare-commit-msg
+
+# Automatically prepends branch prefix to commit messages
+# Get the commit message file
+COMMIT_MSG_FILE=$1
+
+# Get current branch name
+BRANCH=$(git symbolic-ref HEAD 2>/dev/null | sed 's|refs/heads/||')
+
+# Extract prefix from branch (e.g., "DOCS: something" -> "DOCS:")
+PREFIX=$(echo "$BRANCH" | grep -oE '^(DOCS|REPO|WEB|PLUGIN|CLEANUP|TEST|OTHER):' 2>/dev/null)
+
+# Only modify if:
+# 1. We have a valid prefix
+# 2. This is a new commit message (not amend/merge/squash)
+# 3. The prefix isn't already at the start
+if [ -n "$PREFIX" ] && [ "$2" = "" ] && ! head -1 "$COMMIT_MSG_FILE" | grep -q "^$PREFIX "; then
+     # Create temp file with prefix prepended
+    TEMP_FILE=$(mktemp)
+    echo "$PREFIX " > "$TEMP_FILE"
+    cat "$COMMIT_MSG_FILE" >> "$TEMP_FILE"
+    mv "$TEMP_FILE" "$COMMIT_MSG_FILE"
+fi
