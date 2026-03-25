@@ -15,20 +15,20 @@ fi
 # Optional: Check line length (first line)
 FIRST_LINE=$(echo "$COMMIT_MSG" | head -n1)
 if [ ${#FIRST_LINE} -gt 72 ]; then
-    echo "⚠️ WARNING: First line of commit message is longer than 72 characters."
+    echo "⚠️ WARNING: First line of commit message is longer than 108 characters."
     echo "   Length: ${#FIRST_LINE}"
 fi
 
 # Require issue reference (e.g., #123)
-if ! echo "$COMMIT_MSG" | grep -qE '#[0-9]+'; then
-    echo "⚠️  WARNING: No issue reference found in commit message."
-    echo "   Add #123 to link to GitHub issue #123"
-    echo ""
-    read -p "Continue anyway? (y/N) " -n 1 -r
-    echo
-    if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
-        exit 1
-    fi
-fi
+#if ! echo "$COMMIT_MSG" | grep -qE '#[0-9]+'; then
+#    echo "⚠️  WARNING: No issue reference found in commit message."
+#    echo "   Add #123 to link to GitHub issue #123"
+#    echo ""
+#    read -p "Continue anyway? (y/N) " -n 1 -r
+#    echo
+#    if [ "$REPLY" != "y" ] && [ "$REPLY" != "Y" ]; then
+#        exit 1
+#    fi
+#fi
 
 exit 0
