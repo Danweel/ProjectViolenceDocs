@@ -14,7 +14,6 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 
 
 # -- Project information -----------------------------------------------------
-
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'TheViolenceDocs'
@@ -28,38 +27,62 @@ release = '0.1'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
-
-# Mock imports for modules that don't exist yet:
-autodoc_mock_imports = ['pymodulefordocs'] # The python script these docs are about
-
-# ----------------------------------------------------------------------------
+# Mock imports for modules that don't exist:
+autodoc_mock_imports = ['pymodulefordocs']
+# ISSUE: The python script these docs are about isn't included, so this is to prevent a stopping error
 
 
-# -- Autodoc configuration ---------------------------------------------------
-
-extensions = [
-    'myst_parser',                 # For markdown support
-    'sphinx.ext.autodoc',
-    'sphinx.ext.viewcode',         
-    'sphinx.ext.napoleon',         
-    'sphinx.ext.todo',             # To allow for quick issues to be sent to github
-    'sphinx.ext.doctest',          
-    'notfound.extension',          # For sphinx-notfound-page
-    'sphinxcontrib.mermaid',       # For sphinxcontrib-mermaid
-]
 
 templates_path = ['_templates']
-# Optional: Explicitly set the 404 template if needed (usually automatic)
-# notfound_template = '404.html' 
+
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+
+#
+
+extensions = [
+    'sphinx.ext.viewcode',         # Optional: Shows source code links if we ever host the .bpy
+    'sphinx.ext.intersphinx',      # Allows sphinx to interact with other Read the Docs pages
+    'sphinx.ext.todo',             # Allows for quick inline bugmaking on github
+    'sphinxcontrib.mermaid',       # Required for Mermaid diagrams
+    'notfound.extension',          # Required for custom 404 page
+    'myst_parser'                  # Required for fullpage Markdown support in case contibutors are more comfortable writing .md files
+]                                  # KNOWN ISSUE: myst_parser is in an odd format. This is normal but can throw warnings (that can be safely ignored)
+
+# --------------------------------------------------------------------------
+
+
+# -- Options for viewcode --------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/viewcode.html
+
+viewcode_line_numbers = True
+# viewcode_find_source(app, modname)  # not sure we can use this. check.
+
+# --------------------------------------------------------------------------
+
+
+# -- Options for intersphinx -----------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx
+
+intersphinx_mapping = {
+    'blender': ('https://docs.blender.org/api/current', None),
+    # ... other mappings
+}
 
 # ---------------------------------------------------------------------------
 
 
-# -- 'Not Found Extension' Template -----------------------------------------
+# -- Options for todo extension ---------------------------------------------
 
-# Optional: customize the 404 page
-notfound_template = '404.html'  # Custom template
+todo_include_todos = True
+
+# ---------------------------------------------------------------------------
+
+
+# -- 404 Not Found customization --------------------------------------------
+# https://sphinx-notfound-page.readthedocs.io/en/latest/
+
+notfound_template = '404.html' # Optional: Explicitly set the 404 template if needed (usually automatic)
+
 notfound_context = {
     'title': 'Page Not Found',
     'body': 'The page you are looking for does not exist.',
@@ -71,33 +94,13 @@ notfound_urls_prefix = '/en/latest/'  # For versioned docs
 
 
 # -- 'Sphinx Contrib for Mermaid' Template ----------------------------------
-
+# https://sphinxcontrib-mermaid-demo.readthedocs.io/en/latest/index.html
 # Mermaid allows for text-based charts that are more versionable than images
 
-# Pinning Mermaid JS version to ensure build stability.
+mermaid_version = '11.13.0'  # Pinning Mermaid JS version to ensure build stability.
 # Update this version only after testing with the new Mermaid release.
-mermaid_version = '11.13.0'  # Specific Mermaid.js version
+
 mermaid_init_js = "mermaid.initialize({startOnLoad:true});"
-
-# Example usage
-## .. mermaid::
-
-#   graph LR
-#      A[Start] --> B{Decision}
-#      B -->|Yes| C[Process]
-#      B -->|No| D[End]
-#      C --> D
-
-# .. mermaid::
-
-#   sequenceDiagram
-#      Client->>Server: Request
-#      Server->>Database: Query
-#      Database-->>Server: Result
-#      Server-->>Client: Response
-
-# Configuration
-# https://sphinxcontrib-mermaid-demo.readthedocs.io/en/latest/index.html
 # mermaid_params = ['--theme', 'forest', '--width', '600', '--backgroundColor', 'transparent']
 
 # --------------------------------------------------------------------------
@@ -107,18 +110,15 @@ mermaid_init_js = "mermaid.initialize({startOnLoad:true});"
 # https://myst-parser.readthedocs.io/en/latest/syntax/optional.html
 
 myst_enable_extensions = [
-#    'colon_fence',     # Use ::: instead of ``` for directives
-#    'deflist',          # Definition lists
-#    'dollarmath',       # LaTeX math syntax
-#    'colon_fence',      # Use ::: for directives
-#    'deflist',          # Definition lists
-#    'dollarmath',       # LaTeX math syntax
+    'colon_fence',      # Use ::: for directives
+    'deflist',          # Definition lists
+#   'dollarmath',       # LaTeX math syntax
     'html_admonition',  # HTML admonitions
     'linkify',          # Auto-link URLs
 ]
 
 # Optional: Configure how MyST handles certain syntax
-myst_heading_anchors = 3  # Add anchors to headings up to level 3
+myst_heading_anchors = 4  # Add anchors to headings up to level 3
 
 # --------------------------------------------------------------------------
 
@@ -127,7 +127,9 @@ myst_heading_anchors = 3  # Add anchors to headings up to level 3
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'groundwork'
-#html_static_path = ['build\html\source\_static']
+
+# html_static_path = ['build\html\source\_static']
+
 html_theme_options = {
 #    "light_css_variables": {
 #        "color-brand-primary": "red",
@@ -136,4 +138,4 @@ html_theme_options = {
 #    },
 }
 
-# --------------------------------------------------------------------------
+# ---------------------------------------------------------------------------

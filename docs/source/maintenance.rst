@@ -1,10 +1,16 @@
+.. _maintenance:
+
 Maintenance Guide
 =================
 
-## Maintenance & Updates for repo maintainers
+Maintenance & Updates for repo maintainers
+------------------------------------------
+
 This section covers how to update various components of the documentation project safely.
 
-### Updating Sphinx
+Updating Sphinx
+~~~~~~~~~~~~~~~
+
 Sphinx and its extensions are managed via Poetry in pyproject.toml.
 
 **When to update:**
@@ -50,8 +56,11 @@ Sphinx and its extensions are managed via Poetry in pyproject.toml.
 
     **Best Practice:** Update packages individually rather than all at once. This makes it easier to identify which package caused an issue if something breaks.
 
-### Extensions
-    #### Updating Mermaid Diagrams
+Extensions
+----------
+
+Updating Mermaid Diagrams
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Mermaid JavaScript library is pinned to a specific version in docs/source/conf.py to ensure build stability.
 
@@ -82,7 +91,9 @@ The Mermaid JavaScript library is pinned to a specific version in docs/source/co
 
     **Important:** Always test before committing. New Mermaid versions may have breaking changes that affect diagram syntax.
 
-### Updating or changing the theme 
+Updating or changing the theme
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 **When to update:**
 Avoid being fickle about changing the theme often, but sometimes things become unsupported and a change is wise.
 

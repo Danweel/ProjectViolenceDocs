@@ -25,52 +25,39 @@ requires-python = ">=3.11"   # Once this line is present, the resolver no longer
 #    "sphinx-rtd-theme>=2.0,<3.0",
 #    "readthedocs-build>=2.0"
 #]
-# Not needed here if Poetry is handling them (see the Yaml)
+# Not needed here if Poetry is handling them (see the yaml)
 
 # -----------------------------------------------------------------
 # Poetry Groups
 # -----------------------------------------------------------------
-[tool.poetry]
-package-mode = false   # ← tells Poetry not to expect a Python package (for now, we can add the script optionally later)
-packages = []          # ← no Python package to install
+ [tool.poetry]          # We don't need this group with autodoc2 - enable if using standard autodoc
+ package-mode = false   # ← tells Poetry not to expect a Python package (for now, we can add the script optionally later)
+ packages = []          # ← no Python package to install
 
 [tool.poetry.extras]   # ← this defines the dependancies to install, then 'dependancy groups' below define the minimum requirements for each item.
-docs = ["sphinx", "groundwork", "readthedocs-build"]  
-dev = ["sphinx", "groundwork", "readthedocs-build", "pytest", "ruff"]
+docs = ["sphinx", "readthedocs-build", "mermaid", "notfound", "groundwork", "myst"]
+dev = ["sphinx", "readthedocs-build", "mermaid", "notfound", "groundwork", "myst", "ruff"]
 
 
 # -----------------------------------------------------------------
 # Poetry Dependency Groups
 # -----------------------------------------------------------------
+
 [tool.poetry.group.docs.dependencies]  # use poetry install --with docs for regular contributors (light, strips out unnecessary tools)
-sphinx = "^8.0"     
-groundwork-sphinx-theme = "^1.1.1"                   # because these are defined in the Core dependencies, this isn't strictly needed, but I'm using it in the setup script for clarity.
+sphinx = "^8.0"
 readthedocs-build = "^2.0"
 sphinxcontrib-mermaid = "^2.0.1"
-myst-parser = "^5.0.0"
+sphinx-notfound-page = "^1.0.0"
+groundwork-sphinx-theme = "^1.1.1"     # because these are defined in the Core dependencies, this isn't strictly needed, but I'm using it in the setup script for clarity.
+myst-parser = "^5.0.0"                 # Keep myst_parser if you want full .md page support
 
 [tool.poetry.group.dev.dependencies]   # replaces deprecated [dev-dependencies], use poetry install --with dev to install everything required to maintain the Read the Docs project.
 sphinx = "^8.0"
-groundwork-sphinx-theme = "^1.1.1"
 readthedocs-build = "^2.0"
-pytest = "^8.0"                        # I think optional in our case, but I'm including it for now until I'm sure we don't need it.
-ruff = "^0.6"
 sphinxcontrib-mermaid = "^2.0.1"
-myst-parser = "^5.0.0"
-
-# For now they are roughly the same except the linter, but additional tools I find I need on the dev end will be added eventually (if necessary). 
-# This is just a note about how to set installation options for now.
-
-
-# -----------------------------------------------------------------
-# OPTIONAL: keep the old Poetry block for tools that still expect it
-# -----------------------------------------------------------------
-# If you want Poetry to continue reading the dependencies from its
-# legacy section, add them to `project.dynamic` and leave the block
-# unchanged.  Otherwise you can delete the whole block.
-# We aren't doing this, but I'm leaving this instruction here in case we need it later.
-[tool.poetry.dependencies]
-sphinx-notfound-page = "^1.1.0"
-sphinxcontrib-mermaid = "^2.0.1"
+sphinx-notfound-page = "^1.0.0"
 groundwork-sphinx-theme = "^1.1.1"
-myst-parser = "^5.0.0"
+myst-parser = "^5.0.0"                 # Keep myst_parser if you want full .md page support
+
+# pytest = "^8.0"                      # Optional unless we add python code. Don't forget to add it back to tool.poetry.extras
+ruff = "^0.6"                          # Python linter, can help with .bpy files (not just for Python Libraries)

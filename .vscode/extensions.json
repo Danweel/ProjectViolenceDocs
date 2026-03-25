@@ -7,5 +7,6 @@
         "myst_parser",
         "lextudio.restructuredtext",
         "trond-snekvik.simple-rst",
+        "ybaumes.highlight-trailing-white-spaces",
     ]
 }
