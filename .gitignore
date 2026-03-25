@@ -63,8 +63,14 @@ ENV/
 env.bak/
 venv.bak/
 
+
 # Poetry (keep poetry.lock in version control for reproducibility)
 # poetry.lock
+
+
+# Poetry cache
+envs.toml
+
 
 # pip
 pip-log.txt

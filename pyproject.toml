@@ -35,8 +35,23 @@ requires-python = ">=3.11"   # Once this line is present, the resolver no longer
  packages = []          # ← no Python package to install
 
 [tool.poetry.extras]   # ← this defines the dependancies to install, then 'dependancy groups' below define the minimum requirements for each item.
-docs = ["sphinx", "readthedocs-build", "mermaid", "notfound", "groundwork", "myst"]
-dev = ["sphinx", "readthedocs-build", "mermaid", "notfound", "groundwork", "myst", "ruff"]
+docs = [
+    "sphinx",
+    "readthedocs-build",
+    "sphinxcontrib-mermaid",
+    "sphinx-notfound-page",
+    "groundwork-sphinx-theme",
+    "myst-parser"
+]
+dev = [
+    "sphinx",
+    "readthedocs-build",
+    "sphinxcontrib-mermaid",
+    "sphinx-notfound-page",
+    "groundwork-sphinx-theme",
+    "myst-parser",
+    "ruff"
+]
 
 
 # -----------------------------------------------------------------
