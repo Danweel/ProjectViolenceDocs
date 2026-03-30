@@ -2,7 +2,7 @@
 # GIT HOOKS SETUP
 # =============================================================================
 # Installed hooks
-# .git/hooks/  (decide if you want other contributors to have the same submission rules)
+.git/hooks/  (decide if you want other contributors to have the same submission rules)
 
 
 # =============================================================================
