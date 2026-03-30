@@ -22,3 +22,110 @@ if [ -n "$PREFIX" ] && [ "$2" = "" ] && ! head -1 "$COMMIT_MSG_FILE" | grep -q "
     cat "$COMMIT_MSG_FILE" >> "$TEMP_FILE"
     mv "$TEMP_FILE" "$COMMIT_MSG_FILE"
 fi
+
+
+# PYTHON SH VERSION - you'll need to change all of them to be compatible with windows and such.
+
+#!/bin/sh
+# .git/hooks/prepare-commit-msg
+
+COMMIT_MSG_FILE=$1
+COMMIT_TYPE=$2
+
+# Export so Python can read them
+export COMMIT_MSG_FILE
+export COMMIT_TYPE
+
+python3 << 'PYTHON_SCRIPT'
+import os
+import re
+import subprocess
+import sys
+
+# Get the commit message file from shell
+commit_msg_file = os.environ.get('COMMIT_MSG_FILE')
+commit_type = os.environ.get('COMMIT_TYPE', '')
+# Get current branch name
+try:
+    branch = subprocess.check_output(
+        ['git', 'symbolic-ref', 'HEAD'],
+        stderr=subprocess.DEVNULL,
+        text=True
+    ).strip()
+    branch = branch.replace('refs/heads/', '')
+except subprocess.CalledProcessError:
+    # Detached HEAD state
+    branch = 'HEAD'
+
+# Extract prefix from branch (e.g., "DOCS: something" -> "DOCS:")
+prefix_match = re.match(r'^(DOCS|REPO|WEB|PLUGIN|CLEANUP|TEST|OTHER):', branch)
+prefix = prefix_match.group(0) if prefix_match else None
+
+# Only modify if:
+# 1. We have a valid prefix
+# 2. This is a new commit message (not amend/merge/squash)
+# 3. The prefix isn't already at the start
+if prefix and commit_type == '' and os.path.exists(commit_msg_file):
+    with open(commit_msg_file, 'r') as f:
+        first_line = f.readline()
+
+    # Check if prefix is already there
+    if not first_line.startswith(f'{prefix} '):
+        # Prepend prefix to the file
+        with open(commit_msg_file, 'r') as f:
+            content = f.read()
+
+        with open(commit_msg_file, 'w') as f:
+            f.write(f'{prefix} {content}')
+PYTHON_SCRIPT#!/bin/sh
+# .git/hooks/prepare-commit-msg
+
+COMMIT_MSG_FILE=$1
+COMMIT_TYPE=$2
+
+# Export so Python can read them
+export COMMIT_MSG_FILE
+export COMMIT_TYPE
+
+python3 << 'PYTHON_SCRIPT'
+import os
+import re
+import subprocess
+import sys
+
+# Get the commit message file from shell
+commit_msg_file = os.environ.get('COMMIT_MSG_FILE')
+commit_type = os.environ.get('COMMIT_TYPE', '')
+# Get current branch name
+try:
+    branch = subprocess.check_output(
+        ['git', 'symbolic-ref', 'HEAD'],
+        stderr=subprocess.DEVNULL,
+        text=True
+    ).strip()
+    branch = branch.replace('refs/heads/', '')
+except subprocess.CalledProcessError:
+    # Detached HEAD state
+    branch = 'HEAD'
+
+# Extract prefix from branch (e.g., "DOCS: something" -> "DOCS:")
+prefix_match = re.match(r'^(DOCS|REPO|WEB|PLUGIN|CLEANUP|TEST|OTHER):', branch)
+prefix = prefix_match.group(0) if prefix_match else None
+
+# Only modify if:
+# 1. We have a valid prefix
+# 2. This is a new commit message (not amend/merge/squash)
+# 3. The prefix isn't already at the start
+if prefix and commit_type == '' and os.path.exists(commit_msg_file):
+    with open(commit_msg_file, 'r') as f:
+        first_line = f.readline()
+
+    # Check if prefix is already there
+    if not first_line.startswith(f'{prefix} '):
+        # Prepend prefix to the file
+        with open(commit_msg_file, 'r') as f:
+            content = f.read()
+
+        with open(commit_msg_file, 'w') as f:
+            f.write(f'{prefix} {content}')
+PYTHON_SCRIPT

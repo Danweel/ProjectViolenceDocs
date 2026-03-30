@@ -16,11 +16,14 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'TheViolenceDocs'
-copyright = '2024-2026, Fred, Daniil'
-author = 'Daniil, Contributors'
-release = '0.1'
-
+project = '[PROJECT NAME]',
+copyright = '20XX',
+author = '[AUTHOR NAME]',
+release = '0.0.1'
+# While you are setting up and making changes (unreadable):
+#release = '0.0.1'
+# A readable version could start here:
+#release = '0.1.0'
 # ----------------------------------------------------------------------------
 
 
@@ -30,7 +33,6 @@ release = '0.1'
 # Mock imports for modules that don't exist:
 autodoc_mock_imports = ['pymodulefordocs']
 # ISSUE: The python script these docs are about isn't included, so this is to prevent a stopping error
-
 
 
 templates_path = ['_templates']
@@ -63,8 +65,8 @@ viewcode_line_numbers = True
 # -- Options for intersphinx -----------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx
 
-intersphinx_mapping = {
-    'blender': ('https://docs.blender.org/api/current', None),
+#intersphinx_mapping = {
+#    'blender': ('https://docs.blender.org/api/current', None),  # you would set this to whatever you would want to incorporate
     # ... other mappings
 }
 
@@ -123,7 +125,7 @@ myst_heading_anchors = 4  # Add anchors to headings up to level 3
 # --------------------------------------------------------------------------
 
 
-# -- TODO #1 Options for HTML output ---------------------------------------
+# -- Options for HTML output ---------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'groundwork'

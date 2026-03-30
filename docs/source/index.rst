@@ -1,28 +1,31 @@
-.. TheViolenceDocs documentation master file, created by
-   sphinx-quickstart on Fri Jun 28 22:32:48 2024.
+## Generic `docs/source/index.rst`
 
+```rst
+.. [PROJECT NAME] documentation master file.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
+
 .. _index:
 
-Welcome to TheViolenceDocs's documentation!
-===========================================
+Welcome to [PROJECT NAME]'s documentation!
+==========================================
 
-Check out the :doc:`usage` section for how to use the Tool, including how to
-:ref:`install <installation>` the script into Blender.
+[Brief introduction to the project. Explain what it does and who should use it.]
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   installation
    features
+   installation
    usage
-   contrib
+   contributing
    maintenance
+
 
 Indices and tables
 ==================
 
 * :ref:`search`
 * :ref:`genindex`
+* :ref:`modindex`

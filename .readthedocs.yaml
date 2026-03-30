@@ -10,16 +10,10 @@ build:
   os: "ubuntu-22.04"
   tools:
     python: "3.12"
-    # REMOVED: poetry: "1.8" (not a valid tool type)
     # You can also specify other tool versions:
     # nodejs: "19"
     # rust: "1.64"
     # golang: "1.19"
-
-## NOTE: Requirements for contributors:
-# - Python 3.12+
-# - Poetry 1.8+
-# - Poetry Export Plugin: `poetry self add poetry-plugin-export` - poetry no longer comes with the export command preinstalled, if you need it.
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
@@ -33,13 +27,8 @@ sphinx:
 # See https://docs.readthedocs.io/en/stable/guides/reproducible-builds.html
 python:
   install:
-#    - method: pip       # pip is the preferred installer over Poetry, for now (March 2026)
-#      path: .              # Comment out this line if using pip for a docs-only project.
-#      extra_requirements:  # Don't use the depreciated `extras: [docs]` format.
-#        - docs            # Not actually needed when using Requirements.txt (which pip wants)
     - requirements: requirements.txt
         # You can add other dev tools (pytest, ruff, etc.) here.
-
 
 # Optionally build your docs in additional formats such as PDF and ePub
 # formats:

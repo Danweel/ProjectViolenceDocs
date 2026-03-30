@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
-# -------------------------------------------------
-# setup_for_contributors.sh – bootstrap a development environment
-# -------------------------------------------------
-set -euo pipefail
+# setup_for_contributors.sh
+#
+# NOTE: We use SINGLE $ for variables (e.g., $PKG_NAME).
+#       Do NOT use $$ (that expands to the Process ID in Bash!).
+#       $$ is only for Makefiles or escaping in specific contexts.
 
+set -euo pipefail
 
 # ---------- Colour Definitions ----------
 # These are ANSI escape codes for coloured text so it's easier to edit.
@@ -43,7 +45,7 @@ success() {
 }
 
 error() {
-    echo -e "${RED}✗${NC} $1"
+  echo -e "${RED}✗${NC} $1"
 }
 
 info() {
@@ -66,9 +68,54 @@ echo ""
 
 echo "Checking prerequisites..."
 echo ""
+# Check for Python
 command -v python3 >/dev/null || { echo -e "${RED}✗ Python 3 not found.${NC}"; exit 1; }
-command -v poetry >/dev/null || { echo -e "${RED}✗ Poetry not found. Install it from https://python-poetry.org/docs/#installation. ${NC}"; exit 1; }
+
+# Check for and install Poetry
+if ! command -v poetry >/dev/null 2>&1; then
+    warning "Poetry not found. Installing now..."
+
+    # Official installer script
+    # We use curl and pipe to python3
+    if curl -sSL https://install.python-poetry.org | python3 -; then
+        success "Poetry installed successfully!"
+
+        # Add Poetry to PATH if it's not already there
+        # This ensures 'poetry' command works immediately in the current shell
+        POETRY_BIN="$HOME/.local/bin"
+        if [[ ":$PATH:" != *":$POETRY_BIN:"* ]]; then
+            echo ""
+            info "Adding Poetry to PATH for this session..."
+            export PATH="$POETRY_BIN:$PATH"
+
+            # Optional: Tell user to add it permanently
+            echo ""
+            info "To make this permanent, add this to your ~/.bashrc or ~/.zshrc:"
+            echo "   export PATH=\"$POETRY_BIN:\$PATH\""
+        fi
+    else
+        error "Failed to install Poetry. Please install it manually from https://python-poetry.org/docs/"
+        exit 1
+    fi
+else
+    success "Poetry is already installed."
+    poetry --version
+fi
+
+# Optional: Check Poetry version
+POETRY_VER=$(poetry --version | awk '{print $3}' | tr -d '()')
+if [[ $$(echo "$POETRY_VER < 1.8.0" | bc -l) -eq 1 ]]; then
+    warning "Poetry version $POETRY_VER detected. Version 1.8+ recommended for best compatibility."
+    # You could force upgrade here if you want:
+    # poetry self update
+fi
+
+# Check Git
+echo ""
 command -v git >/dev/null || { echo -e "${RED}✗ Git not found.${NC}"; exit 1; }
+echo ""
+
+echo ""
 success "All required tools are installed!"
 echo ""
 
@@ -123,7 +170,7 @@ echo ""
 echo -e "  ${CYAN}1.${NC} ${BOLD}Write documentation only (lightweight)${NC}"
 echo -e "  ${CYAN}2.${NC} ${BOLD}Write + test + lint (full development tools for project administration)${NC}"
 echo ""
-echo -e "${YELLOW}Enter ${CYAN}1 ${YELLOW}for light or ${CYAN}2 ${YELLOW}for development [default: 1]: ${NC}" 
+echo -e "${YELLOW}Enter ${CYAN}1 ${YELLOW}for light or ${CYAN}2 ${YELLOW}for development [default: 1]: ${NC}"
 read group_choice
 group_choice="${group_choice// /}"  # Remove all spaces
 group_choice=${group_choice:-1}
@@ -140,7 +187,7 @@ echo ""
 echo -e "  ${CYAN}1.${NC} ${BOLD}Start fresh (recommended for first-time setup or troubleshooting)${NC}"
 echo -e "  ${CYAN}2.${NC} ${BOLD}Update existing (faster for regular edits)${NC}"
 echo ""
-echo -e "${YELLOW}Enter ${CYAN}1 ${YELLOW}to start fresh or ${CYAN}2 ${YELLOW}to update [default: 2]: ${NC}" 
+echo -e "${YELLOW}Enter ${CYAN}1 ${YELLOW}to start fresh or ${CYAN}2 ${YELLOW}to update [default: 2]: ${NC}"
 read clean_choice
 clean_choice="${clean_choice// /}"  # Remove all spaces
 clean_choice=${clean_choice:-2}
@@ -164,13 +211,12 @@ if [[ "$CLEAN_BUILD" == "true" ]]; then
 fi
 
 # ---------- 8. Sanity check ----------
-# 8. Sanity Check
 header "Setting up Sphinx for Read the Docs..."
 poetry run sphinx-build -b html docs/source docs/_build/html
 info "${RED}Red${NC} warnings about 'mock' objects are correct and safe!"
 echo ""
 echo -e "${YELLOW}.rst${NC} files are in ${YELLOW}docs/source${NC} "
-echo   "These are what you'll be editing. See HELP PAGE ON WRITING/FORMATING MD PLACEHOLDER" TODO #6
+echo   "These are what you'll be editing. See HELP PAGE ON WRITING/FORMATING MD PLACEHOLDER"
 echo ""
 success "Set up successful!"
 echo ""
@@ -208,6 +254,6 @@ fi
 # Troubleshooting tips & links
 echo ""
 info "Need more help?"
-echo -e "  ${BOLD}${CYAN}•${NC} Check out: https://project-violence-docs.readthedocs.io" #(TODO #2 Update with the exact page once it's built)
+echo -e "  ${BOLD}${CYAN}•${NC} Check out: https://project-violence-docs.readthedocs.io"
 
 # SCRIPT END

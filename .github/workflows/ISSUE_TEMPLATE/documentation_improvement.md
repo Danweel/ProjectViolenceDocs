@@ -17,5 +17,3 @@ How would you suggest we fix this? (e.g., add a screenshot, clarify a step, add 
 
 ## Additional Context
 Any other thoughts or references?
-
-TODO #12

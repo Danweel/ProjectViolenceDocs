@@ -1,8 +1,8 @@
 # =============================================================================
 # GIT HOOKS SETUP
 # =============================================================================
-# Installed hooks (created by setup-hooks.sh) - DO NOT TRACK
-.git/hooks/
+# Installed hooks
+# .git/hooks/  (decide if you want other contributors to have the same submission rules)
 
 
 # =============================================================================
@@ -63,14 +63,11 @@ ENV/
 env.bak/
 venv.bak/
 
-
 # Poetry (keep poetry.lock in version control for reproducibility)
 # poetry.lock
 
-
 # Poetry cache
 envs.toml
-
 
 # pip
 pip-log.txt
@@ -217,5 +214,3 @@ docker-compose.override.yml
 # =============================================================================
 # USER FILES (PERSONAL, NOT SHARED)
 # =============================================================================
-lumo_helper.sh
-tree.txt

@@ -1,25 +1,26 @@
 [build-system]
-requires = ["poetry-core>=1.8.0", "setuptools", "wheel"]
+requires = ["poetry-core>=1.8.0"]
 build-backend = "poetry.core.masonry.api"
 
 # -----------------------------------------------------------------
 # PEP 621 metadata
 # -----------------------------------------------------------------
 [project]
-name = "projectviolencedocs"
+name = "[PROJECTNAME]"
 version = "0.1.0"
-description = "Documentation for Project Violence"
+description = "[DESCRIPTION]"
 readme = "README.md"
 license = {text = "CC-BY-SA-4.0"}
 # licence files = ["LICENSE"]  #OPTIONAL, points to a licence file
 authors = [
-    {name = "Danweel", email = "daniil.woodland@pm.me"},
-    {name = "Community"}          # optional second author
+    {name = "[NAME]", email = "[EMAIL]"},
+    {name = "[NAME2]"}          # optional second author
 ]
 
 # ---- core runtime dependencies (inside the same [project] table) ----
 requires-python = ">=3.11"   # Once this line is present, the resolver no longer falls back to the historic “>=2.7,<2.8” default.
 
+# Python tool dependancies:
 # dependencies = [
 #    "sphinx>=7.2",
 #    "sphinx-rtd-theme>=2.0,<3.0",
@@ -30,11 +31,13 @@ requires-python = ">=3.11"   # Once this line is present, the resolver no longer
 # -----------------------------------------------------------------
 # Poetry Groups
 # -----------------------------------------------------------------
- [tool.poetry]          # We don't need this group with autodoc2 - enable if using standard autodoc
- package-mode = false   # ← tells Poetry not to expect a Python package (for now, we can add the script optionally later)
- packages = []          # ← no Python package to install
+ [tool.poetry]          # Don't need this group with autodoc2 - enable if using standard autodoc
+ package-mode = false   # Tells Poetry not to expect a Python package (for now, we can add the script optionally later)
+ packages = []          # No Python package to install
 
-[tool.poetry.extras]   # ← this defines the dependancies to install, then 'dependancy groups' below define the minimum requirements for each item.
+# setup-python.sh script likely relies on the group structure. If you switch to package-mode = true later, you might migrate to optional-dependencies. Don't touch if there isn't a problem.
+
+[tool.poetry.extras]    # This defines the dependancies to install, then 'dependency groups' below define the minimum requirements for each item.
 docs = [
     "sphinx",
     "readthedocs-build",
@@ -52,7 +55,6 @@ dev = [
     "myst-parser",
     "ruff"
 ]
-
 
 # -----------------------------------------------------------------
 # Poetry Dependency Groups
