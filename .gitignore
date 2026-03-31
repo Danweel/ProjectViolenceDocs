@@ -217,3 +217,4 @@ docker-compose.override.yml
 # =============================================================================
 /plugins
 TheViolenceLayerManager.pygoogleanalytics/
+docs/source/plugins/TheViolenceLayerManager.py

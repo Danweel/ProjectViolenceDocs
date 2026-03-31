@@ -3,13 +3,13 @@
 Alternative Setups
 ==================
 
-The Violence Layer Manager was designed with a specific workflow in mind, but each person's artstyle might modify the way it works. Below is a collection of how others have modified, 
+The Violence Layer Manager was designed with a specific workflow in mind, but each person's artstyle might modify the way it works. Below is a collection of how others have modified,
 extended, or adapted the tool for their own projects.
 
 .. note::
-    Have you used the tool for your own projects? We'd like to showcase examples of how the tool can be organized for other projects so people have a better understanding of how the tool works. 
+    Have you used the tool for your own projects? We'd like to showcase examples of how the tool can be organized for other projects so people have a better understanding of how the tool works.
 
-    Please open an `Issue <https://github.com/Danweel/ProjectViolenceDocs/issues>`_ or submit a `Pull Request <https://github.com/Danweel/ProjectViolenceDocs/pulls>`_ 
+    Please open an `Issue <https://github.com/Danweel/ProjectViolenceDocs/issues>`_ or submit a `Pull Request <https://github.com/Danweel/ProjectViolenceDocs/pulls>`_
     to add your adaptation to this list.
 
     Or, open an **Issue** with your story, and we can format it for you!

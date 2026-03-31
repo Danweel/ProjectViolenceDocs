@@ -237,9 +237,9 @@ This documentation is intended to be adapted for other projects. If you want to 
 
 ### What You Can Do
 
-✅ Copy the structure – Use the folder layout and Sphinx configuration 
-✅ Adapt the content – Replace our workflow with yours 
-✅ Modify the plugin docs – Tailor feature descriptions to your tool 
+✅ Copy the structure – Use the folder layout and Sphinx configuration
+✅ Adapt the content – Replace our workflow with yours
+✅ Modify the plugin docs – Tailor feature descriptions to your tool
 ❌ You can't change the license nor use the work for profit – (CC-NC-SA)
 
 ### What We Ask
