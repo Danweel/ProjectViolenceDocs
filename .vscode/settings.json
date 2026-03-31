@@ -7,5 +7,10 @@
         "PATH": "/home/danweel/.local/bin:${env:PATH}"
     },
     "markdown.extension.completion.enabled": false,
-    "markdown.extension.tableFormatter.enabled": false
+    "markdown.extension.tableFormatter.enabled": false,
+    "autoOpenPreviewPanel.languages": "markdown, reStructuredText",
+    "autoOpenPreviewPanel.openPreviewToSide": true,
+    "previewMarkdown.languages": "markdown, restructuredtext",
+    "previewMarkdown.openOnGitDiff": true,
+    "previewMarkdown.previewOnlyMode": false
 }

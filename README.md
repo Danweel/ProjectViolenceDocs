@@ -1,338 +1,329 @@
-# About
+# Project Violence Documentation
 
-**A minimal, production-ready documentation template** primarily for non-developers and business professionals. Built with [Sphinx](https://www.sphinx-doc.org/en/master/#), [Poetry](https://python-poetry.org/) for [Read the Docs](https://about.readthedocs.com/) and supports both [Markdown](https://www.markdownlang.com/basic/overview.html) and [reStructuredText](https://devguide.python.org/documentation/markup/).
-
-Perfect for creating **Employee Handbooks**, **Business Processes**, **Game Design Docs** for proposals, or **User Guides** on Read the Docs easily. It automates much of the initial set up to provide a basic project, giving you a clean, version-controlled starting point.
-
-> *Need to add code?* No problem! Run `./setup-python.sh` to enable full Python package integration.
-
-**Why this template?** Read the Docs setup can be confusing. This template provides a pre-configured foundation that works out of the box. You get professional documentation hosting without wrestling with configuration files (too much).
+> Documentation for The Violence layer management tool for Blender grease pencil animation
+> Documentation for animator workflows for the animation projects associated with it.
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+## Overview
+
+**The Violence Tool** is a Python script for Blender 4.1 and 4.1.1 that controls layers and creates several additional management options for Grease Pencil animation. It is currently being used for the [A Fox in Space](https://www.imdb.com/title/tt6499450/) animation project.
+
+This Github repository manages the following websites that host this documentation:
+
+### 📖 **Live Documentation**: [project-violence-docs.readthedocs.io](https://project-violence-docs.readthedocs.io/en/latest/)
+
+  Fully featured documentation with search, version-specific docs, facilitates exports to other formats, and possible language handling.
+
+[![Documentation Status](https://readthedocs.org/projects/project-violence-docs/badge/?version=latest)](https://project-violence-docs.readthedocs.io/en/latest/)
+
+### 🌐 **Quick Preview**: [danweel.github.io/ProjectViolenceDocs](https://danweel.github.io/ProjectViolenceDocs/)
+
+  Use this if Read the Docs is down. This is a more static version that is automatically built at the same time, but only displays the most recent version.
+
+[![Deploy to GitHub Pages](https://github.com/Danweel/ProjectViolenceDocs/actions/workflows/deploy.yml/badge.svg)](https://danweel.github.io/ProjectViolenceDocs/)
+
+...as well providing an organized way to invite contributions to the knowlegebase. We'll cover that below.
+
+
+## About This Repository
+
+This repository contains **documentation only**: The plugin itself is currently in closed beta testing. If you're here, you're likely:
+
+- **Looking for** the documentation - See the above links and the status
+- Interested in **reporting issues** with the existing documentation
+- Interested in **suggesting improvements** or new content
+- Becoming a regular contributor to **help maintain and expand the docs**
+- Investigating possibly **forking these docs** for use with your own GP project and workflow
+
+The docs (and later, plugin) is designed to be **forkable and adaptable** for other projects. Whether you're using our workflow or iterating one yourself, this documentation is intended to be structured to help you:
+- Understand the plugin's **capabilities and limitations**
+- Be **modular enough to adapt** to your project's workflow
+- **Contribute improvements back** to the community
+
+We are a small community and welcome all forms of contribution. Thanks!
+
 ---
 
-# Quick Start
+## Quick Links
 
-## 0. Prerequisites
+| Resource　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　| Description                                                |
+| -------------------------------------------------------------------------------| ------------------------------------------------------------|
+| 📖 **[Full Documentation](https://project-violence-docs.readthedocs.io/)**　　| The Violence plugin and workflow reference @ Read the Docs |
+| 🌐 **[GitHub Pages Preview](https://danweel.github.io/ProjectViolenceDocs/)** | Automatic mirror of the latest build                       |
+| 🔧 **[Plugin Repository](LINK_TO_PLUGIN_REPO)**　　　　　　　　　　　　　　　 | Source code for the Grease Pencil layer management plugin  |
+| 🤝 **[Contribution Guide](#contributing)**　　　　　　　　　　　　　　　　　　| How to contribute to the documentation                     |
 
-- **Python 3.11+ minimum, 3.12+ preferred**
-- **Git** - Using [GitHub Desktop](https://github.com/apps/desktop) can handle this for you (Linux users run `sudo apt update && sudo apt install git -y`)
-- **Poetry**
-- A coding text editor (IDE), recommended: VSCodium if you have no previous preference.
+---
 
-If you are not sure, the script will inform you which are missing and safely exit when you try to run it.
+## For Plugin Users (Animators)
 
-If you are aware you do not have Python3.11+ or Git installed, install these from thier respective websites.
-Recommended is [Python 3.12](https://www.python.org/downloads/), and [Github Desktop](https://desktop.github.com/download/) if you have no other experience or preference.
+### Prerequisites
 
-The script will detect your OS and install [Poetry](https://python-poetry.org/) for you automatically.
+- **Blender**: Version 4.1 or 4.1.1 only
+- **Operating System**: Windows, macOS, or Linux
+- **Basic Blender Literacy**: While it's possible to pick up the tool use without general Blender knowledge, navigation and troubleshooting is easier the more you know. You don't really need any previous Grease Pencil experience though, because the tool functions in its own way.
 
->### Windows Users
->This template uses Bash scripts for setup*. To run them:
+### Installation
+
+1. Download the plugin from the Discord community. It'll be pinned in the appropriate channel. You may have to ask Fred to be added to that channel.
+2. In Blender: `Edit` → `Preferences` → `Add-ons` → `Install...`
+3. Select the downloaded `.zip` file
+4. Enable the add-on by checking the box next to "Project Violence Layer Manager"
+
+### Features
+
+The Violence Tool is a Blender Grease Pencil add-on designed to streamline character animation workflows.
+
+### 🎭 Character Setup & Initialization
+
+| Feature                 | Description                                                                                                                           |
+| -------------------------| ---------------------------------------------------------------------------------------------------------------------------------------|
+| **Auto-Naming**         | Creates Grease Pencil objects that don't conflict                                                                                     |
+| **Material Library**    | Generates pre-configured materials with specific colors for Lines, Fills, Shadows, Highlights, and Holdouts                           |
+| **Layer Structure**     | Creates organized layers (18 currently) with standardized naming conventions (Background, Body, Head, Eyes, Mouth, Teeth, Foreground) |
+| **Mask Layers**         | Sets up dedicated mask layers for teeth and mouth regions                                                                             |
+| **Brush Configuration** | Pre-configures Ink Pen, Fill Area, and Push Stroke brushes with standardized settings                                                 |
+| **Camera Parenting**    | Automatically parents new objects to the camera with locked X/Y positioning                                                           |
+
+### 📚 Layer Management
+
+| Feature                  | Description                                                                 |
+| --------------------------| -----------------------------------------------------------------------------|
+| **Layer Locking**        | Automatically toggles layer locks to prevent accidental edits               |
+| **Focus Tools**          | Quick-selects specific layer groups (e.g., "All Mouth Layers")              |
+| **Vertex Paint Cleanup** | Bulk-clears vertex paint data across all Grease Pencil objects in the scene |
+
+### ⚡ Workflow Shortcuts & Toggles
+
+| Feature               | Description                                                  |
+| -----------------------| --------------------------------------------------------------|
+| **Auto-Merge Toggle** | Enables/disables stroke auto-merging with keyboard shortcuts |
+| **Fade Layers**       | Toggles layer fading overlay for better visibility           |
+| **Onion Skinning**    | Toggles onion skinning overlay for frame-to-frame reference  |
+| **Draw Behind**       | Toggles drawing strokes behind existing geometry             |
+
+### 🎨 Artistic Effects & Tools
+
+| Feature                | Description                                                                                                |
+| ------------------------| ------------------------------------------------------------------------------------------------------------|
+| **Randomize Line Art** | Applies organic variation to line art with randomized noise, thickness variation, and proportional editing |
+| **Join & Smooth**      | Joins selected strokes and smooth position, thickness, and strength                                        |
+| **Undo Integration**   | All operations push to Blender's undo stack which would otherwise not be a given                           |
+
+### Keyboard Shortcuts
+
+| Shortcut           | Function                |
+| --------------------| -------------------------|
+| `Ctrl+Alt+Shift+4` | New/Clear Mouth Frames  |
+| `Shift+Alt+R`      | Randomize Line Art      |
+| `Shift+Alt+F`      | Join and Smooth Strokes |
+
+---
+
+## Documenation for Plugin Users (Animators)
+
+### Known Issues
+
+- Operator #15 (New/Clear Mouth Frames) is currently a placeholder
+- Invisible layers may not be affected by certain operations (needs more functional testing, under what circumstances does this tend to happen?)
+- Suspect some brush configurations may need adjustment based on your Blender version (needs testing)
+- Character (Fox) is currently hardcoded in the tool. Characters are already set up by scene, however, so this isn't workflow stopping.
+- (not finished documenting known issues)
+
+### Workarounds
+- Try to use Blender 4.1.1 to avoid tools being slightly different between versions. 4.1.1 is the Blender build currently being used to develop.
+- (not finished documenting known workarounds)
+
+### Getting Help
+
+- **Documentation**: Browse the [Full Documentation](https://project-violence-docs.readthedocs.io/)
+- **Report Bugs**: Open an issue on the [Plugin Repository](LINK_TO_PLUGIN_REPO)
+- **Feature Requests**: Submit suggestions via GitHub Issues
+- **Tips and tricks**: We'd love to hear how you use the tool, both for official work and on your own. Similarly, explore the documentation for tips from other users.
+
+---
+
+## For Documentation Contributors
+
+We welcome contributions to improve both the plugin documentation and workflow guides. Whether you're fixing typos, adding examples, or requesting/correcting translations, your help makes this resource more valuable for everyone.
+
+### Types of Contributions
+
+| Contribution Level  | What You Can Do                                                | Time Commitment |
+| ---------------------| ----------------------------------------------------------------| -----------------|
+| **Quick Fixes**     | Correct typos, broken links, or formatting                     | 5–15 minutes    |
+| **Content Updates** | Add examples, clarify instructions, update screenshots         | 1–3 hours       |
+| **Major Additions** | New workflow sections, plugin feature documentation            | 5+ hours        |
+| **Technical Setup** | Help improve build scripts, Github Repo management, or tooling | Variable        |
+
+For small fixes, feel free to just open a Github issue, and let the maintainers add it to the docs when they can.
+If you're hoping to write for the docs though, Dan has provided a script file that will help you set up your environment for working with the files here.
+
+### Setup for Contributors
+
+Download the repository zip and unzip. Find **setup_for_contributors.sh**.
+
+> No command-line expertise required! The script will open your terminal but guides you through each step with plain-language prompts.
 >
->- **Install Git for Windows** (if you haven't already): [Download here](https://git-scm.com/download/win)
->- Right-click your project folder and select **"Git Bash Here"**.
->- Run the setup command: `./setup-python.sh`
->
->*The curl syntax differs slightly, so avoid PowerShell in this instance.
+>The setup script will:
+>- Check for required tools (Python 3.12+, Poetry, Git)
+>- Create an isolated virtual environment so tools don't affect your local configurations
+>- Install Read the Docs dependencies (Sphinx, themes, etc.)
+>- Build the documentation locally for preview
 
-## 1. Clone the repository
+You could also run the following in a terminal to pull the repo directly without handling the zip:
+
+#### Linux (Ubuntu & Debian):
+```bash
+# Clone the repository
+git clone https://github.com/Danweel/ProjectViolenceDocs.git
+cd ProjectViolenceDocs
+
+# Run the setup script (handles dependencies and environment)
+./setup_for_contributors.sh
 ```
-   git clone https://github.com/[USERNAME]/[REPO-NAME].git
-   cd [REPO-NAME]
+
+#### MacOS:
+```
+git clone https://github.com/Danweel/ProjectViolenceDocs.git
+cd ProjectViolenceDocs
+
+# Make the script executable
+chmod +x setup_for_contributors.sh
+
+# Run the script
+./setup_for_contributors.sh
 ```
 
-Or use Github Desktop to clone the `.git` at the URL above via the onscreen directions.
-
-## 2. Open the local folder for the repo and run `./setup_for_contributors.sh`
-
-The script will:
-
-   ✅ Check for prerequisites (Python, Git, Poetry)
-
-   ✅ Install Poetry if missing
-
-   ✅ Automatically run `poetry lock` and `poetry install` to set up dependencies
-
-   ✅ Ask for or set up your Git credentials (if needed)
-
-   ✅ Offer two setup paths:
-
-      Option A: For Contributors (minimal tools for just docs)
-      Option B: For Developers (includes linting & extra tools)
-
-
->⚠️ **Important**: The template contains placeholders that must be replaced before the project will build.
->
->If you see an error like `project.name must match pattern...`, it means you haven't updated `pyproject.toml` yet.
->
->Stop here and complete the [Find-and-Replace Checklist](#-find-and-replace-checklist) below, then run `./setup_for_contributors.sh` again.
-
-## 3. Building Documentation Locally
-
-Once the setup script completes successfully, build the docs:
+#### Windows (use Git bash):
 ```
-poetry run sphinx-build -b html docs/source docs/_build/html
+git clone https://github.com/Danweel/ProjectViolenceDocs.git
+cd ProjectViolenceDocs
+
+# Make the script executable
+chmod +x setup_for_contributors.sh
+
+# Run the script
+./setup_for_contributors.sh
 ```
-Open docs/_build/html/index.html in your browser (or use a VSCodium extension preview) to view the documentation.
 
-## 4. Write content (manually)
+If you try to run ./setup_for_contributors.sh in a standard **Windows Command Prompt** or **PowerShell**, you will get an error like *'./setup_for_contributors.sh' is not recognized*.
+The easiest fix for Windows:
 
-Open the `docs/source/` folder in your text editor and start editing:
+- Download and install Git for Windows (https://git-scm.com/download/win).
+- During installation, ensure "Git Bash Here" is selected.
+- Right-click your project folder and choose Git Bash Here.
 
-    .rst files for reStructuredText (recommended for index.rst)
-    .md files for Markdown (enabled via included MyST parser)
+### Editing Documentation
 
-The index.rst file is more robust using reStructuredText, but can be done in Markdown.
+- *Find the files*: Documentation source files are in **docs/source/**  Files use reStructuredText (.rst) format.
+- *Edit in your favorite editor*:  I recommend [VSCodium](https://vscodium.com/), which uses useful VSCode extensions.
+- *Preview locally*: Run `poetry run sphinx-build -b html docs/source docs/_build/html`
+- *Submit changes*: Create a pull request on GitHub
 
->Markdown is much easier for people to learn at first, and RST is an advanced version of it. New files can be made in either.
+### Documentation Style Guidelines
 
->Markdown is not native to Read the Docs, but it is included here to help more people write for it quicker as it can be, mostly, learned in a day or kept on a cheat sheet.
+- *Audience*: Technical artists with varying computer literacy
+- *Tone*: Clear, encouraging, and practical
+- *Format*: Use code blocks for commands, tables for comparisons, and screenshots where helpful
+- *License*: All documentation is under CC BY-SA 4.0 – you must attribute changes and share alike
 
->RTD in other projects you encounter may include only RST files since more complex projects will find .md insufficient organisationally.
+---
 
->⚠️ This setup assumes you are not automating your content from a coding project. There are good reasons to write manually for code for smaller projects even when there **is** code involved. Further, if you decide to add this functionality later, this >is possible via the included `.setup-python.sh`.
+## Forking This Documentation
 
-## 5. Hosting Your Documentation
+This documentation is intended to be adapted for other projects. If you want to use this structure for your own plugin or workflow:
 
-This project will set up **dual hosting** automatically for maximum accessibility:
+### What You Can Do
 
-### Primary: [Read the Docs](https://about.readthedocs.com/company/)
-Read the Docs provides automatic builds on every commit, version management, and professional hosting.
-It is completely free, with one small ad on the left hand side provided by ethicalads.io
-Or, you can pay 5$ to remove ads from all your projects to help support the Read the Docs project.
+✅ Copy the structure – Use the folder layout and Sphinx configuration 
+✅ Adapt the content – Replace our workflow with yours 
+✅ Modify the plugin docs – Tailor feature descriptions to your tool 
+❌ You can't change the license nor use the work for profit – (CC-NC-SA)
 
-**Why RTD is worth the setup:**
-- **Automatic builds**: Every push to your repository triggers a new build
-- **Version management**: Each Git tag becomes a separate documentation version (e.g., v1.0, v1.1)
-- **Professional hosting**: Clean URLs like `yourproject.readthedocs.io`
-- **Built-in search**: Full-text search across all pages
-- **Free tier**: Open-source projects hosted for free
+### What We Ask
 
-**Setup Steps:**
+    Attribute the original: Include a note that this documentation originated with the Project Violence Tool and Fred's work.
+    Share improvements: If you fix bugs or add features, consider contributing back upstream
+    Keep it open: We believe documentation should be libre, freely accessible and modifiable
 
-1. **Create a Read the Docs Account**
-   - Go to [readthedocs.org](https://readthedocs.org)
-   - Sign in with your GitHub account (easiest method)
+### Getting Started with a Fork
 
-2. **Import Your Repository**
-   - Click **Import a Project** → **Connect GitHub**
-   - Find your repository in the list
-   - Click **Import**
+    Click Fork on GitHub to create your copy
+    Update .readthedocs.yaml with your project name
+    Replace content in docs/source/ with your documentation
+    Connect your fork to Read the Docs (or use GitHub Pages)
 
-3. **Configure Build Settings** (Critical Step)
-   - Under **Advanced Settings**, set:
-     - **Python Version**: `3.11` or higher
-     - **Configuration File Path**: `pyproject.toml` (or `docs/conf.py` if you prefer)
-     - **Requirements File**: Leave blank (Poetry handles this)
-   - **Build Command**: Leave default (Sphinx will use `poetry install` automatically)
-
-4. **Wait for First Build**
-   - RTD will automatically build your documentation
-   - Check **Builds** tab for progress
-   - First build may take 2-5 minutes
-
-5. **Custom Domain (Optional)**
-   - In RTD dashboard → **Admin** → **Domains**
-   - Add your custom domain (e.g., `docs.yourproject.com`)
-   - Update DNS records as instructed (CNAME to `[PROJECT-SLUG].readthedocs.io`)
-
-**Troubleshooting RTD Builds:**
-| Issue | Solution |
-|-------|----------|
-| "Build failed" with no error | Check **Build Logs** → expand the "Install" section |
-| Missing dependencies | Ensure `pyproject.toml` lists all Sphinx extensions |
-| Python version mismatch | Set Python version to 3.11+ in RTD Advanced Settings |
-| Configuration file not found | Verify `pyproject.toml` or `docs/conf.py` is in repository root |
-
-### Mirror: GitHub Pages
-GitHub Pages provides a fast mirror for quick access and offline viewing. It is less powerful than RTD but requires zero configuration beyond the initial setup.
-
-**Why use GitHub Pages as a mirror:**
-- **No external dependency**: Documentation stays within GitHub ecosystem
-- **Easy rollback**: Simply revert commits to restore previous versions
-- **Offline viewing**: Download the HTML for local browsing
-- **Faster load times**: Served from the GitHub CDN (though, this is marginal unless the docs are huge)
-- **Not flexible**: You are not able to serve more than one version of your docs at a time, it will always be the most recent one. On RTD, you can set different versions, this is in case someone is using an older version of your application. A good example of a usecase for multiple available versions of documentation are the docs for Blender, where people could be using any one of their versions; 2.8, 3.8, 4.3 and 5.1 are all popular choices in use today.
-
-**Setup Steps:**
-1. Go to your repository **Settings** → **Pages**
-2. Under **Source**, select:
-   - **Branch**: `main`
-   - **Folder**: `/docs/_build/html/`
-3. Click **Save**
-
-**Why Both?**
-| Feature | Read the Docs | GitHub Pages |
-|---------|---------------|--------------|
-| Automatic builds | ✅ Yes (on every commit) | ⚠️ Manual (via workflow) |
-| Version history | ✅ Yes (all tags) | ❌ No (latest only) |
-| Custom domains | ✅ Yes | ✅ Yes |
-| Analytics | ✅ Built-in | ⚠️ Limited |
-| Speed | ⚠️ Slower (external) | ✅ Faster (GitHub CDN) |
-
-Use **Read the Docs** as your primary host, and **GitHub Pages** as a backup mirror for quick access.
-
-## 7. Syncing Both Platforms (Optional, recommended)
-To keep both in sync there is a GitHub Actions workflow that deploys to both see `.github/workflows/deploy.yml` template.
-
-1.  **Enable GitHub Actions:**
-    - Go to your repository **Settings** → **Actions** → **General**.
-    - Ensure "Allow all actions and reusable workflows" is selected (default).
-
-2.  **Review the Workflow:**
-    - Open `.github/workflows/deploy.yml`.
-    - Ensure the `branch` and `folder` paths match your project structure (usually correct by default).
-
-3.  **Trigger the First Run:**
-    - Make a small change (e.g., edit `README.md`) and push to `main`.
-    - Go to the **Actions** tab to see the workflow run.
-    - Once successful, your docs will auto-deploy to GitHub Pages, while Read the Docs handles its own builds.
-
-> **Note:** Read the Docs builds are triggered automatically by their own system when it detects a push to GitHub. This .yml addition only handles the **GitHub Pages** mirror, which is intended. You push to Github, RTD automatically builds your project on their site, meanwhile Github, through the deploy.yml also automatically publishes itself. You need do nothing more than update Github!
-
-## Reference
-### Starting Project Structure
-```
-[REPO-NAME]/
-├── docs/
-│   ├── source/           # Documentation source files (.rst)
-│   │   ├── conf.py       # Sphinx configuration
-│   │   └── index.rst     # Main documentation page
-│   └── _build/           # Generated HTML (ignored by Git)
-├── hooks/                # Git hook scripts
-├── setup-hooks.sh        # Hook installation scripts if used
-├── pyproject.toml        # Poetry dependencies
-└── README.md             # This file, should be replaced by the template filled out
-```
-`/source` is where you will be editing files, be it the `conf.py`, `.rst` files or `.md` files. Once you "build" the docs locally `/docs` will also have `/_build` in it. These are files that are written and rewritten each time, normally in html (but this is configurable). These are what the websites are really using, not your `/source` files, which are for editing. Sphinx is converting your instructions to html.
-
-### First-Time Setup Checklist
-After cloning a new project from this template:
-
-- [ ] Update `pyproject.toml` with your project name and dependencies
-- [ ] Update `docs/source/conf.py` with your project details
-- [ ] Update `docs/source/index.rst` with your project introduction
-- [ ] Replace placeholder content in `usage.rst`, `installation.rst`, etc.
-- [ ] Set up Read the Docs (see Hosting section above)
-- [ ] Create a README.md like this one that will be on the main page of your Github repo. You can use the `README_template.md` included.
-- [ ] Commit initial setup with: `git commit -m "SETUP: Initial template configuration"`
-- [ ] Consider optionally setting up Git hooks to control how contributions work.
-
-### Find-and-Replace Checklist
-
-When creating a new project from this template, before your first commit, search for and replace these placeholders:
-
-| Placeholder | Replace With |
-| :--- | :--- |
-| `[PROJECT NAME]` | Your project display name |
-| `[PROJECT-SLUG]` | Lowercase, hyphenated version (e.g., `my-project`) |
-| `[REPO-NAME]` | Repository folder name |
-| `[USERNAME]` | Your GitHub username |
-| `[YOUR NAME]` | Your actual name |
-| `[LICENSE NAME]` | Your chosen license (e.g., `MIT`, `CC-BY-SA-4.0`) |
-
-> Look through all the files by hand too. Many contain extra notes I've left that explain certain entries more, and have blanks I may have missed (let me know if you find any!).
-
-### Recommended VSCode/VSCodium Extensions
-
-While not required, these extensions enhance the editing experience for this project:
-
-| Extension | Purpose | Install Link |
-| :--- | :--- | :--- |
-| **SimpleRST** | Simple syntax highlighting for reStructuredText*  | [Install](vscode:extension/trond-snekvik.simple-rst) |
-| **Esbonio** | Live preview for Sphinx docs | [Install](vscode:extension/esbonio.esbonio) |
-| **Prettier** | Code formatting | [Install](vscode:extension/esbenp.prettier-vscode) |
-| **GitLens** | Enhanced Git blame & history | [Install](vscode:extension/gitkraken.gitlens) |
-| **Auto Open Preview** | Opens the preview pane | [Install](vscode:extension/matt-rudge.auto-open-preview-panel) |
-| **Highlight Trailing Whitespace** | Good for keeping docs clean | [Install](vscode:extension/ybaumes.highlight-trailing-white-spaces) |
-| **Markdown Editor** | Useful if intending to use Markdown | [Install](vscode:extension/zaaack.markdown-editor) |
-
-> *Use [reStructuredText (formerly Tweag)](vscode:extension/lextudio.restructuredtext) if you need advanced RST formatting.
-
-> **Tip:** Click the "Install" link above to open VS Code directly and install the extension!
-
-### 🚀 One-Click Install
-
-Click the badge below to install all recommended extensions at once in VS Code:
-
-[![Install All Extensions](https://img.shields.io/badge/Install%20All%20Extensions-blue?style=for-the-badge&logo=visual-studio-code)](vscode:extension/trond-snekvik.simplerst,esbonio.esbonio,esbenp.prettier-vscode,gitkraken.gitlens,matt-rudge.auto-open-preview-panel,ybaumes.highlight-trailing-white-spaces,zaaak.markdown-editor)
-
-## Common Issues & Solutions
-
-### Sphinx Build Errors
-**Problem:** `poetry run sphinx-build` fails.
-**Solution:**
-1. Ensure all dependencies are installed: `poetry install --with docs`
-2. Check `docs/source/conf.py` for missing extensions
-3. Clear build cache: `rm -rf docs/_build/`
-
-### Read the Docs Build Fails
-**Problem:** RTD shows "Build failed" without clear error.
-**Solution:**
-1. Check **Build Logs** in RTD dashboard
-2. Ensure `pyproject.toml` or `requirements.txt` is in the repository root
-3. Verify Python version matches your local environment
-
-### Virtual Environment Conflicts
-**Problem:** Poetry creates a new venv every time.
-**Solution:** Keep the venv folder name consistent or use `poetry env use python3.11` (or your version) to pin it.
-
-### Git Hooks Not Running
-**Problem:** Hooks do not trigger after cloning.
-**Solution:** Run `./setup-hooks.sh` to install them. They are not on by default to avoid confusion for beginners or in early development. You may want to modify these to suit your environment and preferences.
-
-### Branch Prefix Validation Fails (or similar)
-**Problem:** Push is rejected with "Branch must start with a prefix".
-**Solution:** Rename your branch: `git checkout -b docs/your-feature-name`
-      or
-**Solution:** Turn off/delete corresponding hook.
-
-## Recommended GitHub Settings
-
-For production repositories, enable these protections:
-
-1. **Branch Protection Rules** (Settings → Branches):
-   - ☑️ Require pull request reviews before merging
-   - ☑️ Require status checks to pass before merging
-   - ☑️ Include administrators
-
-2. **Required Status Checks:**
-   - `pre-push` hook validation (via GitHub Actions)
-   - Sphinx build check
-
-3. **Deploy Keys** (if using RTD):
-   - Add Read the Docs as a collaborator with read access
-
-## Upgrading to include python projects later
-Consider you can always upgrade this package:
-
-1. Docs only (current template)
-    - For user-facing documentation
-    - No Python code to document
-    - Faster builds, simpler setup
-
-2. Python package (installable variant)
-    - For SDK/API documentation
-    - Includes autodoc, napoleon, viewcode
-    - Requires actual Python package structure
-
-Use the setup-python.sh to make the changes:
-- Changes package-mode = true
-- Creates package directory structure
-- Updates conf.py with path configuration
-- Installs dependencies
+---
 
 ## License
-[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 
-Attribution-NonCommercial-ShareAlike 4.0 International
+### Documentation Content
 
-What the license means:
+This documentation is licensed under the Creative Commons Non-Commercial Attribution-ShareAlike 4.0 International License.
 
-    Attribution (BY): Users must give credit to the original author.
-    NonCommercial (NC): Users cannot use the template (itself) for commercial purposes.
-    ShareAlike (SA): If users modify the template, they must distribute their changes under the same license.
-    See the LICENSE file for legal details.
+You are free to:
 
-   Please keep the sharing going!
+    Share — copy and redistribute the material in any medium or format
+    Adapt — remix, transform, and build upon the material for any purpose, even commercially
+
+Under the following terms:
+
+    Attribution — You must give appropriate credit, provide a link to the license, and indicate if changes were made
+    ShareAlike — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original
+
+### Plugin Code
+
+The Grease Pencil layer management plugin itself is licensed separately. See the Plugin Repository for its specific license terms.
+
+Acknowledgments
+
+    Sphinx – Documentation framework
+    Read the Docs – Hosting and build infrastructure
+    Blender Foundation – The incredible open-source 3D suite that makes this work possible
+    Contributors – Everyone who has helped improve this documentation
+    Fred - For the plugin itself
+
+---
+
+## Changelog
+
+No changelog.md yet, see commits for now.
+
+---
+
+## Roadmap
+
+    - Add current workflow recommendations for A Fox in Space
+    - Document tool functions
+    - Add tool setup and recommended shortcuts
+    - Add .bpy guidance and tool technicalities
+    - Document known issues and workarounds
+    - Look into options for additional languages with RTD if there's interest
+    - Provide a plugin demo project file
+    - Release plugin for versioning and distribution
+
+---
+
+## Contact & Support
+
+| Need                 | Where to Go                                                                           |
+| ----------------------| ---------------------------------------------------------------------------------------|
+| Plugin bugs          | For now, use this repository for these issues:                                        |
+| Documentation errors | [This repository's issue page](https://github.com/Danweel/ProjectViolenceDocs/issues) |
+| General questions    | [Discussions Tab](https://github.com/Danweel/ProjectViolenceDocs/discussions)         |
+
+For questions about the repository itself, contact the current GitHub maintainer here on Github.
+
+For questions about The Violence Tool plugin, reach out through the Patreon link below or through the Fox in Space Discord.
+
+## Support This Project
+
+Please support the development of this tool and maintenance of the documentation:
+
+👉 [Fred @ A Fox in Space](https://www.patreon.com/AFoxInSpace) (Patreon)
+
+---
+
+*Last updated: March 2026*

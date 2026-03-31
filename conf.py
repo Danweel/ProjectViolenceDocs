@@ -124,18 +124,34 @@ myst_heading_anchors = 4  # Add anchors to headings up to level 3
 
 
 # -- TODO #1 Options for HTML output ---------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
+# https://sphinx-rtd-theme.readthedocs.io/en/stable/configuring.html
 
 html_theme = 'furo'
 
 # html_static_path = ['build\html\source\_static']
 
-# html_theme_options = {
+#html_theme_options = {
 #    "light_css_variables": {
 #        "color-brand-primary": "red",
 #        "color-brand-content": "#CC3333",
 #        "color-admonition-background": "orange",
-#    },
-# }
+#    'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
+#   'analytics_anonymize_ip': True,
+#    'logo_only': False,
+#    'prev_next_buttons_location': 'bottom',
+#    'style_external_links': False,
+#    'vcs_pageview_mode': '',
+#    'style_nav_header_background': 'white',
+#    'flyout_display': 'hidden',
+#    'version_selector': True,
+#    'language_selector': True,
+# Toc options
+#    'collapse_navigation': True,
+#    'sticky_navigation': True,
+#    'navigation_depth': 4,
+#    'includehidden': True,
+#    'titles_only': False
+#}
 
 # ---------------------------------------------------------------------------

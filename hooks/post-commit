@@ -1,4 +1,0 @@
-#!/bin/sh
-# Clean build artifacts after commit
-rm -rf docs/_build/
-find . -type d -name "__pycache__" -exec rm -rf {} +

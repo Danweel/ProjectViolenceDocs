@@ -45,6 +45,7 @@ MANIFEST
 
 # Python cache
 __pycache__/
+*.pyc
 
 # Virtual environments (tracked separately below)
 .venv/
@@ -214,3 +215,5 @@ docker-compose.override.yml
 # =============================================================================
 # USER FILES (PERSONAL, NOT SHARED)
 # =============================================================================
+/plugins
+TheViolenceLayerManager.pygoogleanalytics/

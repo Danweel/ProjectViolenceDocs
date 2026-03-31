@@ -1,183 +1,185 @@
-# Contributing to the Read the Docs Template
+Contributing to Project Violence Documentation
+**UNDER CONSTRUCTION**
 
-Thank you for your interest in improving this documentation template!
+Thank you for your interest in contributing to The Violence Tool documentation! Whether you are fixing a typo, adding a new workflow section, or debugging a build error, your help makes this resource better for everyone.
 
-Since this is a **template repository** used to bootstrap new projects, most contributions will be:
-*   **Typo fixes** in the documentation text.
-*   **Bug fixes** in the setup scripts (`setup-hooks.sh`, `setup-python.sh`).
-*   **Updates** to dependencies or best practices.
-*   **Suggestions** for new features or improvements.
+This guide covers how to set up your environment, how to maintain the project, and how to report issues.
 
-## How to Contribute
+🚀 Quick Start for Contributors
+Prerequisites
 
-> **Note:** You do **not** need to be a programmer to contribute. If you just want to suggest a change, you can do that directly on GitHub without installing anything!
+    Python 3.12+
+    Poetry (for dependency management)
+    Git
+    VSCodium (recommended) or VS Code
 
-### Option A: For small changes
-If you just want to fix a typo or suggest a change:
-1.  Navigate to the file on GitHub.
-2.  Click the **Pencil Icon** (Edit).
-3.  Make your change.
-4.  Click **Commit changes**.
-    *   *GitHub will automatically create a Pull Request for you.*
-5.  Add a brief description and submit.
-6.  A maintainer will review and merge it.
+1. Clone the Repository
 
-### Option B: The full work environment
-If you are fixing a bug in the shell scripts, hooks or adding a new feature:
+git clone https://github.com/Danweel/ProjectViolenceDocs.git
+cd ProjectViolenceDocs
 
-#### Prerequisites
+2. Set Up the Environment
 
-- **Python 3.11+** (Required for building docs locally)
-- **Git** (Required for version control)
-- **Text Editor** (VS Code, VSCodium, or any editor you prefer)
+Run the setup script provided in the root directory. It handles dependencies and environment creation automatically.
 
-### 1.  **Fork the Repository**
-Click the **Fork** button at the top right of this page.
-
-### 2.  **Clone Your Fork**
-
-```bash
-git clone https://github.com/[USERNAME]/[REPO-NAME].git
-cd ProjectFolder
-```
-
-### 3.  **Create a Branch**
-
-```bash
-git checkout -b fix/your-bug-description
-```
-
-### 4.  **Make Your Changes**
-Edit the files locally.
-
-### 5.  **Test Locally (If applicable)**
-If you changed a script, run it to ensure it still works:
-
-```bash
+chmod +x setup_for_contributors.sh
 ./setup_for_contributors.sh
-./setup-hooks.sh
-./setup-python.sh
-```
 
->Windows users: Right-click the folder → "Git Bash Here" → run the command above
+Note: If you are on Windows, ensure you are using Git Bash or WSL to run this script.
+3. Verify the Setup
 
-### 6.  **Commit & Push**
-```bash
-git add .
-git commit -m "FIX: Brief description of the fix"
-git push origin fix/your-bug-description
-```
+Run the following to ensure everything is working:
 
-### 7.  **Open a Pull Request**
-    Go to your fork on GitHub and click **Compare & pull request**.
+poetry env info --path
+poetry run python --version
+poetry run sphinx-build -b html docs/source docs/_build/html
 
-## Branch & Commit Naming
+If the build succeeds, open the documentation locally:
 
-To keep the repo tidy, please remember:
+xdg-open docs/_build/html/index.html
 
-### Branch Names
--   `fix/` - For bug fixes (e.g., `fix/setup-script-error`)
--   `docs/` - For text/typo fixes (e.g., `docs/adding-staff-template`)
--   `feat/` - For new features (e.g., `feat/adding-new-extension`)
--   `repo/` - Configuration or setup changes (e.g., `repo/fixed-missing-dependancy`)
+🛠️ Maintenance & Updates
 
-### Commit Messages
-> Types: DOCS, REPO, FIX, FEAT
+This section covers how to safely update project components.
+Updating Mermaid Diagrams
 
-Keep descriptions simple:
+The Mermaid JavaScript library is pinned to a specific version in docs/source/conf.py to ensure build stability.
 
-For bugs:
-> Format: FIX: #Issue-ID - Description
--   `FIX: #12 - Corrected typo in README.md`
+When to update:
 
-For additions:
--   `REPO: Updated installation instructions for Windows`
--   `FEAT: Added support for Python 3.XX`
+    A new Mermaid feature is released.
+    Security vulnerabilities are reported.
+    The CDN becomes unreliable for the pinned version.
 
-### Content Writing Style Guide
+How to update:
 
-- **Tone**: Professional but accessable. Avoid jargon where possible.
-- **Headings**: Use # for page titles, ## for sections, ### for subsections.
-- **Lists**: Use - for bullet points.
-- **Code**: Use triple backticks ``` for code blocks.
-- **Images**: Place images in docs/source/images/ and link them relatively.
+    Check the latest stable version: https://github.com/mermaid-js/mermaid/releases
+    Update mermaid_version in docs/source/conf.py:
 
-## Reporting Bugs
+    mermaid_version = '11.13.0'  # Replace with new version
 
-If you find a bug in the template itself (not in a project you created from it):
+    Test locally:
 
-1.  Check the **[Issues](https://github.com/[USERNAME]/[REPO-NAME]/issues)** tab to see if it's already reported.
-2.  If not, open a **New Issue**.
-3.  Include:
-    *   **What you were trying to do.**
-    *   **What happened.**
-    *   **Your OS** (Windows, Linux, macOS).
-    *   **Steps to reproduce** (if possible).
+    rm -rf docs/_build
+    poetry run sphinx-build -b html docs/source docs/_build/html
 
-### Issue Labels
+    Verify all diagrams render correctly.
+    Commit the change:
 
-We use Severity and Urgency labels to prioritize work:
+    git add docs/source/conf.py
+    git commit -m "Update Mermaid to vX.Y.Z"
 
-| Label | Meaning | Description |
-|-------|---------|-------------|
-A-class	| Critical | Broken links, wrong info, site crash |
-B-class	| Functional | Missing screenshots, unclear steps |
-C-class	| Minor | Typos, formatting, grammar |
-Spicy | High Priority | Needs immediate attention (replaces '1') |
-Mild | Low Priority | Nice to have (replaces '2' or '3') |
+Updating Sphinx and Extensions
 
-Labels are also used for flagging problems:
+Dependencies are managed via Poetry in pyproject.toml.
 
-| Label | Meaning | Description |
-|-------|---------|-------------|
-| more info needed | On Hold | Information included was insufficient |
-| more testing needed | Investigate | Needs extra testing under different circumstances |
-| needs review | On Hold | Bug was looked at but needs more attention |
-| Reopened | Investigate | This bug was previously entered, closed as fixed and reopened for some reason - investigate |
+How to update:
 
-Finally, when issues are closed for reasons other than being resolved:
+    Check for outdated packages:
 
-| Label | Meaning | Description |
-|-------|---------|-------------|
-| wontfix | Closed | The problem is too rare or too difficult to resolve |
-| duplicate | Merging | Same as another issue |
+    poetry show --outdated
 
-## Troubleshooting
-### "Build Failed" Error
+    Update a specific package:
 
-If sphinx-build fails:
+    poetry update sphinx
 
-- Check the error message for missing files or syntax errors.
-- Ensure you have a blank line after every directive (e.g., .. note::).
-- Run poetry install --with docs to ensure all packages are installed.
+    Update all packages (use with caution):
 
-### "Module Not Found"
+    poetry update
 
-If you see ModuleNotFoundError:
+    Test the build and review changes:
 
-- The package might not be in pyproject.toml.
-- Ask the maintainer to add it.
+    git diff pyproject.toml poetry.lock
 
-### VSCodium/VS Code Interpreter Error
+Regenerating requirements.txt
 
-If your editor complains about the Python path:
+If you add or update dependencies, regenerate requirements.txt for Read the Docs:
 
-- Run poetry env info --path to get the correct path.
-- Update .vscode/settings.json with the new path.
+poetry export -f requirements.txt --output requirements.txt --without-hashes --only docs
 
-## Questions?
+🐛 Troubleshooting Common Issues
 
-If you have a question about how to use the template or need help:
-*   Check the **[README.md](README.md)** first.
-*   Open a **Discussion** on [GitHub]().
-*   Or email: daniil.woodland@pm.me
+Below are common errors encountered during development and their solutions.
+1. "Could not resolve interpreter path" in VSCodium
 
-## 📄 Licence
+Symptom: VSCodium shows Default interpreter path ... could not be resolved. Cause: The Poetry environment folder name changed (hash updated), but .vscode/settings.json still points to the old path. Solution:
 
-By contributing, you agree that your contributions will be licensed under the [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
+    Run poetry env info --path to get the new path.
+    Update .vscode/settings.json with the new path.
+    Reload VSCodium (Ctrl+Shift+P → Developer: Reload Window).
 
-> **What this means:** Your contributions can be shared and adapted by others, but not for commercial purposes, and derivatives must use the same license.
+2. "ModuleNotFoundError: No module named 'encodings'"
 
----
+Symptom: Poetry commands fail with a fatal Python error. Cause: This usually happens if running inside a Flatpak sandbox that cannot access system Python libraries. Solution:
 
-> **Note:** Since this repo represents the template, changes here **do not** automatically update projects created **from** it. Users must manually update their projects or re-create them if they want the latest changes.
+    Preferred: Install the native .deb version of VSCodium instead of Flatpak.
+    Workaround: Run commands in your native Ubuntu terminal, not inside the Flatpak terminal.
+
+3. "Mermaid error: Requires mermaid js version X or later"
+
+Symptom: Build fails with a Mermaid version mismatch. Cause: The mermaid_version in conf.py is older than what the Python package expects, or the CDN version is missing. Solution:
+
+    Update mermaid_version in docs/source/conf.py to the latest stable version (e.g., 11.13.0).
+    Clear the build cache: rm -rf docs/_build.
+    Rebuild: poetry run sphinx-build -b html docs/source docs/_build/html.
+
+4. "Extension error: Could not import extension..."
+
+Symptom: Build fails with No module named 'sphinx-...'. Cause: The extension is listed in conf.py but not installed in the Poetry environment. Solution:
+
+    Install the package: poetry add <package-name>.
+    Ensure the import name in conf.py matches the package (e.g., notfound.extension for sphinx-notfound-page).
+
+5. "Explicit markup ends without a blank line" (RST Errors)
+
+Symptom: Warnings in usage.rst or other .rst files. Cause: Missing blank lines after blocks (e.g., .. note::) or malformed links. Solution:
+
+    Ensure there is a blank line after every directive.
+    Check indentation (RST is strict about spaces vs. tabs).
+    Verify links follow the format text <url>.
+
+6. "Theme error: no theme named 'groundwork' found"
+
+Symptom: Build fails because the theme is missing. Cause: The theme package is not installed. Solution:
+
+    Install the theme: poetry add groundwork-sphinx-theme.
+    Ensure html_theme = 'groundwork' is set in conf.py.
+
+
+📝 Reporting Issues
+
+If you find a bug or have a suggestion, please open an Issue on GitHub.
+Issue Templates
+
+We use the following labels to categorize issues:
+Label	Description
+A-class	Critical: Breaks the site or contains dangerously wrong information
+B-class	Functional: Broken links, incorrect steps, missing screenshots
+C-class	Minor: Typos, formatting, suggestions for improvement
+
+TODO #9 ADD OTHER LABELS HERE
+
+How to Report
+
+    Go to the Issues tab.
+    Click New Issue.
+    Choose the appropriate template (Bug Report or Feature Request).
+    Fill in the details clearly.
+
+🤝 Code of Conduct
+
+We are a community of volunteers. Please be respectful, constructive, and inclusive.
+
+    Assume positive intent.
+    Focus on the content, not the person.
+    Help others learn.
+
+📜 License
+
+By contributing, you agree that your contributions will be licensed under the CC BY-SA 4.0 license.
+📞 Contact
+
+For questions about the documentation, contact the maintainer:
+
+    Email: Repo owner
+    GitHub Discussions: [Link to Discussions]
