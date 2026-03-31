@@ -31,16 +31,18 @@ packages = []
 # These are used with: poetry install --with docs OR --with dev
 
 [tool.poetry.group.docs.dependencies]
-sphinx = "^7.4"
+sphinx = "^8.0"
 readthedocs-build = "^2.0"
+furo = "^2025.12.19"
 sphinxcontrib-mermaid = "^2.0.1"
 sphinx-notfound-page = "^1.0.0"
 myst-parser = "^5.0.0"
 
 [tool.poetry.group.dev.dependencies]
 # Inherits from docs, plus extra tools
-sphinx = "^7.4"
+sphinx = "^8.0"
 readthedocs-build = "^2.0"
+furo = "^2025.12.19"
 sphinxcontrib-mermaid = "^2.0.1"
 sphinx-notfound-page = "^1.0.0"
 myst-parser = "^5.0.0"
