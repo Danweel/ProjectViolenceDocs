@@ -1,4 +1,4 @@
-.. _other-guides::
+.. _other-guides:
 
 Published Tutorials and Guides
 ==============================

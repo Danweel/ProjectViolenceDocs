@@ -1,8 +1,5 @@
 .. _usage:
 
-Usage
-=====
-
 .. note::
    **New here?** If you haven't downloaded the practice files yet,
    please start with the :doc:`onboarding` guide.
@@ -77,12 +74,9 @@ Here's a simple flowchart to test the integration:
 Workflow for The Violence
 -------------------------
 
-placeholder for now
-
-
+PLACEHOLDER for now
 
 
 Need a different workflow? Check out :doc:`alt-setups`
-
 
 For indepth video and text guides, see :doc:`other-guides`

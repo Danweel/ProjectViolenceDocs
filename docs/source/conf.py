@@ -49,7 +49,7 @@ extensions = [
     'sphinx.ext.viewcode',         # Add "View Code"
     'notfound.extension',          # Required for custom 404 page
     'sphinx_copybutton',           # Allows for a copy button for codeblocks
-    'sphinx-design',               # Cards, etc.
+    'sphinx_design',               # Cards, etc.
     'myst_parser'                  # Required for fullpage Markdown support in case contibutors are more comfortable writing .md files
 ]                                  # KNOWN ISSUE: myst_parser is in an odd format. This is normal but can throw warnings (that can be safely ignored)
 

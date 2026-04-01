@@ -5,13 +5,11 @@ Onboarding & Practice Files
 
 Welcome to The Violence Layer Manager! This guide will help you get set up and provide the practice files you need to follow the tutorials.
 
-
-
 Practice Files
 ==============
 
 Download Practice Files
-------------------------
+-----------------------
 
 .. important::
 
@@ -55,14 +53,13 @@ First Steps
     *   Switch to **Draw Mode** and draw a line.
     *   Click the **Head** button. Draw another line.
 
-For more on what the tool does, see :doc:`features`
-For more on the intended workflow see :doc:`usage`
-For other ways to use the tool and workflows that we know of see :doc:`altsetups`
+For more on the intended workflow and what the tool does see :doc:`usage`
+For other ways to use the tool and workflows that we know of see :doc:`alt-setups`
 
 Troubleshooting
 ---------------
 
-*   **The panel is empty?** See :ref:`troubleshooting` for common issues.
+*   **The panel is empty?** See :doc:`troubleshooting` for common issues.
 *   **The strokes don't switch layers?** Check that you are in **Object Mode** or **Draw Mode**, not Edit Mode.
 
 

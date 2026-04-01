@@ -1,12 +1,13 @@
-.. _maintenance:
+cat > docs/source/contrib-maintain.rst << 'EOF'
+.. _contrib-maintain:
 
 Contributing and Maintenance
 ============================
 
 This section covers how to update various components of the documentation project.
 
-
-.. tab:: Updating Documentation
+Updating Documentation
+----------------------
 
    If you want to update the text content (RST files):
 
@@ -17,16 +18,15 @@ This section covers how to update various components of the documentation projec
    .. note::
       Remember to update the `changelog.rst` if you add new features!
 
-Guidelines:
-PLACEHOLDER
-
+**Guidelines:**
+PLACEHOLDER FOR:
 - `--with docs` step-by-step installation instructions
 - When to update (new features in the bpy, decprecated functions)
 - How to update (edit .rst files, rebuild locally, github) Step by step in detail.
 - Doc structure logic so far (content style guide)
 
-
-.. tab:: Updating the Website (ReadTheDocs)
+Updating the Website (ReadTheDocs)
+----------------------------------
 
    The website updates automatically when you push to GitHub!
 
@@ -34,8 +34,8 @@ PLACEHOLDER
    2. Go to the ReadTheDocs dashboard.
    3. Trigger a build if it doesn't happen automatically.
 
-Guidelines:
-PLACEHOLDER
+**Guidelines:**
+PLACEHOLDER FOR:
 - `--with dev` step-by-step installation instructions
 - When to update (new (required) features in sphinx, changes to Read the Docs, dependancy breaks)
 - How to update (make changes, rebuild locally, github) Step by step in detail. Include some details like conf.py, .yaml, and .toml key areas.
@@ -138,7 +138,8 @@ Avoid being fickle about changing the theme often, but sometimes things become u
 PLACEHOLDER for instructions here.
 
 
-.. tab:: Updating the Blender Add-on (.bpy)
+Updating the Blender Add-on (.bpy)
+----------------------------------
 
    If you are updating the Python code itself:
 
@@ -161,7 +162,7 @@ PLACEHOLDER
 
 Troubleshooting
 ---------------
-.. include:: troubleshooting/contribu-trouble.rst
+.. include:: _troubleshooting/contribu-trouble.rst
 
 ## Code of Conduct
 This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.

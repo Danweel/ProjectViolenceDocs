@@ -1,8 +1,5 @@
 .. _keybind-trouble:
 
-    Troubleshooting
-    ===============
-
 Keybindings (like ``D``, ``E``, ``S``) do not work or trigger unexpected actions.
 ---------------------------------------------------------------------------------
 

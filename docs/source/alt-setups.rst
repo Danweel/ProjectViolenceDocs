@@ -1,3 +1,4 @@
+cat > docs/source/alt-setups.rst << 'EOF'
 .. _alt-setups:
 
 Community Workflows
@@ -7,15 +8,10 @@ The Violence Layer Manager was designed with a specific workflow in mind, but ea
 extended, or adapted the tool for their own projects.
 
 .. note::
-    Have a setup to share?
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Please submit your workflow via our `GitHub Issue Form <https://github.com/Danweel/ProjectViolenceDocs/issues/new?template=alt-setup-submission.yml>`_.
-
-    Or you can just send a description to @Danweel on Discord.
+    This section is for users who want to customize their setup beyond the default configuration.
+    Have a setup to share? Submit it via our `GitHub Issue Form <https://github.com/Danweel/ProjectViolenceDocs/issues/new?template=alt-setup-submission.yml>`
 
 
-PLACEHOLDER
 .. _adaptation-1:
 
 - Project name
@@ -42,4 +38,4 @@ Any interesting new, differing code:
             # Switch to close-up layer
             bpy.ops.object.gpencil_active_layer_set(layer_name="Close_Up_Lines")
 
-
+EOF

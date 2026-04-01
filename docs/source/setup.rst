@@ -32,7 +32,7 @@ What if I want to use this for my own project?
 
 This is welcome, but could involve some organization that might be unique to your project, depending on your style.
     1. Practice with the files included here, using the default setup to get an idea of how the system works
-    2. Look through our documentation on ::doc::`altsetups<alternative setups>` from other users (under construction)
+    2. Look through our documentation on ::doc::`alt-setups` from other users (under construction)
     3. Play around and find your personal workflow
     4. Consider sharing with us what you discovered!
 
@@ -41,7 +41,6 @@ Prerequisites:
 
 * **Blender 4.1.1** or higher (The add-on uses GPencil APIs introduced in Blender 4.x).
 * A Grease Pencil object with the correct layer/material **structure** (the addon will help with this)
-* **The Violence Layer Manager** add-on installed (see :doc:`installation`).
 * It can be helpful - but not necessary, to have a **monitor tablet** with pressure sensitivity.
 
 .. _installing:
@@ -105,9 +104,6 @@ See the :ref:`keybindings` page for detailed setup instructions on:
 Once installed, you can find :ref:`onboarding` to get your practice files.
 
 .. _troubleshooting:
-
-Setup Troubleshooting
-========================
 
 Before assuming something is broken, check these common issues:
 

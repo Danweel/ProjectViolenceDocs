@@ -1,3 +1,4 @@
+cat > docs/source/api-reference.rst << 'EOF'
 .. _api-reference:
 
 API Reference
@@ -13,5 +14,4 @@ API Reference
    :undoc-members:
    :show-inheritance:
 
-.. autofunction:: pymodulefordocs.some_utility_function
-   :members:
+EOF

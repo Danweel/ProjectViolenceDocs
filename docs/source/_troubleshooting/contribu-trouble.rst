@@ -1,5 +1,3 @@
-.. _contribu-trouble::
+.. _contribu-trouble:
 
-    Troubleshooting
-    ===============
-
+No Content Yet

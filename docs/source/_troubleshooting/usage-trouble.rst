@@ -1,7 +1,4 @@
-.. _usage-trouble.rst::
-
-    Troubleshooting
-    ===============
+.. _usage-trouble.rst:
 
 The brush size or sculpt radius is too big/small to see, or the tool seems unresponsive.
 ----------------------------------------------------------------------------------------

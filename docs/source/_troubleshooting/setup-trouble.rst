@@ -1,8 +1,5 @@
 .. _setup-trouble:
 
-    Troubleshooting
-    ===============
-
 *   **The file won't open?** Ensure you are using Blender 4.1.1+.
 
 The panel is empty or buttons do nothing.

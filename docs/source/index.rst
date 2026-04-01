@@ -38,7 +38,7 @@ Quick Start
       Learn workflows, practice files, and advanced techniques.
 
    .. grid-item-card:: 🛠️ Custom Use-cases
-      :link: altsetups
+      :link: alt-setups
       :link-type: doc
 
       Alternative setups, custom keybindings, and community workflows.
@@ -55,7 +55,6 @@ Quick Start
 
    Your GP Object must use the multi-layer format with the ``1234/QWER/ASDF`` material slot configuration. If your object doesn't match this format, the add-on will not function correctly.
 
-   See :doc:`installation` for full requirements.
 
 .. toctree::
    :hidden:
@@ -66,7 +65,7 @@ Quick Start
    setup
    keybindings
    usage
-   altsetups
+   alt-setups
 
 .. toctree::
    :hidden:
