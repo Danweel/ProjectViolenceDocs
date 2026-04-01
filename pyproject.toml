@@ -8,7 +8,7 @@ build-backend = "poetry.core.masonry.api"
 [project]
 name = "projectviolencedocs"
 version = "0.1.0"
-description = "Documentation for Project Violence"
+description = "Documentation for The Project Violence Tool"
 readme = "README.md"
 license = {text = "CC-BY-SA-4.0"}
 authors = [
@@ -36,7 +36,9 @@ readthedocs-build = "^2.0"
 furo = "^2025.12.19"
 sphinxcontrib-mermaid = "^2.0.1"
 sphinx-notfound-page = "^1.0.0"
+sphinx-copybutton = "^0.5.2"  # Add this line
 myst-parser = "^5.0.0"
+sphinx-design = "^0.7.0"
 
 [tool.poetry.group.dev.dependencies]
 # Inherits from docs, plus extra tools
@@ -45,6 +47,7 @@ readthedocs-build = "^2.0"
 furo = "^2025.12.19"
 sphinxcontrib-mermaid = "^2.0.1"
 sphinx-notfound-page = "^1.0.0"
+sphinx-copybutton = "^0.5.2"  # Add this line
 myst-parser = "^5.0.0"
 ruff = "^0.6"
 # pytest = "^8.0"  # Uncomment if you add testing later

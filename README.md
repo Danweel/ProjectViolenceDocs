@@ -324,6 +324,9 @@ Please support the development of this tool and maintenance of the documentation
 
 👉 [Fred @ A Fox in Space](https://www.patreon.com/AFoxInSpace) (Patreon)
 
+## Code of Conduct
+This project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+
 ---
 
 *Last updated: March 2026*

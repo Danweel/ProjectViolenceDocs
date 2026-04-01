@@ -31,11 +31,11 @@ release = '0.1'
 autodoc_mock_imports = ['pymodulefordocs']
 # ISSUE: The python script these docs are about isn't included, so this is to prevent a stopping error
 
-
-
 templates_path = ['_templates']
 
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+root_doc = 'index'
+
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_troubleshooting/*.rst']
 
 #
 
@@ -44,7 +44,12 @@ extensions = [
     'sphinx.ext.intersphinx',      # Allows sphinx to interact with other Read the Docs pages
     'sphinx.ext.todo',             # Allows for quick inline bugmaking on github
     'sphinxcontrib.mermaid',       # Required for Mermaid diagrams
+    'sphinx.ext.autodoc',          # To autoread docstrings within py files
+    'sphinx.ext.napoleon',         # To accomodate Google/NumPy docstrings
+    'sphinx.ext.viewcode',         # Add "View Code"
     'notfound.extension',          # Required for custom 404 page
+    'sphinx_copybutton',           # Allows for a copy button for codeblocks
+    'sphinx-design',               # Cards, etc.
     'myst_parser'                  # Required for fullpage Markdown support in case contibutors are more comfortable writing .md files
 ]                                  # KNOWN ISSUE: myst_parser is in an odd format. This is normal but can throw warnings (that can be safely ignored)
 
@@ -59,6 +64,12 @@ viewcode_line_numbers = True
 
 # --------------------------------------------------------------------------
 
+# Auto-generate docs from your module
+autodoc_default_options = {
+    'members': True,
+    'undoc-members': True,
+    'show-inheritance': True,
+}
 
 # -- Options for intersphinx -----------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx
@@ -123,15 +134,20 @@ myst_heading_anchors = 4  # Add anchors to headings up to level 3
 # --------------------------------------------------------------------------
 
 
-# -- TODO #1 Options for HTML output ---------------------------------------
+# -- Options for HTML output ---------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'furo'
 
-# html_static_path = ['build\html\source\_static']
+# html_logo = "logo.png"
 
 # html_theme_options = {
 #    "light_css_variables": {
+#        "color-brand-primary": "red",
+#        "color-brand-content": "#CC3333",
+#        "color-admonition-background": "orange",
+#    },
+#    "dark_css_variables": {
 #        "color-brand-primary": "red",
 #        "color-brand-content": "#CC3333",
 #        "color-admonition-background": "orange",

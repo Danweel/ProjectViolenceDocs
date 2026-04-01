@@ -1,0 +1,91 @@
+name: Doc Bug Report
+description: Report an issue in the documentation or website to flag.
+title: "[BUG: ]"
+labels: ["C-class", "bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this bug! Please fill out the details below.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the Bug
+      description: A clear and concise description of what the bug is. Focus on what isn't working.
+      placeholder: "The panel doesn't appear when I..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this behavior?
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: "I expected the panel to show the layer selector..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (Optional)
+      description: Add screenshots to help explain the problem.
+      placeholder: "Drag and drop images here..."
+      validations:
+        required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating System
+      description: What OS are you using?
+      placeholder: "e.g., Ubuntu 24.04, Windows 11, macOS 14"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser (For Website Issues)
+      description: Which browser are you using?
+      placeholder: "e.g., Chrome, Firefox, Safari"
+    validations:
+      required: false
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Python Version (For Build Issues)
+      description: Which Python version are you using?
+      placeholder: "e.g., 3.12.3"
+    validations:
+      required: false
+
+  - type: input
+    id: sphinx_version
+    attributes:
+      label: Sphinx Version (For Build Issues)
+      description: Which Sphinx version are you using?
+      placeholder: "e.g., 8.2.3"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context (Optional)
+      description: Any other notes or context about the problem.

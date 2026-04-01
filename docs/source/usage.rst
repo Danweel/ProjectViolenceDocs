@@ -1,50 +1,63 @@
 .. _usage:
 
-.. note::
-   **New here?** If you haven't downloaded the practice files yet,
-   please start with the :ref:`onboarding` guide.
-
-
 Usage
 =====
 
-Practice files
-------------------
-It's a good idea to practice with the following files before jumping in. They've been selected to cover most of the quirks of how the tool works with different kinds of scenes. 3D animation is already complete, and in most cases, the keyframes as well, so you only need to practice controlling your art.
+.. note::
+   **New here?** If you haven't downloaded the practice files yet,
+   please start with the :doc:`onboarding` guide.
 
+Quick Feature Overview
+----------------------
 
-Available practice files
------------------------------
+This is about capabilities - explain what the tool can technically do, but not too technical.
+
+EX:
+- Automatic Layer switching
+- Masking for mouth flaps
+- Jitter Control
+
+Practice Files
+--------------
+
+It's a good idea to practice with the following files before jumping in. They've been selected to cover most of the quirks of how the tool works with different kinds of scenes. 3D animation is already complete, and in most cases, the keyframes as well, so you only need to practice controlling
+your art.
+
+Available Practice Files
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 There are several files to practice on:
 
-1. Full body workfile: This file is good for getting the hang of how to draw in this Grease Pencil workflow, and start building skills on matching the artstyle.
+1. **Full body workfile** — Good for getting the hang of how to draw in this Grease Pencil workflow, and start building skills on matching the artstyle.
 
-*placeholder for practice file*
+   *placeholder for practice file*
 
-2. Simple animation: This file is good for starting to work with multiple frames, applying jitter and getting better with in-betweening.
+2. **Simple animation** — Good for starting to work with multiple frames, applying jitter and getting better with in-betweening.
 
-*placeholder for practice file*
+   *placeholder for practice file*
 
-3. Transparency layers and maw movement: This file covers the special masking that is used for the teeth (such as Wolf's), tongue and muzzle masks.
+3. **Transparency layers and jaw movement** — Covers the special masking that is used for the teeth (such as Wolf's), tongue and muzzle masks.
 
-*placeholder for practice file*
+   *placeholder for practice file*
 
-4. Head turn: This file introduces the way layers switch hierarchy when a character is turning to or away from the 'camera'.
+4. **Head turn** — Introduces the way layers switch hierarchy when a character is turning to or away from the 'camera'.
 
-*placeholder for practice file*
+   *placeholder for practice file*
 
 Post your results in the Grease Pencil #channel on Discord for feedback.
 
-Extras:
--------
+Extras
+~~~~~~
+
 Extra practice files, such as for specific characters or other useful oddities.
 
 *placeholder for practice file*
 
 
+Workflow for A Fox in Space
+---------------------------
 
-*temporary test*
-Testing Mermaid Diagrams
+Describe the workflow and branches - this is basically a Cockburn diagram
 
 Here's a simple flowchart to test the integration:
 
@@ -59,3 +72,17 @@ Here's a simple flowchart to test the integration:
 
        style A fill:#f9f,stroke:#333,stroke-width:2px
        style C fill:#bbf,stroke:#333,stroke-width:2px
+
+
+Workflow for The Violence
+-------------------------
+
+placeholder for now
+
+
+
+
+Need a different workflow? Check out :doc:`alt-setups`
+
+
+For indepth video and text guides, see :doc:`other-guides`

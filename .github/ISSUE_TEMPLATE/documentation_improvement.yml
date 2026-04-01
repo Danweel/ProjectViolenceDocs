@@ -1,0 +1,43 @@
+name: Docs Contribution
+description: Suggest a change to the documentation content or structure.
+title: "[DOCS: ]"
+labels: ["C-class", "documentation request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the documentation! Please describe your suggested change below.
+
+  - type: input
+    id: section
+    attributes:
+      label: Section Affected
+      description: Which page or section needs improvement?
+      placeholder: "e.g., 'Installation' or 'Usage > Practice Files'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: Current Issue
+      description: What is unclear, missing, or incorrect?
+      placeholder: "The installation steps don't mention that you need to restart Blender..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Improvement
+      description: How would you fix this?
+      placeholder: "Add a note after step 3 that says 'Restart Blender for changes to take effect.'"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context (Optional)
+      description: Any other thoughts, references, or examples?
+      placeholder: "Similar tools like [Tool X] handle this by..."

@@ -1,18 +1,11 @@
 .. _onboarding:
 
 Onboarding & Practice Files
-============================
+===========================
 
 Welcome to The Violence Layer Manager! This guide will help you get set up and provide the practice files you need to follow the tutorials.
 
-Prerequisites
--------------
 
-Before you begin, ensure you have:
-
-*   **Blender 4.1.1** or higher installed.
-*   **The Violence Layer Manager** add-on installed (see :doc:`installation`).
-*   A computer with a mouse (trackpads can be difficult for precise layer switching).
 
 Practice Files
 ==============
@@ -21,7 +14,8 @@ Download Practice Files
 ------------------------
 
 .. important::
-    FILES TBD
+
+    (FILES to be uploaded soon hosted via git Releases)
 
 To follow along with the examples in this guide, you need the specific Grease Pencil object setup required by the tool.
 
@@ -30,7 +24,7 @@ To follow along with the examples in this guide, you need the specific Grease Pe
    <div style="margin-top: 1rem; margin-bottom: 1rem;">
      <a href="https://github.com/Danweel/ProjectViolenceDocs/releases/download/practice-files-v1/TheViolence_Practice_File_v1.blend"
         style="background-color: #2da44e; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold; font-family: sans-serif;">
-       📥 Download Practice File (v1.0)
+       Download Practice File (v1.0)
      </a>
      <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
        File size: ~45 MB | Format: .blend
@@ -54,22 +48,24 @@ First Steps
     *   Click the **Fred** tab. You should see the **LAYER SELECTOR** panel.
 
 3.  **Set keybindings** (Optional but Recommended):
-    *   Follow the steps in :ref:`keybindings` to assign hotkeys.
+    *   Follow the steps in :doc:`keybindings` to assign hotkeys.
 
 4.  **Try It Out**:
     *   Click the **Body** button in the panel.
     *   Switch to **Draw Mode** and draw a line.
     *   Click the **Head** button. Draw another line.
-    *   Notice how the strokes automatically switch to the correct layer!
 
-*File size: ~45 MB*
+For more on what the tool does, see :doc:`features`
+For more on the intended workflow see :doc:`usage`
+For other ways to use the tool and workflows that we know of see :doc:`altsetups`
 
 Troubleshooting
 ---------------
 
-*   **The file won't open?** Ensure you are using Blender 4.1.1+.
 *   **The panel is empty?** See :ref:`troubleshooting` for common issues.
 *   **The strokes don't switch layers?** Check that you are in **Object Mode** or **Draw Mode**, not Edit Mode.
+
+
 
 Next Steps
 -----------

@@ -216,3 +216,10 @@ Shift-A to Apply Material
 .. tip::
     This changes the material of selected vertices to your active material — very useful
     for quickly reassigning materials in Edit Mode.
+
+
+Keybind Troubleshooting
+-----------------------
+
+.. include:: _troubleshooting/setup-trouble.rst
+   

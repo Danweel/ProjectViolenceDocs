@@ -1,0 +1,5 @@
+.. _contribu-trouble::
+
+    Troubleshooting
+    ===============
+

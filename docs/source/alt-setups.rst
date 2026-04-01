@@ -1,22 +1,21 @@
-.. _altsetups:
+.. _alt-setups:
 
-Alternative Setups
-==================
+Community Workflows
+===================
 
 The Violence Layer Manager was designed with a specific workflow in mind, but each person's artstyle might modify the way it works. Below is a collection of how others have modified,
 extended, or adapted the tool for their own projects.
 
 .. note::
-    Have you used the tool for your own projects? We'd like to showcase examples of how the tool can be organized for other projects so people have a better understanding of how the tool works.
+    Have a setup to share?
+^^^^^^^^^^^^^^^^^^^^^^^
 
-    Please open an `Issue <https://github.com/Danweel/ProjectViolenceDocs/issues>`_ or submit a `Pull Request <https://github.com/Danweel/ProjectViolenceDocs/pulls>`_
-    to add your adaptation to this list.
+Please submit your workflow via our `GitHub Issue Form <https://github.com/Danweel/ProjectViolenceDocs/issues/new?template=alt-setup-submission.yml>`_.
 
-    Or, open an **Issue** with your story, and we can format it for you!
-
-    Or you can just contact @Danweel on Discord.
+    Or you can just send a description to @Danweel on Discord.
 
 
+PLACEHOLDER
 .. _adaptation-1:
 
 - Project name

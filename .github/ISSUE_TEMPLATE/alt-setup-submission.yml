@@ -1,0 +1,66 @@
+name: Share an Alternative Setup
+description: Share your custom workflow or configuration for The Violence Tool.
+title: "[DOCS: ]"
+labels: ["community-setup", "documentation request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing your setup! Please fill out the details below so we can review and potentially feature it in the documentation.
+
+  - type: input
+    id: author
+    attributes:
+      label: Your Name / Alias
+      description: How should we credit you?
+      placeholder: "e.g., Fred or ArtistName"
+    validations:
+      required: true
+
+  - type: input
+    id: blender_version
+    attributes:
+      label: Blender Version
+      description: Which version of Blender are you using?
+      placeholder: "e.g., 4.1.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Setup Description
+      description: Describe your custom workflow, keybindings, or configuration changes.
+      placeholder: "I modified the layer switching logic to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to Replicate
+      description: Step-by-step instructions for others to set this up.
+      placeholder: |
+        1. Open the script...
+        2. Change line 45 to...
+        3. Save and restart Blender
+    validations:
+      required: true
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (Optional)
+      description: Add screenshots to help explain the problem.
+      placeholder: "Drag and drop images here..."
+      validations:
+        required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this, you agree to follow the project's guidelines.
+      options:
+        - label: I agree to follow the project's [Code of Conduct](CODE_OF_CONDUCT.md)
+          required: true
