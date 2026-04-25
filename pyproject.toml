@@ -25,6 +25,11 @@ requires-python = ">=3.11"
 package-mode = false
 packages = []
 
+[tool.poetry.urls]
+"Documentation" = "https://project-violence-docs.readthedocs.io"
+"Repository" = "https://github.com/Danweel/ProjectViolenceDocs"
+"Issues" = "https://github.com/Danweel/ProjectViolenceDocs/issues"
+
 # -----------------------------------------------------------------
 # Dependency Groups
 # -----------------------------------------------------------------
@@ -36,18 +41,22 @@ readthedocs-build = "^2.0"
 furo = "^2025.12.19"
 sphinxcontrib-mermaid = "^2.0.1"
 sphinx-notfound-page = "^1.0.0"
-sphinx-copybutton = "^0.5.2"  # Add this line
+sphinx-copybutton = "^0.5.2"
 myst-parser = "^5.0.0"
 sphinx-design = "^0.7.0"
+sphinx-autobuild = "^2024.10.3"
 
 [tool.poetry.group.dev.dependencies]
 # Inherits from docs, plus extra tools
-sphinx = "^8.0"
-readthedocs-build = "^2.0"
-furo = "^2025.12.19"
-sphinxcontrib-mermaid = "^2.0.1"
-sphinx-notfound-page = "^1.0.0"
-sphinx-copybutton = "^0.5.2"  # Add this line
 myst-parser = "^5.0.0"
 ruff = "^0.6"
 # pytest = "^8.0"  # Uncomment if you add testing later
+
+
+# -----------------------------------------------------------------
+# Tool Ruff - Linting rules
+# -----------------------------------------------------------------
+sphinx-autobuild = ">=2024.10.3"
+[tool.ruff]
+line-length = 88
+target-version = "py311"

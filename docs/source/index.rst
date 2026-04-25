@@ -1,84 +1,48 @@
-.. TheViolenceDocs documentation master file, created by
-   sphinx-quickstart on Fri Jun 28 22:32:48 2024.
+.. _index:
 
-Welcome to The Violence Tool Documentation
-==========================================
+=========================================
+The Violence Tool - User Documentation
+=========================================
 
-.. image:: https://via.placeholder.com/150  <-- Add a logo or hero here PLACEHOLDER
-   :align: center
+Welcome to documentation for **The Violence Tool**, a Grease Pencil layer management system designed for 2D animation workflows in Blender.
 
-**The Violence Layer Management Tool** is a Python script for Blender 4.1 and 4.1.1 that manages animation layers and adds additional functionality for Blender Grease Pencil. It is currently being used for the [A Fox in Space](https://www.imdb.com/title/tt6499450/) animation project.
+.. note::
+   **Version:** This documentation covers **v1.0** of the tool.
+
+   Docs for 1.0 of the tool will **always** be available alongside any new builds with versioning provided by the Read the Docs infrastructure. This will allow you to view the correct docs for the version of the tool that you prefer using. For example, Blender's own docs run on the same system.
+
+   See :doc:`user/versioning` for the roadmap.
 
 Quick Start
 -----------
 
-* **Need to install?** See the :doc:`setup` guide.
-* **New here?** Start with the :doc:`onboarding` guide to download practice files.
-* **Ready to draw?** Jump to the :doc:`usage` guide.
+1. **New to Blender?** Start with :doc:`user/blender-basics` to learn navigation and essential shortcuts.
 
-.. grid:: 1 2 3 3
-   :gutter: 2
+2. **Ready to Install?** Follow the :doc:`user/setup` guide to get the tool running.
 
-   .. grid-item-card:: Setup & Install
-      :link: setup
-      :link-type: doc
-
-      Install the tool, verify setup, and configure basics.
-
-   .. grid-item-card:: Get Started
-      :link: onboarding
-      :link-type: doc
-
-      Download practice files and follow the step-by-step guide.
-
-   .. grid-item-card:: 📖 Usage Guide
-      :link: usage
-      :link-type: doc
-
-      Learn workflows, practice files, and advanced techniques.
-
-   .. grid-item-card:: 🛠️ Custom Use-cases
-      :link: alt-setups
-      :link-type: doc
-
-      Alternative setups, custom keybindings, and community workflows.
-
-   .. grid-item-card:: 🤝 Contributing
-      :link: contrib-maintain
-      :link-type: doc
-
-      How to contribute to the tool and documentation.
-
-.. warning::
-
-   **The Violence Layer Manager requires a specific Grease Pencil setup.**
-
-   Your GP Object must use the multi-layer format with the ``1234/QWER/ASDF`` material slot configuration. If your object doesn't match this format, the add-on will not function correctly.
-
+3. **Ready Start Animating?** Learn the esablished workflow in :doc:`user/usage`.
 
 .. toctree::
-   :hidden:
    :maxdepth: 2
    :caption: User Guide
 
-   onboarding
-   setup
-   keybindings
-   usage
-   alt-setups
+   user/setup
+   user/blender-basics
+   user/usage
+   user/keybindings
+   user/use-cases
+   user/troubleshooting
+   user/operators
+   user/versioning
 
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Community
+---
 
-   other-guides
-   troubleshooting
+**Need Help?**
 
-.. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: For Developers
+If you encounter issues, check the :doc:`user/troubleshooting` page or join the discussion on Fred's Discord.
 
-   api-reference
-   contrib-maintain
+**Contributing:**
+
+This documentation is open source, see our README.md and LICENCE files.
+
+If you find errors or have suggestions, please open an issue on `GitHub <https://github.com/Danweel/ProjectViolenceDocs/issues>`_.

@@ -220,3 +220,9 @@ TheViolenceLayerManager.pygoogleanalytics/
 docs/source/plugins/TheViolenceLayerManager.py
 docs/source/plugins/
 docs/source/plugins/
+extract_operators.py
+rsttablemaker.py
+extracted_operators.rst
+docs/source/_2.0
+docs/source/_OLD
+

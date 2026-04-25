@@ -12,5 +12,11 @@
     "autoOpenPreviewPanel.openPreviewToSide": true,
     "previewMarkdown.languages": "markdown, restructuredtext",
     "previewMarkdown.openOnGitDiff": true,
-    "previewMarkdown.previewOnlyMode": false
+    "previewMarkdown.previewOnlyMode": false,
+    "workbench.tree.indent": 20,
+    "workbench.colorCustomizations": {
+        "tree.indentGuidesStroke": "#ff0000",
+        "editorIndentGuide.background": "#ff00ff"
+    },
+    "python.terminal.activateEnvironment": true
 }
