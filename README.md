@@ -1,6 +1,6 @@
 # Project Violence Documentation
 
-Community-driven documentation for **The Violence Tool**, a Blender Grease Pencil layer management tool, workflow, and the animation projects it supports.
+Documentation for **The Violence Tool**, a Blender Grease Pencil layer management plugin and workflow for the animation projects it supports.
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![Documentation Status](https://readthedocs.org/projects/project-violence-docs/badge/?version=latest)](https://project-violence-docs.readthedocs.io/en/latest/)
@@ -59,7 +59,7 @@ We welcome contributions to improve the documentation! If you see typos, missing
     3. Edit files in `docs/source/` (reStructuredText format). (Though the setup includes MyST, which lets you write in markdown as well.)
     4. Preview locally: `poetry run sphinx-build docs/source docs/_build/html`
 
-I recommend using VSCodium for the plugins (but no Windows telemetry). Once you have the repo cloned, I've created the script file to simplify the setup of the Read the Docs/Sphinx environment. Then all you need to do is edit/add rst files in docs/source.
+I recommend using VSCodium for the plugins (it functions like VSCode, but without extra Windows telemetry). Once you have the repo cloned, I've created a script file to simplify the setup of the Read the Docs/Sphinx environment. Then, all you need to do is edit and/oradd `rst` files in `docs/source`.
 ~ Dan
 
 ## Github Code of Conduct

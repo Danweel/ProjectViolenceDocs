@@ -52,7 +52,7 @@ Fred recommends mastering these native Blender shortcuts for a smooth workflow:
 Tool-Specific Shortcuts
 ------------------------
 
-These keybinds are specific to The Violence Tool.
+The following are specific to The Violence Tool.
 
 **The Layer Switcher Menu**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,6 +90,10 @@ Now, holding ``A`` down enables automerge **while** drawing.
 +---------------------+-------------------+------------------------------------------+
 | Ctrl-Alt-Shift-X    | ``fred.op19``     | Toggle Onion Skins                       |
 +---------------------+-------------------+------------------------------------------+
+
+.. admonition:: Dan's Tip
+
+   There's another plugin for Blender called "Is Key Free" that's useful for checking that you're not overwriting an important keybind.
 
 --------------------------------------------------------------------------------
 

@@ -19,7 +19,7 @@ Blender is a huge program. In some ways, there's no reason to wait until you 'kn
 
 The following is all the parts of Blender that is relevant to Grease Pencil. Some of this carries over to other work in Blender.
 When learning Blender, or any very complicated program, it's good to have a goal (like this!) in mind as you work, or you could lose yourself in learning how to do things in it you'll never even use.
-No one does everything in Blender (normally).
+Few can do _everything_ in Blender.
 
 --------------------------------------------------------------------------------
 
@@ -62,20 +62,20 @@ Essential 3D Viewport navigation shortcuts for Blender.
 **Pan (Move View)**         ``Shift`` + ``Middle Mouse`` + Drag        Moves the view parallel to the screen plane.
 **Zoom**                    ``Ctrl`` + ``Middle Mouse`` + Drag         Drag **Up** to zoom in, **Down** to zoom out.
 **Strafe (Slide View)**     ``Alt`` + ``Middle Mouse`` + Drag          Moves the view sideways.
-**Toggle Perspective**      Numpad ``5``                               Essential for reference sheets (no distortion)
+**Toggle Perspective**      Numpad ``5``                               Useful for things like reference sheets, as it removes distortion
 **Frame Selected**          Numpad ``.`` (Period)                      Zooms in tightly on the selected object.
 **View All**                ``Home``                                   Fits all objects in the viewport.
-**Camera View**             Numpad ``0``                               Shows exactly what will be rendered.
-**Shading Modes**           ``Z``                                      Wireframe → Solid → Material Preview → Render preview
+**Camera View**             Numpad ``0``                               Shows the framing of what will be rendered.
+**Cycle shading Modes**     ``Z``                                      Wireframe → Solid → Material Preview → Render preview
 =========================== ========================================== =====================================================
 
 
 .. image:: ../_static/images/navigation-gizmo.png
-   :alt: Viewport navigation controls
-   :width: 400
+   :alt: Viewport navigation gizmo
+   :scale: 100
    :align: center
 
-*Figure 1: The navigation gizmo in the top-right corner*
+*Figure 1: The multi-coloured navigation gizmo in the top-right corner. Shading modes can be seen above it.*
 
 --------------------------------------------------------------------------------
 
@@ -129,10 +129,10 @@ Press ``Tab`` to toggle between modes.
 
 .. image:: ../_static/images/object-vs-edit-mode.png
    :alt: Object Mode vs Edit Mode comparison
-   :width: 600
+   :scale: 100
    :align: center
 
-*Figure 2: Location of Object Mode, Edit Mode, and Draw mode in the interface*
+*Figure 2: Location of Object Mode, Edit Mode, and Draw mode, top left*
 
 --------------------------------------------------------------------------------
 
