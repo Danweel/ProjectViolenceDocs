@@ -49,7 +49,7 @@ The Violence Tool is currently distributed exclusively through **Fred's Discord 
 
    1. **Join the Server:** If you haven't already, join the Discord community linked on the project homepage.
    2. **Ask for access to the Grease Pencil channel:** Resources and the py file are pinned to the channel.
-   3. **Download:** Save the file named ``TheViolenceLayerManager.py`` to your computer.
+   3. **Download:** Save the file named ``LINUXTheViolenceLayerManager5.0.py`` to your computer.
 
 .. important::
 

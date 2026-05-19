@@ -73,7 +73,7 @@ These switch to the "Lines" layer for a specific body part and set the appropria
      - :ref:`ref-unlock-act`
    * - ``fred.layer10_lines``
      - STROKE: LAYER 10
-     - Switch to Layer 10 Lines, Set Ink Pen
+     - Switch to Layer 10 Lines, Set Ink Pen, This layer is now designated for **Holdout/Mask** operations.
      - :ref:`ref-unlock-act`
 
 **Fill Operators**
@@ -125,10 +125,6 @@ These switch to the "Fills" layer and set the appropriate brush.
      - FILL: LAYER 9
      - Switch to Layer 9 Fills, Set Fill Brush
      - :ref:`ref-unlock-act`
-   * - ``fred.layer10_fills``
-     - FILL: LAYER 10
-     - Switch to Layer 10 Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
 
 .. _mouth-jaw-operators:
 
@@ -154,11 +150,11 @@ Specialized operators for muzzle/mouth layers.
      - Unlock Mouth Mask, Set Fill Brush
      - :ref:`ref-unlock-act`
    * - ``fred.mouth3``
-     - MOUTH: Upper Jaw/Teeth
+     - MOUTH: Upper Jaw
      - Unlock Upper Teeth, Set Ink Pen
      - :ref:`ref-unlock-act`
    * - ``fred.mouth4``
-     - MOUTH: Lower Jaw/Teeth
+     - MOUTH: Lower Jaw
      - Unlock Lower Teeth, Set Ink Pen
      - :ref:`ref-unlock-act`
 
@@ -215,17 +211,13 @@ Unlocks appropriate layers.
      - SCULPT: LAYER 9
      - Unlock Layer 9, Set Push Brush
      - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt10``
-     - SCULPT: LAYER 10
-     - Unlock Layer 10, Set Push Brush
-     - :ref:`ref-sculpt-push`
 
 .. _effects-operators:
 
 Effects & FX Operators
 ----------------------
 
-Specialized tools for shadows, highlights, and applying noise.
+Specialized tools for shadows, highlights, and applying noise. Includes Undo support.
 
 .. list-table::
    :widths: 25 25 25 25
