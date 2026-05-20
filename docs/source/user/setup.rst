@@ -69,7 +69,7 @@ There are two ways to install The Violence Tool, as a plugin, or running it thro
 Method 1: Run from the Text Editor (Quick Start)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This is the fastest way to get started. The script runs directly in Blender's Text Editor. You'll have to load it each time.
+The script runs directly in Blender's Text Editor. But you'll have to load it each time, and its operators won't be available for keybinds.
 
 Step 1: Open the Text Editor
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -173,6 +173,8 @@ When a new version of the script is released:
 
    Updating will overwrite any unsaved changes to the script file. Always save your modifications before updating.
 
+If you receive an error, try changing the name to TheViolenceLayerManager.py.
+
 --------------------------------------------------------------------------------
 
 Configuring Keybindings
@@ -189,7 +191,8 @@ And others!
 
 .. tip::
 
-   These keybindings are optional but will significantly improve your efficiency when using The Violence Layer Manager.
+   These keybindings are all optional but are important for efficiency when using The Violence Layer Manager.
+   You can bind as many or few as you prefer, and to any key you want, the keybindings document is just suggestions.
 
 --------------------------------------------------------------------------------
 
@@ -204,7 +207,7 @@ This is welcome, but could involve some organization that might be unique to you
 
 .. note::
 
-   As the community grows, we hope to share your invented workflows and guides.
+   As the community grows, we hope to share your invented workflows, keybinds, and guides.
 
 --------------------------------------------------------------------------------
 
@@ -213,6 +216,8 @@ Next Steps
 
 Once installed, head to :doc:`usage` to learn the daily workflow and
 practice with the provided scene files.
+
+Definately set a few :doc:`keybindings`!
 
 See :doc:`blender-basics` if you are new to Blender in general.
 

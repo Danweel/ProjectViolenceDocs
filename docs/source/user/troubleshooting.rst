@@ -223,6 +223,14 @@ Dope Sheet & Keyframes
 Installation & Setup
 --------------------
 
+**Tool throws an error when trying to install**
+
+- **Cause:** The script needs to be named "TheViolenceLayerManager.py"
+
+**Fix:** Rename the file manually. If you're keeping track of multiple versions, place them in differently named folders.
+
+Make sure you've uninstalled the previous version.
+
 **The "Fred" tab doesn't appear in the sidebar.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

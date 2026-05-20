@@ -1,436 +1,273 @@
 .. _operator-inventory:
 
 =========================================
-Operator Inventory (v1.0)
+Operator Inventory (Release 5.0)
 =========================================
 
-This page lists every custom operator provided by **The Violence Layer Manager**.
+This page lists operators provided by **The Violence Layer Manager**.
 Each operator is mapped to its function. For the specific native Blender operations
 executed by these macros, see the :ref:`blender-ref-appendix` at the bottom of this page.
 
 .. note::
 
-   **v1.0 Limitations:** Some operators are marked as **Non-functional** or **Buggy**.
-   These are documented for transparency but should not be used until fixed in v2.0.
+   **Limitations:** Some operators are marked as **Non-functional** or **Buggy**.
+   These are documented for transparency but should not be used.
+
+.. warning::
+   All operators require a **Grease Pencil object** to be selected and active.
+   If no object is selected, the operator will report a warning.
 
 .. _layer-switching-operators:
 
-Layer Switching Operators
--------------------------
+Layer Switching (Drawing & Filling)
+-----------------------------------
 
-These operators act as "macros" that perform a sequence of native actions:
-switching to Draw Mode, locking/unlocking layers, setting the brush tool,
-and assigning the correct material.
+These operators unlock the specific layer, set it as active, switch the brush tool 
+(Draw or Fill), and assign the correct material.
 
-**Stroke (Line) Operators**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-These switch to the "Lines" layer for a specific body part and set the appropriate brush.
-
-.. list-table::
-   :widths: 25 25 25 25
+.. list-table:: Drawing Operators (Lines)
+   :widths: 25 75
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
+     - Description
    * - ``fred.body_lines``
-     - STROKE: Body
-     - Switch to Body Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Body** line art layer. Material: ``1 I LINE``.
    * - ``fred.head_lines``
-     - STROKE: Head
-     - Switch to Head Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Head** line art layer. Material: ``1 I LINE``.
    * - ``fred.eyes_lines``
-     - STROKE: Eyes
-     - Switch to Eyes Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Eyes** line art layer. Material: ``1 I LINE``.
    * - ``fred.mouth_lines``
-     - STROKE: Mouth
-     - Switch to Mouth Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Mouth** line art layer. Material: ``1 I LINE``.
    * - ``fred.extra_lines``
-     - STROKE: Extra
-     - Switch to Extra Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Extra** (Arms/Tail) line art layer. Material: ``1 I LINE``.
    * - ``fred.foreground_lines``
-     - STROKE: FOREGROUND
-     - Switch to Foreground Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Foreground** (Hands) line art layer. Material: ``1 I LINE``.
    * - ``fred.background_lines``
-     - STROKE: BACKGROUND
-     - Switch to Background Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Background** (Layer 7) line art layer. Material: ``1 I LINE``.
    * - ``fred.layer8_lines``
-     - STROKE: LAYER 8
-     - Switch to Layer 8 Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Misc. 8** line art layer. Material: ``1 I LINE``.
    * - ``fred.layer9_lines``
-     - STROKE: LAYER 9
-     - Switch to Layer 9 Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Switch to **Misc. 9** line art layer. Material: ``1 I LINE``.
    * - ``fred.layer10_lines``
-     - STROKE: LAYER 10
-     - Switch to Layer 10 Lines, Set Ink Pen, This layer is now designated for **Holdout/Mask** operations.
-     - :ref:`ref-unlock-act`
+     - Switch to **Holdout/Mask** (Layer 10) line art layer.
+       **Material:** ``B HOLDOUT`` (Changed in v5.0).
 
-**Fill Operators**
-~~~~~~~~~~~~~~~~~~
-
-These switch to the "Fills" layer and set the appropriate brush.
-
-.. list-table::
-   :widths: 25 25 25 25
+.. list-table:: Filling Operators (Colors)
+   :widths: 25 75
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
+     - Description
    * - ``fred.body_fills``
-     - FILL: Body
-     - Switch to Body Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Body** fill layer. Opens material selection menu.
    * - ``fred.head_fills``
-     - FILL: Head
-     - Switch to Head Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Head** fill layer. Opens material selection menu.
    * - ``fred.eyes_fills``
-     - FILL: Eyes
-     - Switch to Eyes Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Eyes** fill layer. Opens material selection menu.
    * - ``fred.mouth_fills``
-     - FILL: Mouth (Mask)
-     - Switch to Mouth Mask, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Mouth Mask** layer. Material: ``THROAT``.
    * - ``fred.extra_fills``
-     - FILL: Extra
-     - Switch to Extra Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Extra** fill layer. Opens material selection menu.
    * - ``fred.foreground_fills``
-     - FILL: FOREGROUND
-     - Switch to Foreground Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Foreground** fill layer. Opens material selection menu.
    * - ``fred.background_fills``
-     - FILL: BACKGROUND
-     - Switch to Background Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Background** (Layer 7) fill layer. Opens material selection menu.
    * - ``fred.layer8_fills``
-     - FILL: LAYER 8
-     - Switch to Layer 8 Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Misc. 8** fill layer. Opens material selection menu.
    * - ``fred.layer9_fills``
-     - FILL: LAYER 9
-     - Switch to Layer 9 Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Misc. 9** fill layer. Opens material selection menu.
+   * - ``fred.layer10_fills``
+     - Switch to **Layer 10** fill layer. Opens material selection menu.
+
+Specialized Drawing & Animation
+-------------------------------
+
+Operators for specific character parts, effects, and animation workflows.
 
 .. _mouth-jaw-operators:
 
-Mouth & Jaw Operators
----------------------
+Mouth & Teeth Control
+~~~~~~~~~~~~~~~~~~~~~
 
-Specialized operators for muzzle/mouth layers.
-
-.. list-table::
-   :widths: 25 25 25 25
+.. list-table:: Mouth & Teeth Control
+   :widths: 25 75
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
+     - Description
    * - ``fred.mouth1``
-     - MOUTH: Lines
-     - Unlock Mouth Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - **Mouth Lines:** Unlock and switch to mouth outline.
    * - ``fred.mouth2``
-     - MOUTH: Mask
-     - Unlock Mouth Mask, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - **Mouth Mask:** Unlock and switch to mouth mask (for teeth/tongue visibility).
    * - ``fred.mouth3``
-     - MOUTH: Upper Jaw
-     - Unlock Upper Teeth, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - **Upper Teeth:** Unlock and switch to upper jaw/teeth layer. Material: ``UPPERTEETH``.
    * - ``fred.mouth4``
-     - MOUTH: Lower Jaw
-     - Unlock Lower Teeth, Set Ink Pen
-     - :ref:`ref-unlock-act`
-
-.. _sculpt-isolation-operators:
-
-Sculpt & Isolation Operators
-----------------------------
-
-These operators isolate specific body parts for "butterknifing" (nudging lines).
-Briefly enters **Sculpt Mode** to set the **Push Brush**, then return to **Draw Mode**.
-Unlocks appropriate layers.
-
-.. list-table::
-   :widths: 25 25 25 25
-   :header-rows: 1
-
-   * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.sculpt1``
-     - SCULPT: Body
-     - Unlock Body (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt2``
-     - SCULPT: Head
-     - Unlock Head (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt3``
-     - SCULPT: Eyes
-     - Unlock Eyes (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt4``
-     - SCULPT: Mouth
-     - Unlock Mouth (Lines+Mask), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt5``
-     - SCULPT: Extra
-     - Unlock Extra (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt6``
-     - SCULPT: FOREGROUND
-     - Unlock Foreground, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt7``
-     - SCULPT: BACKGROUND
-     - Unlock Background, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt8``
-     - SCULPT: LAYER 8
-     - Unlock Layer 8, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt9``
-     - SCULPT: LAYER 9
-     - Unlock Layer 9, Set Push Brush
-     - :ref:`ref-sculpt-push`
+     - **Lower Teeth:** Unlock and switch to lower jaw/teeth layer. Material: ``LOWERTEETH``.
 
 .. _effects-operators:
 
-Effects & FX Operators
-----------------------
+Effects
+~~~~~~~
 
-Specialized tools for shadows, highlights, and applying noise. Includes Undo support.
-
-.. list-table::
-   :widths: 25 25 25 25
+.. list-table:: Effects
+   :widths: 25 75
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
+     - Description
    * - ``fred.shadowfills``
-     - FX: Shading
-     - Unlock Shadow Layer, Set Large Brush
-     - :ref:`ref-unlock-act`
+     - Switch to **Shadows** layer. Brush size: 70px. Material: ``SHADOW``.
    * - ``fred.highlights1``
-     - FX: Highlights 1
-     - Unlock Highlights, Set Material
-     - :ref:`ref-unlock-act`
+     - Switch to **Highlights** layer. Material: ``HIGHLIGHT1``.
    * - ``fred.highlights2``
-     - FX: Highlights 2
-     - Unlock Highlights, Set Material
-     - :ref:`ref-unlock-act`
+     - Switch to **Highlights** layer. Material: ``HIGHLIGHT2``.
    * - ``fred.highlights3``
-     - FX: Highlights 3
-     - Unlock Highlights, Set Material
-     - :ref:`ref-unlock-act`
-   * - ``fred.applynoise``
-     - FRED: Apply Noise
-     - **Dialog Box**. Selects random vertices, applies noise transform.
-     - :ref:`ref-noise`
+     - Switch to **Highlights** layer. Material: ``HIGHLIGHT3``.
 
 .. _keyframe-operators:
 
-Keyframe & Frame Management
----------------------------
+Keyframe Operators
+~~~~~~~~~~~~~~~~~~
 
-Operators to prepare layers for animation or duplicate frames.
-
-.. list-table::
-   :widths: 25 25 25 25
+.. list-table:: Keyframes
+   :widths: 25 75
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
+     - Description
    * - ``fred.frames1``
-     - FRAMES: Mouth & Mask
-     - Unlock Mouth & Mask layers
-     - :ref:`ref-unlock-act`
+     - Unlock **Mouth** and **Mask** layers for keyframing (Front View).
    * - ``fred.frames2``
-     - FRAMES: Mouth, Mask, Lower Jaw
-     - Unlock Mouth, Mask, Lower Jaw
-     - :ref:`ref-unlock-act`
+     - Unlock **Mouth**, **Mask**, and **Lower Jaw** layers for keyframing.
    * - ``fred.addkeyframes``
-     - KEYFRAMES: Add keyframes
-     - Duplicate current frame on all unlocked layers
-     - :ref:`ref-dup-frame`
+     - Duplicate the current frame for all unlocked layers (Insert Keyframe).
+
+Sculpting & Editing
+-------------------
+
+These operators isolate specific body parts for sculpting or editing. They unlock 
+both the Line and Fill layers for the selected part, switch to Sculpt Mode briefly 
+to prepare the brush, then return to Paint Mode.
+
+.. _sculpt-isolation-operators:
+
+.. list-table:: Sculpt Operators
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Operator ID
+     - Description
+   * - ``fred.sculpt1``
+     - Isolate **Body** (Lines + Fills) for Sculpt/Edit.
+   * - ``fred.sculpt2``
+     - Isolate **Head** (Lines + Fills) for Sculpt/Edit.
+   * - ``fred.sculpt3``
+     - Isolate **Eyes** (Lines + Fills) for Sculpt/Edit.
+   * - ``fred.sculpt4``
+     - Isolate **Mouth** (Lines + Mask) for Sculpt/Edit.
+   * - ``fred.sculpt5``
+     - Isolate **Extra** (Lines + Fills) for Sculpt/Edit.
+   * - ``fred.sculpt6``
+     - Isolate **Foreground** (Lines + Fills) for Sculpt/Edit.
+   * - ``fred.sculpt7``
+     - Isolate **Background** (Layer 7) for Sculpt/Edit.
+   * - ``fred.sculpt8``
+     - Isolate **Misc. 8** for Sculpt/Edit.
+   * - ``fred.sculpt9``
+     - Isolate **Misc. 9** for Sculpt/Edit.
+   * - ``fred.sculpt10``
+     - Isolate **Misc. 10** for Sculpt/Edit.
 
 .. _utility-operators:
 
-Utility & Custom Operators
---------------------------
+Custom Tools & Utilities
+------------------------
 
-Tools for brush settings, randomization, and system toggles.
+New in v5.0: These operators provide advanced functionality for retopology, 
+compositing, and bulk actions.
 
-.. list-table::
-   :widths: 25 25 25 25
+New 5.0 Operators
+~~~~~~~~~~~~~~~~~
+
+.. list-table:: New v5.0 Operators
+   :widths: 25 75
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.op1``
-     - STROKE STRENGTH: 0%
-     - Set brush strength to 0
-     - :ref:`ref-strength`
-   * - ``fred.op2``
-     - STROKE STRENGTH: 100%
-     - Set brush strength to 1
-     - :ref:`ref-strength`
-   * - ``fred.op3``
-     - Join and Smooth Strokes
-     - Join 2 selected strokes, smooth them
-     - :ref:`ref-join-smooth`
-   * - ``fred.op4``
-     - Previous Keyframe
-     - Jump to previous keyframe
-     - :ref:`ref-keyjump`
-   * - ``fred.op5``
-     - Next Keyframe
-     - Jump to next keyframe
-     - :ref:`ref-keyjump`
-   * - ``fred.op6``
-     - Previous Marker
-     - Jump to previous marker
-     - :ref:`ref-keyjump`
-   * - ``fred.op7``
-     - Next Marker
-     - Jump to next marker
-     - :ref:`ref-keyjump`
-   * - ``fred.op8``
-     - Randomize Line Art (Small)
-     - Select random vertices, apply noise
-     - :ref:`ref-noise`
-   * - ``fred.op9``
-     - Eraser Point
-     - Set brush to "Eraser Point"
-     - :ref:`ref-eraser`
-   * - ``fred.op10``
-     - Eraser Stroke
-     - Set brush to "Eraser Stroke"
-     - :ref:`ref-eraser`
-   * - ``fred.op11``
-     - Create GP (Fox)
-     - Create new GP object with Fox materials
-     - :ref:`ref-create-gp`
-   * - ``fred.op12``
-     - Randomize Selected Vertices
-     - Select random vertices, apply noise
-     - :ref:`ref-noise`
-   * - ``fred.op13``
-     - Lock Non-Character Layers
-     - Lock all, then unlock character layers
-     - :ref:`ref-lock-all`
-   * - ``fred.op14``
-     - ALL MOUTH LAYERS
-     - Unlock all mouth-related layers
-     - :ref:`ref-unlock-act`
+     - Description
+   * - ``fred.op8`` (**Jiggle**)
+     - **NEW:** Apply randomized noise to unlocked strokes.
+       *Dialog Options:* Strength, Size, Repeat.
+       (Replaces the old static noise operator).
    * - ``fred.op15``
-     - **NON-FUNCTIONAL**
-     - **Bug:** Code incomplete. Does nothing.
-     - N/A
-   * - ``fred.op16``
-     - Enable Automerge
-     - Enable automerge strokes
-     - :ref:`ref-automerge`
-   * - ``fred.op17``
-     - Disable Automerge
-     - Disable automerge strokes
-     - :ref:`ref-automerge`
+     - **NEW:** Unlock Mouth, Mask, Upper/Lower Teeth, **AND Head** layers.
+       Useful for complex jaw/head animations.
+   * - ``fred.op36``
+     - **Retopo Helper:** Flattens Y-axis, smooths vertices, snaps to nearest face.
+       (Designed for mesh retopology workflows).
+   * - ``fred.op37``
+     - **Affect Selected GP:** Disables lights on all layers of the selected GP object.
+   * - ``fred.op38``
+     - **Affect All GP:** Placeholder for bulk actions across all GP objects in the scene.
+   * - ``fred.op39``
+     - **Toggle Compositor:** Switches viewport compositor between ``DISABLED`` and ``ALWAYS``.
+   * - ``fred.op40``
+     - **Toggle Layer Hide:** Toggles the visibility of the currently active GP layer.
+
+Legacy Operators
+~~~~~~~~~~~~~~~~
+
+.. list-table:: Legacy & Utility Operators
+   :widths: 25 75
+   :header-rows: 1
+
+   * - Operator ID
+     - Description
+   * - ``fred.op1`` / ``fred.op2``
+     - Set Stroke Strength to 0% or 100%.
+   * - ``fred.op3``
+     - Join selected strokes and smooth them.
+   * - ``fred.op4`` / ``fred.op5``
+     - Jump to Previous/Next Keyframe.
+   * - ``fred.op6`` / ``fred.op7``
+     - Jump to Previous/Next Marker.
+   * - ``fred.op9`` / ``fred.op10``
+     - Switch to Eraser Point or Eraser Stroke.
+   * - ``fred.op11``
+     - Create a new blank Grease Pencil object (Fox template).
+   * - ``fred.op12``
+     - Randomize selected vertices (Legacy).
+   * - ``fred.op13``
+     - Lock all non-character layers.
+   * - ``fred.op14``
+     - Unlock all mouth layers (Legacy).
+   * - ``fred.op16`` / ``fred.op17``
+     - Enable/Disable Auto-Merge Strokes.
    * - ``fred.op18``
-     - Toggle Fade Inactive Layers
-     - Toggle fade layers overlay
-     - :ref:`ref-overlay`
+     - Toggle "Fade Inactive Layers" overlay.
    * - ``fred.op19``
-     - Toggle Onion Skins
-     - Toggle onion skin overlay
-     - :ref:`ref-overlay`
+     - Toggle Onion Skins overlay.
    * - ``fred.op20``
-     - Remove All Vertex Paints
-     - Clear vertex colors on all GP objects
-     - :ref:`ref-clear-vc`
-   * - ``fred.op21``
-     - Enable Draw on Back
-     - Enable draw on back
-     - :ref:`ref-draw-back`
-   * - ``fred.op22``
-     - Disable Draw on Back
-     - Disable draw on back
-     - :ref:`ref-draw-back`
+     - Remove all vertex paints from all layers/frames.
+   * - ``fred.op21`` / ``fred.op22``
+     - Enable/Disable "Draw Behind" mode.
    * - ``fred.op23``
-     - Randomize Line Art (Large)
-     - Select random vertices, apply large noise
-     - :ref:`ref-noise`
+     - Large Pass Randomize (Legacy).
    * - ``fred.op24``
-     - Smooth Stroke
-     - Smooth selected stroke
-     - :ref:`ref-smooth`
+     - Smooth selected strokes.
    * - ``fred.op25``
-     - Create GP (Fox McCloud)
-     - Create full Fox rig
-     - :ref:`ref-create-gp`
-   * - ``fred.op26``
-     - Set Active Material
-     - Set active material
-     - :ref:`ref-mat-set`
-   * - ``fred.op27``
-     - View Selected Frame
-     - View selected frame
-     - :ref:`ref-view-frame`
-   * - ``fred.op28``
-     - Set Brush "01 PEN"
-     - Set brush to "01 PEN"
-     - :ref:`ref-brush-set`
-   * - ``fred.op29``
-     - Set Brush "01 PEN STRENGTH P"
-     - Set brush to "01 PEN STRENGTH P"
-     - :ref:`ref-brush-set`
-   * - ``fred.op30``
-     - **CRASH RISK**
-     - **Bug:** Syntax error. Do not use.
-     - N/A
-   * - ``fred.op31``
-     - Toggle GP Material Visible
-     - Toggle material visibility
-     - :ref:`ref-mat-vis`
-   * - ``fred.op32``
-     - Reveal Material
-     - Reveal material
-     - :ref:`ref-mat-reveal`
-   * - ``fred.op33``
-     - Hide All Fills
-     - Hide all fill layers
-     - :ref:`ref-hide-fills`
-   * - ``fred.op34``
-     - Set Fill Draw Mode: Control
-     - Set fill draw mode to Control
-     - :ref:`ref-fill-mode`
-   * - ``fred.op35``
-     - Set Fill Draw Mode: Both
-     - Set fill draw mode to Both
-     - :ref:`ref-fill-mode`
+     - **Create GP Object (Fox McCloud):** Generates the full Fox template with materials.
+   * - ``fred.op26`` - ``fred.op35``
+     - Various legacy material, brush, and modifier toggles.
+
+Advanced Configuration
+----------------------
+
+.. note::
+   The ``fred.applynoise`` operator (dialog box) remains available but is distinct 
+   from the new ``fred.op8`` (Jiggle). ``fred.applynoise`` uses the older 
+   implementation with fixed randomness ranges.
 
 .. _warnings:
 
@@ -449,7 +286,7 @@ Warnings & Known Bugs
 
 ``fred.op30``
 
-    Marked as **Crash Risk**. The code contains a syntax error in v1.0. But there's no way for the user to get to it anyway.
+    Marked as **Crash Risk**. The code contains a syntax error. But there's no way for the user to get to it anyway.
 
 ``fred.applynoise``
 
@@ -1055,3 +892,154 @@ Used by: :ref:`fred.op34 <utility-operators>`, :ref:`fred.op35 <utility-operator
     Sets the fill brush to react to control lines only, or both control lines and strokes.
 
     *Blender API:* :class:`Brush<blender_api:bpy.types.Brush>` (see ``gpencil_settings.fill_draw_mode``)
+
+
+.. _ref-native-ops-v5:
+
+**Native Blender Operations (v5.0 Additions)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*Used by: OP36, OP37, OP38, OP39, OP40, and the rewritten OP8.*
+
+**Toggle Layer Visibility (Hide)**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``layer.hide = not layer.hide``
+
+    Toggles whether a layer is visible in the viewport.
+
+    *Used by:* ``fred.op40``
+
+    *Blender API:* :py:class:`bpy.types.GPencilLayer.hide`
+
+**Set Layer Lighting**
+^^^^^^^^^^^^^^^^^^^^^^
+
+``layer.use_lights = False``
+
+    Disables scene lighting on a Grease Pencil layer, causing it 
+    to render with flat/unlit colors regardless of scene lights.
+
+    *Used by:* ``fred.op37``
+
+    *Blender API:* :py:class:`bpy.types.GPencilLayer.use_lights`
+
+**Iterate All Objects by Type**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``for obj in bpy.data.objects:if obj.type == 'GPENCIL':``
+
+    Loops through every object in the blend file and filters by type.
+    ``obj.type`` returns a string enum such as ``'GPENCIL'``, ``'MESH'``, etc.
+
+    *Used by:* ``fred.op38``
+
+    *Blender API:* :py:class:`bpy.types.BlendData.objects`, :py:class:`bpy.types.Object.type`
+
+**Iterate Screen Areas and Spaces**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``for area in context.window.screen.areas:
+    if area.type == 'VIEW_3D':
+        for space in area.spaces:
+            if space.type == 'VIEW_3D':``
+
+    Walks through all editor areas in the current window, then 
+    accesses their space data. Used to modify viewport settings 
+    that aren't exposed through a simpler API path.
+
+    *Used by:* ``fred.op39``
+
+    *Blender API:* :py:class:`bpy.types.Screen.areas`, :py:class:`bpy.types.Area.type`, :py:class:`bpy.types.SpaceView3D`
+
+**Toggle Viewport Compositor**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``space.shading.use_compositor = 'DISABLED'  # or 'ALWAYS'``
+
+    Switches the viewport compositor mode. Valid values are 
+    ``'DISABLED'``, ``'CAMERA'``, and ``'ALWAYS'``.
+
+    *Used by:* ``fred.op39``
+
+    *Blender API:* :py:class:`bpy.types.View3DShading.use_compositor`
+
+**Resize (Scale) Transform with Axis Constraint**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``bpy.ops.transform.resize(
+    value=(1, 0, 1),
+    orient_type='GLOBAL',
+    constraint_axis=(False, True, False)
+    )``
+
+    Scales the selection. Setting a component of ``value`` to ``0`` 
+    flattens that axis. ``constraint_axis`` limits the operation to 
+    specific axes.
+
+    *Used by:* ``fred.op36``
+
+    *Blender Manual:* :doc:`Resize <blender_manual:api/bpy.ops.transform.resize>`
+
+**Translate with Snap to Nearest Face**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``bpy.ops.transform.translate(
+    value=(0, 0, 0),
+    snap=True,
+    snap_elements={'FACE_NEAREST'},
+    snap_target='CLOSEST')``
+
+    Moves the selection. With ``snap=True`` and 
+    ``snap_elements={'FACE_NEAREST'}``, vertices are projected onto 
+    the nearest surface of the target mesh. A zero-value translate 
+    with snapping effectively "conforms" geometry to the surface.
+
+    *Used by:* ``fred.op36``
+
+    *Blender Manual:* :doc:`Translate <blender_manual:api/bpy.ops.transform.translate>`
+
+**Smooth Mesh Vertices**
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+``bpy.ops.mesh.vertices_smooth(factor=0.5, repeat=3)``
+
+    Averages vertex positions with their neighbors. ``factor`` 
+    controls the strength (0.0–1.0), ``repeat`` controls iterations.
+
+    .. warning::
+       This operator only works in **Mesh Edit Mode**. It will fail 
+       on Grease Pencil objects.
+
+    *Used by:* ``fred.op36``
+
+    *Blender Manual:* :doc:`Smooth Vertices <blender_manual:api/bpy.ops.mesh.vertices_smooth>`
+
+**Integer Property for Dialog Input**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``arg1: bpy.props.IntProperty(
+  name="Strength",
+  default=1,
+  min=1,
+  max=1000)``
+
+    Defines an integer property on an operator class. When used 
+    with :meth:`invoke_props_dialog`, the property appears as a 
+    slider/input field in a popup dialog before execution.
+
+    *Used by:* ``fred.op8`` (Jiggle)
+
+    *Blender API:* :py:class:`bpy.props.IntProperty`
+
+**Invoke Properties Dialog**
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``def invoke(self, context, event):return context.window_manager.invoke_props_dialog(self)``
+
+    Opens a popup dialog showing the operator's properties before 
+    running ``execute()``. The user can adjust values, then click 
+    OK to proceed. Must be defined alongside ``execute()``.
+
+    *Used by:* ``fred.op8`` (Jiggle), ``fred.applynoise``
+
+    *Blender API:* :py:meth:`bpy.types.WindowManager.invoke_props_dialog`
