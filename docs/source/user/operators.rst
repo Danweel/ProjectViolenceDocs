@@ -566,7 +566,8 @@ Used by: :ref:`fred.op4 <utility-operators>`, :ref:`fred.op5 <utility-operators>
 .. code-block:: python
 
   bpy.ops.screen.keyframe_jump(
-    next=False)`` #or ``True``
+    next=False)
+    # or ``True``
 
 *Blender API:* :func:`Keyframe Jump<blender_api:bpy.ops.screen.keyframe_jump>`
 
