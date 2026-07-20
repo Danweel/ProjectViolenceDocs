@@ -1,8 +1,7 @@
 .. _blender-basics:
 
-=========================================
 Blender Basics for Animators
-=========================================
+============================
 
 .. note::
 
@@ -48,10 +47,19 @@ Before drawing, you need to know how to move around the scene. Generally, you wi
 
 **Shading Modes:** Press ``Z`` to cycle between Wireframe, Solid, Material Preview, and Rendered. (See :doc:`Viewport Shading<blender_manual:editors/3dview/display/shading>`)
 
+.. image:: ../_static/images/navigation-gizmo.png
+   :alt: Viewport navigation gizmo
+   :scale: 100
+   :align: center
+
+*Figure 1: The multi-coloured navigation gizmo in the top-right corner. Shading modes can be seen above it.*
+
+--------------------------------------------------------------------------------
+
 .. _quick-nav-reference:
 
 Quick Navigation Reference
-===========================
+--------------------------
 
 Essential 3D Viewport navigation shortcuts for Blender.
 
@@ -70,21 +78,14 @@ Essential 3D Viewport navigation shortcuts for Blender.
 =========================== ========================================== =====================================================
 
 
-.. image:: ../_static/images/navigation-gizmo.png
-   :alt: Viewport navigation gizmo
-   :scale: 100
-   :align: center
-
-*Figure 1: The multi-coloured navigation gizmo in the top-right corner. Shading modes can be seen above it.*
-
---------------------------------------------------------------------------------
+.. _manipulating-objects:
 
 Manipulating Objects
 --------------------
 
 These are the three most important keys for :doc:`moving, rotating, and scaling<blender_manual:grease_pencil/modes/edit/tools>` objects.
 
-*   **G (Grab/Move):** Select an object, press ``G``, and move the mouse to move it. Becareful with this when the camera view is locked to a plane, use:
+*   **G (Grab/Move):** Select an object, press ``G``, and move the mouse to move it. Be careful with this when the camera view is locked to a plane, use:
 
     *   *Lock Axis:* Press ``X``, ``Y``, or ``Z`` after ``G`` to move along a specific axis.
 
@@ -92,11 +93,11 @@ These are the three most important keys for :doc:`moving, rotating, and scaling<
 
 *   **R (Rotate):** Select an object, press ``R`` and move the mouse to rotate.
 
-    *   *Lock Axis:* Press ``X``, ``Y``, or ``Z`` after ``G`` to move along a specific axis.
+    *   *Lock Axis:* Press ``X``, ``Y``, or ``Z`` after ``R`` to move along a specific axis.
 
 *   **S (Scale):** Press ``S`` and move the mouse to resize.
 
-    *   *Lock Axis:* Press ``X``, ``Y``, or ``Z`` after ``G`` to move along a specific axis.
+    *   *Lock Axis:* Press ``X``, ``Y``, or ``Z`` after ``S`` to move along a specific axis.
 
 .. tip::
 
@@ -114,8 +115,12 @@ These are the three most important keys for :doc:`moving, rotating, and scaling<
 
 *   **Reset:** Press ``Alt`` + ``G`` (Location), ``Alt`` + ``R`` (Rotation), or ``Alt`` + ``S`` (Scale) to reset to default.
 
+--------------------------------------------------------------------------------
+
+.. _object-modes:
+
 Object Modes
------------------------------
+------------
 
 Understanding the difference between modes is critical.
 
@@ -135,6 +140,8 @@ Press ``Tab`` to toggle between modes.
 *Figure 2: Location of Object Mode, Edit Mode, and Draw mode, top left*
 
 --------------------------------------------------------------------------------
+
+.. _further-learning:
 
 Further Learning
 ----------------

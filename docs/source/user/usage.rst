@@ -1,18 +1,7 @@
 .. _usage:
 
-===============================
-The Violence Tool - User Manual
-===============================
-
-.. note::
-   This documentation covers **v1.0** of the tool. A refactor is in progress that will add undo support, improved error handling, and more stability. See :doc:`versioning` for the roadmap.
-
-Quick Links
------------
-
-   * :doc:`setup` - How to install the tool
-   * :doc:`use-cases` - Technicaly instructions by workflow
-   * :doc:`troubleshooting` - Current limitations and workarounds
+Main Features
+=============
 
 .. _getting-started:
 
@@ -29,7 +18,7 @@ The tool requires a specific Grease Pencil object setup:
    <div style="margin-top: 1rem; margin-bottom: 1rem;">
      <a href="https://github.com/Danweel/ProjectViolenceDocs/releases/download/practice-files-v1/TheViolence_Practice_File_v1.blend"
         style="background-color: #1C8E85; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold; font-family: sans-serif;">
-       Download Practice File (v1.0)
+       Download Practice File (v2.0)
      </a>
      <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
        File size: ~45 MB | Format: .blend
@@ -53,7 +42,7 @@ First Steps
    * Look at the :doc:`Outliner<blender_manual:editors/outliner/introduction>` area. You should see a Grease Pencil object named "FILE PLACEHOLDER".
    * Select it.
    * Press ``N`` to open the Sidebar.
-   * Click the **Fred** tab. You should see the **LAYER SELECTOR** panel.
+   * Click the **Fred** tab. You should see the **LAYER SELECTOR** panel. (The layer selector is currently unavailable, use keybinds)
 
 3.  **Try It Out**:
 
@@ -68,6 +57,11 @@ If you are unfamiliar with Blender navigation, see :doc:`blender-basics` before 
 
 Interface Overview
 ------------------
+
+.. warning::
+
+   The **Fred** Panel is currently not implemented, you'll need to use keybinds and other interfaces for now.
+
 
 The Violence Tool :ref:`installation` adds a panel called **"Fred"** to the 3D Viewport sidebar (press **N** to toggle this sidebar's visibility).
 
@@ -117,6 +111,25 @@ When you click a layer button:
 
 Core Workflow: Drawing & Filling
 --------------------------------
+
+**Material Naming and Stroke Mode (Important)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Due to changes in Grease Pencil 3, per-material controls for toggling stroke
+and fill data have been removed. To work around this, the tool uses a
+background timer (polling 5 times/second) that automatically adjusts your
+brush mode based on the active material's name:
+
+   - Materials containing **`LINE`** in their name → Strokes Only mode
+   - All other materials → Strokes and Fills mode
+
+**Important:** Do not attempt to bypass this by setting fill color alpha to 0%.
+Invisible fills are still rendered and will progressively slow down your
+drawing as strokes grow longer and more complex.
+
+If you're creating your own materials, follow this naming convention to ensure
+the brush mode switches correctly.
+
 
 .. tip::
 
@@ -210,6 +223,11 @@ function is not on all the time.
 You have to draw slightly past the intersection point of your lines. The tool needs physical overlap to calculate the
 merge. If you go only up to the line it might not trigger; doing this can sometimes leave a microscopic gap. Make sure
 to draw 2-3 pixels over the existing line.
+
+.. admonition:: Fred's notes
+
+   You MUST hold the toggle key down BEFORE you start drawing, and you MUST wait until you lift your pen up from drawing before you let go of the key. If you let go of the press/release toggle for anything while you're still drawing or erasing a stroke, the toggle will 'hang' because Blender doesn't register press/releases in the middle of drawing a stroke.
+   If that happens and the toggle gets stuck enabled, just lift your pen and tap the toggle key once.
 
 **Visual Check**: If Automerge worked, the vertices at the junction will look like a single point. If you zoom in ``Ctrl``+ ``Middle Mouse``
 and see two distinct dots touching, the merge failed.

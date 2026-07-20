@@ -1,1065 +1,701 @@
 .. _operator-inventory:
 
-=========================================
-Operator Inventory (v1.0)
-=========================================
+Operator Inventory
+==================
 
-This page lists every custom operator provided by **The Violence Layer Manager**.
-Each operator is mapped to its function. For the specific native Blender operations
-executed by these macros, see the :ref:`blender-ref-appendix` at the bottom of this page.
+v2.0 (Blender 5.x / Grease Pencil 3)
+-------------------------------------
+
+This page lists all operators provided by **The Violence Layer Manager** v2.0. It serves as
+technical reference for developers and advanced users. Each operator is mapped to its function
+and the native Blender operations it wraps.
 
 .. note::
 
-   **v1.0 Limitations:** Some operators are marked as **Non-functional** or **Buggy**.
-   These are documented for transparency but should not be used until fixed in v2.0.
+   **Architectural Change:** v2.0 consolidates the many individually-named layer operators from v1.0
+   (e.g., ``fred.body_lines``, ``fred.sculpt1``) into a small set of **parameterized operators** that
+   accept ``layer_filter`` and ``material_filter`` string properties. This was necessary because
+   Grease Pencil 3 changed how layers and materials are referenced internally.
 
-.. _layer-switching-operators:
+.. warning::
+
+   All operators require a **Grease Pencil object** to be selected and active.
+   If no object is selected, the operator will report an error or fail silently.
+
+.. _v2-active-operators:
+
+Active Operators (v2.0)
+-----------------------
 
 Layer Switching Operators
--------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-These operators act as "macros" that perform a sequence of native actions:
-switching to Draw Mode, locking/unlocking layers, setting the brush tool,
-and assigning the correct material.
+.. list-table::
+   :widths: 30 15 55
+   :header-rows: 1
 
-**Stroke (Line) Operators**
+   * - Operator ID
+     - Undo Support
+     - Description
+   * - ``fred.grease_layer_switch``
+     - ``undo_push``
+     - Switch to specified **line** layer. Locks all other layers, sets active layer, activates Draw tool + "MY STROKE" brush, sets material via filter match, resets brush size to ``mybrushsize`` (0.004) and strength to 1.
+   * - ``fred.grease_layer_fill_switch``
+     - ``undo_push``
+     - Switch to specified **fill** layer. Locks all other layers, sets Fill tool, opens material selection menu (``VIEW3D_MT_greasepencil_material_active``). Does NOT set material automatically — user picks from popup.
+   * - ``fred.grease_layer_fill_specific_switch``
+     - ``undo_push``
+     - Switch to specified **fill** layer with a **specific material**. Same as above but sets material via filter match instead of opening the menu. **Keybind TBD — ask Fred.**
+   * - ``fred.grease_layer_sculpt_switch``
+     - ``undo_push``
+     - Unlock **both line and fill** layers for sculpting. Takes two layer filters (``layer_filter`` + ``layer2_filter``). Sets Sculpt mode, activates sculpt brush. Contains a duplicated code block with comment ``#HAS TO GO A SECOND TIME FOR WHATEVER REASON?`` — workaround for a GP3 behavior.
+
+.. note::
+
+   All four layer-switching operators share a common pattern: iterate layers, find matching name via substring filter, lock all, unlock target, set active. The code is **duplicated within each operator** (the layer-finding loop runs twice in succession). This is a workaround for a timing issue in GP3's layer activation. I believe the Blender team has been informed.
+
+Drawing & Erasing Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-These switch to the "Lines" layer for a specific body part and set the appropriate brush.
-
 .. list-table::
-   :widths: 25 25 25 25
+   :widths: 30 15 55
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.body_lines``
-     - STROKE: Body
-     - Switch to Body Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.head_lines``
-     - STROKE: Head
-     - Switch to Head Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.eyes_lines``
-     - STROKE: Eyes
-     - Switch to Eyes Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.mouth_lines``
-     - STROKE: Mouth
-     - Switch to Mouth Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.extra_lines``
-     - STROKE: Extra
-     - Switch to Extra Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.foreground_lines``
-     - STROKE: FOREGROUND
-     - Switch to Foreground Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.background_lines``
-     - STROKE: BACKGROUND
-     - Switch to Background Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.layer8_lines``
-     - STROKE: LAYER 8
-     - Switch to Layer 8 Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.layer9_lines``
-     - STROKE: LAYER 9
-     - Switch to Layer 9 Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.layer10_lines``
-     - STROKE: LAYER 10
-     - Switch to Layer 10 Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Undo Support
+     - Description
+   * - ``gpencil.draw_mode``
+     - None
+     - Switch to Paint mode, activate Draw tool, activate "MY STROKE" brush via ``brush.asset_activate``.
+   * - ``gpencil.erase_stroke``
+     - None
+     - Switch to Paint mode, activate Erase tool, activate "ERASE STROKE" brush.
+   * - ``gpencil.erase_point``
+     - None
+     - Switch to Paint mode, activate Erase tool, activate "ERASE POINT" brush.
+   * - ``gpencil.erase_all_of_selected``
+     - ``undo_push``
+     - Select linked geometry (``grease_pencil.select_linked``), delete all (``grease_pencil.delete(mode='ALL')``).
 
-**Fill Operators**
-~~~~~~~~~~~~~~~~~~
+.. note::
 
-These switch to the "Fills" layer and set the appropriate brush.
+   In Blender 5.2 LTS, the "Default Eraser" setting was removed (commit ``8c22be8d89``). The last activated
+   eraser brush is now used automatically. The tool's two eraser operators work around this by explicitly
+   activating the desired eraser brush before switching to erase mode. Also note: the Python API for
+   ``paint.eraser_brush`` and ``paint.eraser_brush_asset_reference`` has been removed in 5.2.
+
+Modal Toggle Operators
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
-   :widths: 25 25 25 25
+   :widths: 30 15 55
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.body_fills``
-     - FILL: Body
-     - Switch to Body Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.head_fills``
-     - FILL: Head
-     - Switch to Head Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.eyes_fills``
-     - FILL: Eyes
-     - Switch to Eyes Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.mouth_fills``
-     - FILL: Mouth (Mask)
-     - Switch to Mouth Mask, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.extra_fills``
-     - FILL: Extra
-     - Switch to Extra Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.foreground_fills``
-     - FILL: FOREGROUND
-     - Switch to Foreground Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.background_fills``
-     - FILL: BACKGROUND
-     - Switch to Background Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.layer8_fills``
-     - FILL: LAYER 8
-     - Switch to Layer 8 Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.layer9_fills``
-     - FILL: LAYER 9
-     - Switch to Layer 9 Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.layer10_fills``
-     - FILL: LAYER 10
-     - Switch to Layer 10 Fills, Set Fill Brush
-     - :ref:`ref-unlock-act`
+     - Undo Support
+     - Description
+   * - ``gp.auto_merge_on``
+     - None
+     - Sets ``scene.tool_settings.use_gpencil_automerge_strokes = True``. Designed for hold-to-activate keybind.
+   * - ``gp.auto_merge_off``
+     - None
+     - Sets ``scene.tool_settings.use_gpencil_automerge_strokes = False``. Designed for release keybind.
+   * - ``gp.sculpt_mode_on``
+     - None
+     - Calls ``grease_pencil.sculptmode_toggle()``. Designed for hold-to-activate keybind.
+   * - ``gp.sculpt_mode_off``
+     - None
+     - Calls ``grease_pencil.paintmode_toggle()``. Designed for release keybind.
+   * - ``gp.draw_behind_on``
+     - None
+     - Sets ``scene.tool_settings.use_gpencil_draw_onback = True``.
+   * - ``gp.draw_behind_off``
+     - None
+     - Sets ``scene.tool_settings.use_gpencil_draw_onback = False``.
 
-.. _mouth-jaw-operators:
+.. warning::
 
-Mouth & Jaw Operators
----------------------
+   Modal toggle operators have no undo support (obviously, I guess, but as a note). Toggles are instantaneous
+   state changes that don't produce discrete operations to undo. **However**, if a toggle "hangs" due to
+   Blender not registering press/release during a stroke, see :ref:`trouble-automerge-stuck`.
 
-Specialized operators for muzzle/mouth layers.
+Brush & Material Operators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
-   :widths: 25 25 25 25
+   :widths: 30 15 55
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.mouth1``
-     - MOUTH: Lines
-     - Unlock Mouth Lines, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.mouth2``
-     - MOUTH: Mask
-     - Unlock Mouth Mask, Set Fill Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.mouth3``
-     - MOUTH: Upper Jaw/Teeth
-     - Unlock Upper Teeth, Set Ink Pen
-     - :ref:`ref-unlock-act`
-   * - ``fred.mouth4``
-     - MOUTH: Lower Jaw/Teeth
-     - Unlock Lower Teeth, Set Ink Pen
-     - :ref:`ref-unlock-act`
+     - Undo Support
+     - Description
+   * - ``gp.draw_brush_strength_full``
+     - None
+     - Sets ``bpy.data.brushes["MY STROKE"].strength = 1``.
+   * - ``gp.draw_brush_strength_none``
+     - None
+     - Sets ``bpy.data.brushes["MY STROKE"].strength = 0``.
+   * - ``gp.apply_material_and_stroke``
+     - **``REGISTER, UNDO``**
+     - Applies active material to selected strokes (``grease_pencil.stroke_material_set``), sets stroke type from brush settings (``grease_pencil.set_stroke_type``). Includes error check for missing brush.
+   * - ``gp.join_and_smooth``
+     - ``undo_push``
+     - Joins selected strokes (``grease_pencil.join_selection(type='JOINSTROKES')``), smooths (``grease_pencil.stroke_smooth(iterations=10, factor=0.5)``).
 
-.. _sculpt-isolation-operators:
-
-Sculpt & Isolation Operators
-----------------------------
-
-These operators isolate specific body parts for "butterknifing" (nudging lines).
-Briefly enters **Sculpt Mode** to set the **Push Brush**, then return to **Draw Mode**.
-Unlocks appropriate layers.
+Navigation & Timeline Operators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
-   :widths: 25 25 25 25
+   :widths: 30 15 55
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.sculpt1``
-     - SCULPT: Body
-     - Unlock Body (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt2``
-     - SCULPT: Head
-     - Unlock Head (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt3``
-     - SCULPT: Eyes
-     - Unlock Eyes (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt4``
-     - SCULPT: Mouth
-     - Unlock Mouth (Lines+Mask), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt5``
-     - SCULPT: Extra
-     - Unlock Extra (Lines+Fills), Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt6``
-     - SCULPT: FOREGROUND
-     - Unlock Foreground, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt7``
-     - SCULPT: BACKGROUND
-     - Unlock Background, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt8``
-     - SCULPT: LAYER 8
-     - Unlock Layer 8, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt9``
-     - SCULPT: LAYER 9
-     - Unlock Layer 9, Set Push Brush
-     - :ref:`ref-sculpt-push`
-   * - ``fred.sculpt10``
-     - SCULPT: LAYER 10
-     - Unlock Layer 10, Set Push Brush
-     - :ref:`ref-sculpt-push`
+     - Undo Support
+     - Description
+   * - ``gp.prev_keyframe``
+     - ``undo_push``
+     - Jump to previous keyframe (``screen.keyframe_jump(next=False)``). Pushes undo so Ctrl-Z snaps back.
+   * - ``gp.next_keyframe``
+     - ``undo_push``
+     - Jump to next keyframe (``screen.keyframe_jump(next=True)``). Same undo behavior.
+   * - ``gp.prev_marker``
+     - ``undo_push``
+     - Jump to previous marker (``screen.marker_jump(next=False)``).
+   * - ``gp.next_marker``
+     - ``undo_push``
+     - Jump to next marker (``screen.marker_jump(next=True)``).
+   * - ``gp.center_timeline``
+     - None
+     - Centers timeline: ``action.view_selected()`` + ``action.view_frame()``.
 
-.. _effects-operators:
-
-Effects & FX Operators
-----------------------
-
-Specialized tools for shadows, highlights, and applying noise.
+Viewport & Overlay Operators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
-   :widths: 25 25 25 25
+   :widths: 30 15 55
    :header-rows: 1
 
    * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
+     - Undo Support
+     - Description
+   * - ``gp.toggle_fade``
+     - None
+     - Toggles ``space_data.overlay.use_gpencil_fade_layers``, forces ``show_overlays = True`` so the fade is visible.
+   * - ``scene.toggle_realtime_compositor``
+     - None
+     - Iterates screen areas, finds VIEW_3D, toggles ``shading.use_compositor`` between ``DISABLED`` and ``ALWAYS``.
+
+Background Timer (Not an Operator)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 30 15 55
+   :header-rows: 1
+
+   * - ID
+     - Type
+     - Description
+   * - ``_my_stroke_check_material``
+     - ``bpy.app.timers``
+     - Polls every 0.2 seconds (5 times/second). Checks if the active material index has changed. If so, inspects the material name: if it contains ``"LINE"`` (case-insensitive), sets ``brush.gpencil_settings.stroke_type = 'STROKE'``. If it contains ``"FILLONLY"``, sets ``stroke_type = 'FILL'``. Otherwise sets ``stroke_type = 'BOTH'``. Registered during ``register()``, unregistered during ``unregister()``.
+
+.. note::
+
+   **Why this timer exists:** Grease Pencil 3 removed per-material tickboxes for toggling strokes and fills on/off.
+   In GP Blender 4.x, you could set a material to draw strokes only, fills only, or both, per material. That capability
+   is gone — you must manually click "Stroke", "Fill", or "Both" at the top of the viewport every time you switch materials.
+
+   Fred's timer restores the old workflow: materials with ``"LINE"`` in their name automatically get stroke-only mode.
+   All other materials get both mode. Setting fill color alpha to 0% does NOT work as a workaround — invisible fills
+   are still rendered and progressively slow down drawing as strokes grow longer.
+
+Global Variables
+~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 30 15 55
+   :header-rows: 1
+
+   * - Variable
+     - Value
+     - Used By
+   * - ``mybrushsize``
+     - ``0.004``
+     - Layer switch operators (sets ``unprojected_size`` on "MY STROKE" / "MY FILL" brushes)
+   * - ``myshadowsize``
+     - ``70``
+     - **Unused** — declared but not referenced anywhere in v2.0 code. Preserved from v1.0 shadow fill operator.
+   * - ``myextrasize``
+     - ``13``
+     - **Unused** — declared but not referenced. Preserved from v1.0 extra layer operator.
+   * - ``seeder``
+     - ``1``
+     - **Unused** — declared but not referenced. Possibly intended for randomize operator (now removed).
+
+.. _deprecated-operators:
+
+Deprecated / Removed Operators (v1.0 Reference)
+------------------------------------------------
+
+These operators existed in v1.0/"Revision 5" (Blender 4.1.1) but are **not present** in the v2.0
+code. They are documented here for reference — especially for users migrating or referencing v1.0 projects.
+
+.. _removed-layer-operators:
+
+Removed: Individually-Named Layer Operators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Replaced by:** ``fred.grease_layer_switch`` (lines), ``fred.grease_layer_fill_switch`` (fills),
+``fred.grease_layer_sculpt_switch`` (sculpting).
+
+.. list-table::
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Old Operator ID
+     - v1.0 Function
+   * - ``fred.body_lines`` / ``fred.body_fills``
+     - Switch to Body line/fill layer
+   * - ``fred.head_lines`` / ``fred.head_fills``
+     - Switch to Head line/fill layer
+   * - ``fred.eyes_lines`` / ``fred.eyes_fills``
+     - Switch to Eyes line/fill layer
+   * - ``fred.mouth_lines`` / ``fred.mouth_fills``
+     - Switch to Mouth line/fill layer
+   * - ``fred.extra_lines`` / ``fred.extra_fills``
+     - Switch to Extra line/fill layer
+   * - ``fred.foreground_lines`` / ``fred.foreground_fills``
+     - Switch to Foreground line/fill layer
+   * - ``fred.background_lines`` / ``fred.background_fills``
+     - Switch to Background line/fill layer
+   * - ``fred.layer8_lines`` through ``fred.layer10_fills``
+     - Switch to Misc 8-10 layers
+   * - ``fred.sculpt1`` through ``fred.sculpt10``
+     - Isolate body part for sculpting (Lines + Fills)
+   * - ``fred.mouth1`` through ``fred.mouth4``
+     - Mouth Lines, Mask, Upper Teeth, Lower Teeth
+
+**Why removed:** Grease Pencil 3 changed how layers and materials are referenced. Maintaining
+one operator per body part required updating each individually for GP3 compatibility. The
+parameterized approach (one operator with filter strings) achieves the same result with far
+less code duplication and easier maintenance.
+
+.. _removed-effects-operators:
+
+Removed: Effects & Noise Operators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+   :widths: 30 30 40
+   :header-rows: 1
+
+   * - Old Operator ID
+     - v1.0 Function
+     - v2.0 Replacement
+   * - ``fred.op8`` (Jiggle/Randomize Small)
+     - Select random vertices, apply small noise transform via dialog
+     - **Noise Modifier** (Modifiers → Effect → Noise). Non-destructive, keyframable.
+   * - ``fred.op23`` (Randomize Large)
+     - Select random vertices, apply large noise transform
+     - **Noise Modifier** with higher Strength setting.
+   * - ``fred.op12`` (Randomize Legacy)
+     - Earlier version of randomize
+     - Same — Noise Modifier.
+   * - ``fred.applynoise`` (Dialog)
+     - Dialog box for noise application with fixed ranges
+     - **Noise Modifier** provides interactive sliders in the modifier panel.
    * - ``fred.shadowfills``
-     - FX: Shading
-     - Unlock Shadow Layer, Set Large Brush
-     - :ref:`ref-unlock-act`
-   * - ``fred.highlights1``
-     - FX: Highlights 1
-     - Unlock Highlights, Set Material
-     - :ref:`ref-unlock-act`
-   * - ``fred.highlights2``
-     - FX: Highlights 2
-     - Unlock Highlights, Set Material
-     - :ref:`ref-unlock-act`
-   * - ``fred.highlights3``
-     - FX: Highlights 3
-     - Unlock Highlights, Set Material
-     - :ref:`ref-unlock-act`
-   * - ``fred.applynoise``
-     - FRED: Apply Noise
-     - **Dialog Box**. Selects random vertices, applies noise transform.
-     - :ref:`ref-noise`
+     - Switch to Shadows layer, set brush size 70px
+     - ``fred.grease_layer_fill_switch`` with ``layer_filter="shadow"`` (if layer exists in scene)
+   * - ``fred.highlights1`` / ``fred.highlights2`` / ``fred.highlights3``
+     - Switch to Highlights layers with specific materials
+     - ``fred.grease_layer_fill_specific_switch`` with appropriate filters
 
-.. _keyframe-operators:
+**Why removed:** The Noise/jitter functionality is now available natively through Blender's
+GP3 Noise Modifier, which is non-destructive and keyframable. The old operators used
+``bpy.ops.transform.translate`` with random values — which is a "destructive" operation - i.e., once done, it can't be adjusted afterwards.
 
-Keyframe & Frame Management
----------------------------
+.. _removed-utility-operators:
 
-Operators to prepare layers for animation or duplicate frames.
+Removed: Utility Operators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
-   :widths: 25 25 25 25
+   :widths: 30 30 40
    :header-rows: 1
 
-   * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.frames1``
-     - FRAMES: Mouth & Mask
-     - Unlock Mouth & Mask layers
-     - :ref:`ref-unlock-act`
-   * - ``fred.frames2``
-     - FRAMES: Mouth, Mask, Lower Jaw
-     - Unlock Mouth, Mask, Lower Jaw
-     - :ref:`ref-unlock-act`
-   * - ``fred.addkeyframes``
-     - KEYFRAMES: Add keyframes
-     - Duplicate current frame on all unlocked layers
-     - :ref:`ref-dup-frame`
-
-.. _utility-operators:
-
-Utility & Custom Operators
---------------------------
-
-Tools for brush settings, randomization, and system toggles.
-
-.. list-table::
-   :widths: 25 25 25 25
-   :header-rows: 1
-
-   * - Operator ID
-     - UI Label
-     - Primary Action
-     - Ref Key
-   * - ``fred.op1``
-     - STROKE STRENGTH: 0%
-     - Set brush strength to 0
-     - :ref:`ref-strength`
-   * - ``fred.op2``
-     - STROKE STRENGTH: 100%
-     - Set brush strength to 1
-     - :ref:`ref-strength`
-   * - ``fred.op3``
-     - Join and Smooth Strokes
-     - Join 2 selected strokes, smooth them
-     - :ref:`ref-join-smooth`
-   * - ``fred.op4``
-     - Previous Keyframe
-     - Jump to previous keyframe
-     - :ref:`ref-keyjump`
-   * - ``fred.op5``
-     - Next Keyframe
-     - Jump to next keyframe
-     - :ref:`ref-keyjump`
-   * - ``fred.op6``
-     - Previous Marker
-     - Jump to previous marker
-     - :ref:`ref-keyjump`
-   * - ``fred.op7``
-     - Next Marker
-     - Jump to next marker
-     - :ref:`ref-keyjump`
-   * - ``fred.op8``
-     - Randomize Line Art (Small)
-     - Select random vertices, apply noise
-     - :ref:`ref-noise`
-   * - ``fred.op9``
-     - Eraser Point
-     - Set brush to "Eraser Point"
-     - :ref:`ref-eraser`
-   * - ``fred.op10``
-     - Eraser Stroke
-     - Set brush to "Eraser Stroke"
-     - :ref:`ref-eraser`
-   * - ``fred.op11``
-     - Create GP (Fox)
-     - Create new GP object with Fox materials
-     - :ref:`ref-create-gp`
-   * - ``fred.op12``
-     - Randomize Selected Vertices
-     - Select random vertices, apply noise
-     - :ref:`ref-noise`
-   * - ``fred.op13``
-     - Lock Non-Character Layers
-     - Lock all, then unlock character layers
-     - :ref:`ref-lock-all`
-   * - ``fred.op14``
-     - ALL MOUTH LAYERS
-     - Unlock all mouth-related layers
-     - :ref:`ref-unlock-act`
-   * - ``fred.op15``
-     - **NON-FUNCTIONAL**
-     - **Bug:** Code incomplete. Does nothing.
-     - N/A
-   * - ``fred.op16``
-     - Enable Automerge
-     - Enable automerge strokes
-     - :ref:`ref-automerge`
-   * - ``fred.op17``
-     - Disable Automerge
-     - Disable automerge strokes
-     - :ref:`ref-automerge`
-   * - ``fred.op18``
-     - Toggle Fade Inactive Layers
-     - Toggle fade layers overlay
-     - :ref:`ref-overlay`
-   * - ``fred.op19``
-     - Toggle Onion Skins
-     - Toggle onion skin overlay
-     - :ref:`ref-overlay`
-   * - ``fred.op20``
-     - Remove All Vertex Paints
-     - Clear vertex colors on all GP objects
-     - :ref:`ref-clear-vc`
-   * - ``fred.op21``
-     - Enable Draw on Back
-     - Enable draw on back
-     - :ref:`ref-draw-back`
-   * - ``fred.op22``
-     - Disable Draw on Back
-     - Disable draw on back
-     - :ref:`ref-draw-back`
-   * - ``fred.op23``
-     - Randomize Line Art (Large)
-     - Select random vertices, apply large noise
-     - :ref:`ref-noise`
-   * - ``fred.op24``
-     - Smooth Stroke
-     - Smooth selected stroke
-     - :ref:`ref-smooth`
-   * - ``fred.op25``
-     - Create GP (Fox McCloud)
-     - Create full Fox rig
-     - :ref:`ref-create-gp`
-   * - ``fred.op26``
-     - Set Active Material
-     - Set active material
-     - :ref:`ref-mat-set`
-   * - ``fred.op27``
-     - View Selected Frame
-     - View selected frame
-     - :ref:`ref-view-frame`
-   * - ``fred.op28``
-     - Set Brush "01 PEN"
-     - Set brush to "01 PEN"
-     - :ref:`ref-brush-set`
-   * - ``fred.op29``
-     - Set Brush "01 PEN STRENGTH P"
-     - Set brush to "01 PEN STRENGTH P"
-     - :ref:`ref-brush-set`
-   * - ``fred.op30``
-     - **CRASH RISK**
-     - **Bug:** Syntax error. Do not use.
-     - N/A
-   * - ``fred.op31``
-     - Toggle GP Material Visible
-     - Toggle material visibility
-     - :ref:`ref-mat-vis`
-   * - ``fred.op32``
-     - Reveal Material
-     - Reveal material
-     - :ref:`ref-mat-reveal`
-   * - ``fred.op33``
-     - Hide All Fills
-     - Hide all fill layers
-     - :ref:`ref-hide-fills`
-   * - ``fred.op34``
-     - Set Fill Draw Mode: Control
-     - Set fill draw mode to Control
-     - :ref:`ref-fill-mode`
-   * - ``fred.op35``
-     - Set Fill Draw Mode: Both
-     - Set fill draw mode to Both
-     - :ref:`ref-fill-mode`
-
-.. _warnings:
-
-Warnings & Known Bugs
-----------------------
-
-``fred.op15``
-
-    Marked as **Non-functional** in the code. It currently only pushes an undo message.
-
-    - *Intended:* Unlock and clear Mouth/Head frames via hotkey (Ctrl+Alt+Shift+4).
-
-    - *Bug:* The code fails to make invisible layers visible before unlocking them. (V1.0)
-
-    - *Workaround:* Manually ensure layers are visible and unlocked in the Outliner.
-
-``fred.op30``
-
-    Marked as **Crash Risk**. The code contains a syntax error in v1.0. But there's no way for the user to get to it anyway.
-
-``fred.applynoise``
-
-    This is a **Dialog Box** operator. It will open the dialog window rather than perform the operation. (This is fine, but a hotkey assigned to it won't technically perform an operation, is all.)
+   * - Old Operator ID
+     - v1.0 Function
+     - v2.0 Replacement
+   * - ``fred.op19`` (Toggle Onion Skins)
+     - Toggle ``space_data.overlay.use_gpencil_onion_skin``
+     - **Native Overlay toggle:** Overlays button → check Onion Skinning. Per-layer via eye icon.
+   * - ``fred.op20`` (Clear Vertex Paints)
+     - Iterate all GP objects, set ``vertex_color = [0,0,0,0]`` on all points
+     - **Native:** Object Data Properties → Vertex Colors → click X. Or Vertex Paint mode → Clear brush.
+   * - ``fred.op24`` (Smooth Stroke standalone)
+     - ``bpy.ops.gpencil.stroke_smooth(repeat=2, factor=0.5)``
+     - **Native:** Edit Mode → F3 → "stroke smooth". Or ``gp.join_and_smooth`` (Alt-F).
+   * - ``fred.op11`` (Create blank GP)
+     - Create new GP object "ART_FOX" with one layer/material
+     - **Removed.** Use Fred's provided scene files.
+   * - ``fred.op13`` (Lock non-character)
+     - ``bpy.ops.gpencil.lock_all()``
+     - Manual lock in Outliner.
+   * - ``fred.op14`` / ``fred.op15``
+     - Unlock mouth/head layers
+     - ``fred.grease_layer_sculpt_switch`` with appropriate filters.
+   * - ``fred.op25`` (Create GP Fox)
+     - Generate full Fox template with materials
+     - **Removed.** Use provided scene files.
+   * - ``fred.op26`` through ``fred.op35``
+     - Various legacy material/brush/modifier toggles
+     - Mix of ``gp.apply_material_and_stroke`` and native Blender operations.
+   * - ``fred.op36`` (Retopo Helper)
+     - Flatten Y-axis, smooth, snap to face
+     - **Removed.** Experimental, not for production use.
+   * - ``fred.op37`` (Disable Lights)
+     - Set ``layer.use_lights = False``
+     - Manual toggle in layer properties.
+   * - ``fred.op38`` (Bulk GP action)
+     - Loop all GP objects (placeholder)
+     - **Removed.** Never performed an actual action.
+   * - ``fred.op39`` (Toggle Compositor)
+     - Toggle ``shading.use_compositor``
+     - **Renamed** to ``scene.toggle_realtime_compositor`` — still exists in v2.0.
+   * - ``fred.op40`` (Toggle Layer Hide)
+     - Toggle ``layer.hide``
+     - Manual toggle in Outliner.
 
 .. _blender-ref-appendix:
 
-Technical Appendix: Native Blender Operations
-----------------------------------------------
+Technical Appendix: Native Blender Operations (v2.0)
+-----------------------------------------------------
 
-This section details the specific native Blender operations used by the operators above.
-Click the **Ref Key** in the tables to jump to the relevant section here.
+This section documents the specific native Blender API calls used by the v2.0 operators.
+Updated for the Grease Pencil 3 API paths (Blender 5.1/5.2 LTS).
+
+.. _ref-mode-set:
+
+**Mode Switching**
+~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+
+   bpy.ops.object.mode_set(mode='PAINT_GREASE_PENCIL')
+   bpy.ops.object.mode_set(mode='SCULPT_GREASE_PENCIL')
+
+*Blender API:* :func:`mode_set <blender_api:bpy.ops.object.mode_set>`
 
 .. note::
 
-   **API Links:** Links prefixed with *Blender API:* point to the **Blender API Reference**.
-   If a link targets a class, navigate to the specific attribute mentioned in parentheses (e.g., see ``active``).
+   **GP3 API Change:** The mode enums changed from ``PAINT_GPENCIL`` / ``SCULPT_GPENCIL`` (GP2?)
+   to ``PAINT_GREASE_PENCIL`` / ``SCULPT_GREASE_PENCIL`` (GP3). This was one of the core
+   breaking changes that necessitated a v2.0 of the tool.
 
-   **Blender Manual Links:** Links prefixed with *Blender Manual:* point to the **User Manual** for Blender's explanation of its use.
-
-.. _ref-unlock-act:
-
-**Unlock & Activate Layer**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`All Layer Switching <layer-switching-operators>`, :ref:`Mouth <mouth-jaw-operators>`, :ref:`Jaw <mouth-jaw-operators>`, :ref:`Effects <effects-operators>`, :ref:`Keyframe operators <keyframe-operators>`
-
-**Unlock Layer**
-
-``bpy.ops.wm.context_toggle(data_path="object.data.layers['" + layer_name + "'].lock")``
-
-    *Blender API:* :func:`Layer Unlock<blender_api:bpy.ops.wm.context_toggle>`
-
-    *Blender Manual:* :doc:`Layers<blender_manual:grease_pencil/properties/layers>` (see ``#Layers List - Lock``)
-
-    Applies a toggle to the lock state of a specific layer.
-
+.. _ref-layer-active:
 
 **Set Active Layer**
-^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~
 
-``bpy.context.active_object.data.layers.active = bpy.context.active_object.data.layers[layer_name]``
+.. code-block:: python
 
-    *Blender API:* :class:`GreasePencil<blender_api:bpy.types.GreasePencil>` (see ``layers.active``)
+   gp = bpy.context.active_object.data
+   index = gp.layers.find(target_layer_name)
+   if index != -1:
+       bpy.ops.grease_pencil.layer_active(layer=index)
 
-    *Blender Manual:* :doc:`Set Active Layer<blender_manual:grease_pencil/modes/edit/grease_pencil_menu>` (see ``#Active Layer``)
+*Blender API:* :func:`layer_active <blender_api:bpy.ops.grease_pencil.layer_active>`
 
-    When the code runs bpy.context.active_object.data.layers.active = ..., it is doing three specific things simultaneously:
+.. note::
 
-1. 'Setting' the "Target" for drawing: In Blender, you can have 18 layers, but you can only draw on one at a time.
+   **GP3 API Change:** In GP2, layers were set active via ``gp.layers.active = gp.layers[name]``.
+   In GP3, this is done via the ``grease_pencil.layer_active`` operator with an index parameter.
+   The tool searches by substring match (``layer_filter in layer.name``) rather than exact name
+   to accommodate naming variations across projects.
 
-2. Chages the visual (UI) focus:
-
-    Outliner: The layer name in the Outliner (the list on the right) becomes highlighted.
-    Properties Panel: The "Layer" tab in the sidebar updates to show the settings (opacity, lock status, color) for that specific layer.
-
-3. Context for Other Operations:
-
-    Many other Blender operations (like "Delete," "Duplicate," or "Lock") operate on the enitre active layer by default if no specific selection is made.
-
-Fred's use case: "I want to lock all layers except the one I'm working on." The tool does this by unlocking the active one and locking the rest.
-
+.. _ref-tool-set:
 
 **Set Brush Tool**
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
-``bpy.ops.wm.tool_set_by_id(name='builtin_brush.Draw')`` and ``name='builtin_brush.Fill'``
+.. code-block:: python
 
-    *Blender API:* :func:`Set Tool by ID<blender_api:bpy.ops.wm.tool_set_by_id>` (see ``name``)
+   bpy.ops.wm.tool_set_by_id(name="builtin.brush")       # Draw tool (v2.0)
+   bpy.ops.wm.tool_set_by_id(name="builtin_brush.Draw")  # Draw tool (alternate)
+   bpy.ops.wm.tool_set_by_id(name="builtin_brush.Fill")  # Fill tool
+   bpy.ops.wm.tool_set_by_id(name="builtin_brush.Erase") # Erase tool
 
-    *Blender Manual:* :doc:`Brush Settings<blender_manual:grease_pencil/modes/draw/tools/draw>` (see ``#Selecting-a-brush-and-material``)
+*Blender API:* :func:`tool_set_by_id <blender_api:bpy.ops.wm.tool_set_by_id>`
 
-    Switches the active brush tool to either Fill or Brush, depending on the layer selected.
+.. note::
 
-**Set Brush Size**
-^^^^^^^^^^^^^^^^^^
+   **GP3 API Change:** Tool IDs changed slightly between GP2 and GP3. ``builtin_brush.Draw``
+   was the GP2 draw tool ID; in some GP3 contexts ``builtin.brush`` is used instead. The v2.0
+   code uses ``builtin.brush`` for sculpt mode and ``builtin_brush.Draw`` for paint mode,
+   suggesting the correct ID depends on context. **Test which works in 5.2 LTS specifically.**
 
-``bpy.context.tool_settings.gpencil_paint.brush.size = 13``
+.. _ref-brush-activate:
 
-    *Blender API:* In 4.1 :class:`Brush<blender_api:bpy.types.Brush>` (see ``gpencil_settings.pen_size``)
-
-    *Blender Manual:* :doc:`Brush Settings<blender_manual:grease_pencil/modes/draw/tools/draw>`
-
-    Sets the brush radius to one specified by the layer materials.
-
-**Set Brush Strength**
-^^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.context.tool_settings.gpencil_paint.brush.gpencil_settings.pen_strength = 1``
-
-    *Blender API:* :class:`Brush<blender_api:bpy.types.Brush>` (see ``gpencil_settings.pen_strength``)
-
-    *Blender Manual:* :doc:`Brush Settings<blender_manual:grease_pencil/modes/draw/tools/draw>`
-
-    Sets the stroke opacity/strength to the one specified by the layer materials.
-
-**Set Material Active**
-^^^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.material_set(slot=m.name)``
-
-    *Blender API:* :func:`Set Material<blender_api:bpy.ops.gpencil.material_set>`
-
-    *Blender Manual:* :doc:`Materials<blender_manual:grease_pencil/materials/properties>`
-
-    Assigns the layer's material to the active stroke/layer. (I think?)
-
-.. _ref-sculpt-push:
-
-**Sculpt Mode & Push Brush**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`All Sculpt Isolation operators <sculpt-isolation-operators>`
-
-**Enter Sculpt Mode**
-^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.object.mode_set(mode='SCULPT_GPENCIL')``
-
-    *Blender API:* :func:`Mode Set<blender_api:bpy.ops.object.mode_set>`
-
-    *Blender Manual:* :doc:`Sculpt Mode<blender_manual:grease_pencil/modes/sculpting/introduction>`
-
-    Switches to Sculpt Mode.
-
-**Set Push Brush**
-^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.wm.tool_set_by_id(name='builtin_brush.Push')``
-
-    *Blender API:* :func:`Set Tool by ID<blender_api:bpy.ops.wm.tool_set_by_id>`
-
-    *Blender Manual:* :doc:`Sculpt Mode<blender_manual:grease_pencil/modes/sculpting/tool_settings/brush>`
-
-    Sets the active brush to "Push" (used for "butterknifing").
-
-**Return to Draw Mode**
-^^^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.object.mode_set(mode='PAINT_GPENCIL')``
-
-    *Blender API:* :func:`Mode Set<blender_api:bpy.ops.object.mode_set>`
-
-    *Blender Manual:* :doc:`Draw Mode<blender_manual:grease_pencil/modes/draw/introduction>`
-
-    Returns to Draw Mode.
-
-.. _ref-noise:
-
-**Select Random & Apply Noise**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Used by: :ref:`fred.applynoise <effects-operators>`, :ref:`fred.op8 <utility-operators>`, :ref:`fred.op12 <utility-operators>`, :ref:`fred.op23 <utility-operators>`
-
-**Select All**
-^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.select_all(action='SELECT')``
-
-    *Blender API:* :func:`Select All<blender_api:bpy.ops.gpencil.select_all>`
-
-    *Blender Manual:* :doc:`Selecting Strokes<blender_manual:grease_pencil/selecting>`
-
-    Selects all vertices on unlocked layers.
-
-**Deselect Random**
-^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.select_random(ratio=0.995, action='DESELECT', ...)``
-
-    *Blender API:* :func:`Select Random<blender_api:bpy.ops.gpencil.select_random>`
-
-    *Blender Manual:* :doc:`Random Selection<blender_manual:grease_pencil/selecting>`
-
-    Selects everything, then randomly deselects 99.5%, leaving 0.5% selected.
-
-**Apply Noise (Translate)**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.transform.translate(value=(mynoisex, mynoisey, 0), ...)``
-
-    *Blender API:* :func:`Translate<blender_api:bpy.ops.transform.translate>`
-
-    *Blender Manual:* :doc:`Array Modifier<blender_manual:grease_pencil/modifiers/generate/array>`
-
-    Moves selected vertices randomly.
-
-**Apply Thickness (via Shrinkfatten)**
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.transform.transform(mode='GPENCIL_SHRINKFATTEN', ...)``
-
-    *Blender API:* :func:`Transform<blender_api:bpy.ops.transform.transform>`
-
-    *Blender Manual:* :doc:`Build Modifier<blender_manual:grease_pencil/modifiers/generate/build>`
-
-    Changes stroke thickness.
-
-.. _ref-dup-frame:
-
-**Duplicate Frame**
-~~~~~~~~~~~~~~~~~~~
-Used by: :ref:`fred.addkeyframes <keyframe-operators>`
-
-**Duplicate Frame**
-^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.frame_duplicate(mode='ALL')``
-
-    *Blender API:* :func:`Duplicate Frame<blender_api:bpy.ops.gpencil.frame_duplicate>`
-
-    *Blender Manual:* :doc:`Duplicating Frames<blender_manual:grease_pencil/animation/tools>` (see ``#Duplicate Active Keyframe (All Layers)``)
-
-    Duplicates the current frame on all unlocked layers.
-
-.. _ref-strength:
-
-**Set Brush Strength**
-~~~~~~~~~~~~~~~~~~~~~~
-Used by: :ref:`fred.op1 <utility-operators>`, :ref:`fred.op2 <utility-operators>`
-
-**Set Brush Strength**
-^^^^^^^^^^^^^^^^^^^^^^
-
-``bpy.context.tool_settings.gpencil_paint.brush.gpencil_settings.pen_strength = 0`` (or ``1``)
-
-    *Blender API:* Blender 4.1 :class:`Brush<blender_api:bpy.types.Brush>` (see ``gpencil_settings.pen_strength``)
-
-    *Blender Manual:* :doc:`Brush Strength<blender_manual:sculpt_paint/brush/brush_settings>` (see #Strength)
-
-    Sets the stroke opacity/strength to 0% or 100%.
-
-.. _ref-join-smooth:
-
-**Join & Smooth Strokes**
-~~~~~~~~~~~~~~~~~~~~~~~~~
-Used by: :ref:`fred.op3 <utility-operators>`, :ref:`fred.op24 <utility-operators>`
-
-**Join Strokes**
-^^^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.stroke_join(type='JOIN')``
-
-    *Blender API:* :func:`Join Strokes<blender_api:bpy.ops.gpencil.stroke_join>`
-
-    *Blender Manual:* :doc:`Joining Strokes<blender_manual:grease_pencil/modes/edit/stroke_menu>` (see #join)
-
-    Joins two selected strokes into one.
-
-**Smooth Strokes**
-^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.stroke_smooth(repeat=10, factor=0.5, ...)``
-
-    *Blender Manual:* :doc:`Smoothing Strokes<blender_manual:grease_pencil/modes/edit/point_menu>` (see #smooth)
-
-    Smooths the position and thickness of selected strokes.
-
-    *Blender API:* :func:`Smooth Strokes<blender_api:bpy.ops.gpencil.stroke_smooth>`
-
-.. _ref-keyjump:
-
-**Jump Keyframe/Marker**
+**Activate Brush Asset**
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Used by: :ref:`fred.op4 <utility-operators>`, :ref:`fred.op5 <utility-operators>`, :ref:`fred.op6 <utility-operators>`, :ref:`fred.op7 <utility-operators>`
+.. code-block:: python
 
-**Jump Keyframe**
-^^^^^^^^^^^^^^^^^
+   bpy.ops.brush.asset_activate(
+       asset_library_type='LOCAL',
+       relative_asset_identifier="Brush/MY STROKE"
+   )
 
-``bpy.ops.screen.keyframe_jump(next=False)`` (or ``True``)
+*Blender API:* :func:`asset_activate <blender_api:bpy.ops.brush.asset_activate>`
 
-    *Blender Manual:* :doc:`Markers<blender_manual:editors/dope_sheet/introduction>` (see #selecting keyframes)
+.. note::
 
-    Jumps the playhead to the previous or next keyframe.
+   **GP3 API Change:** In GP2, brushes were set via ``bpy.context.scene.tool_settings.gpencil_paint.brush = bpy.data.brushes["NAME"]``.
+   In GP3 with Blender 5.x, brushes are managed as **assets** and must be activated via
+   ``brush.asset_activate`` with a ``relative_asset_identifier``. This is a significant change
+   in the brush management system.
 
-    *Blender API:* :func:`Keyframe Jump<blender_api:bpy.ops.screen.keyframe_jump>`
+   However, some parts of the v2.0 code still use the old direct-access pattern:
+   ``bpy.data.brushes["MY STROKE"].strength = 1``. This hybrid approach works because
+   the brush data-block still exists even when the asset system is used for activation.
 
-**Jump Marker**
-^^^^^^^^^^^^^^^
-
-``bpy.ops.screen.marker_jump(next=False)`` (or ``True``)
-
-    *Blender Manual:* :doc:`Markers<blender_manual:animation/markers>`
-
-    Jumps the playhead to the previous or next marker.
-
-    *Blender API:* :func:`Marker Jump<blender_api:bpy.ops.screen.marker_jump>` (see #Jump to next/previous marker)
-
-.. _ref-eraser:
-
-**Set Eraser Brush**
-~~~~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op9 <utility-operators>`, :ref:`fred.op10 <utility-operators>`
-
-``bpy.context.scene.tool_settings.gpencil_paint.brush = bpy.data.brushes["Eraser Point"]``
-
-    *Blender Manual:* :doc:`Eraser Brushes<blender_manual:grease_pencil/modes/draw/tools/erase>` (see #Point Erasing, #Stroke Erasing)
-
-    Sets the active brush to "Eraser Point" or "Eraser Stroke".
-
-    *Blender API:* :class:`Brush<blender_api:bpy.types.Brush>`
-
-.. _ref-create-gp:
-
-**Create GP Object**
-~~~~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op11 <utility-operators>`, :ref:`fred.op25 <utility-operators>`
-
-**Create Data**
-^^^^^^^^^^^^^^^
-
-``bpy.data.grease_pencils.new("ANIM_FOX")``
-
-    *Blender Manual:* :doc:`Creating Grease Pencil Objects<blender_manual:render/materials/assignment>` (see #Data Block)
-
-    Creates a new Grease Pencil data-block.
-
-    *Blender API:* :class:`GreasePencil<blender_api:bpy.types.GreasePencil>`
-
-**Create Object**
-^^^^^^^^^^^^^^^^^
-
-``bpy.data.objects.new("GP_FOX", gp_data)``
-
-    *Blender Manual:* :doc:`Creating Grease Pencil Objects<blender_manual:grease_pencil/primitives>` (see #Sroke)
-
-    Creates a new object using the GP data-block.
-
-    *Blender API:* :class:`Object<blender_api:bpy.types.Object>`
-
-**Create Material**
-^^^^^^^^^^^^^^^^^^^
-
-``bpy.data.materials.new("1 I LINE")``
-
-    *Blender Manual:* :doc:`Materials<blender_manual:grease_pencil/materials/introduction>` (see #Setting Up Materials)
-
-    Creates a new material with Grease Pencil properties.
-
-    *Blender API:* :class:`Material<blender_api:bpy.types.Material>`
-
-.. _ref-lock-all:
-
-**Lock All Layers**
-~~~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op13 <utility-operators>`
-
-**Lock All**
-^^^^^^^^^^^^
-
-``bpy.ops.gpencil.lock_all()``
-
-    *Blender Manual:* :doc:`Layers<blender_manual:grease_pencil/properties/layers>` (see ``#Layer Specials - Lock All``)
-
-    Locks all Grease Pencil layers at once.
-
-    *Blender API:* :func:`Lock All<blender_api:bpy.ops.gpencil.lock_all>`
-
-.. _ref-automerge:
+.. _ref-automerge-v2:
 
 **Toggle Automerge**
 ~~~~~~~~~~~~~~~~~~~~
 
-Used by: :ref:`fred.op16 <utility-operators>`, :ref:`fred.op17 <utility-operators>`
+.. code-block:: python
 
-**Set Automerge**
-^^^^^^^^^^^^^^^^^
+   context.scene.tool_settings.use_gpencil_automerge_strokes = True  # or False
 
-``bpy.ops.wm.context_set_value(data_path='scene.tool_settings.use_gpencil_automerge_strokes', value='True')``
+*Blender API:* :class:`ToolSettings <blender_api:bpy.types.ToolSettings>` (see ``use_gpencil_automerge_strokes``)
 
-    *Blender Manual:* :doc:`Automerge<blender_manual:grease_pencil/modes/draw/introduction>` (see #Drawing Options, Automerge)
+.. note::
 
-    Enables or disables automerge toggle for stroke endpoints.
+   **GP3 API Change:** In v1.0, this was done via ``bpy.ops.wm.context_set_value(data_path=..., value=...)``
+   with string arguments. The v2.0 code accesses the property directly, which is cleaner and
+   avoids string-based data path lookups.
 
-    *Blender API:* :class:`ToolSettings<blender_api:bpy.types.ToolSettings>`
+.. _ref-delete-v2:
 
-.. _ref-overlay:
+**Delete All Connected**
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Toggle Overlay**
-~~~~~~~~~~~~~~~~~~
+.. code-block:: python
 
-Used by: :ref:`fred.op18 <utility-operators>`, :ref:`fred.op19 <utility-operators>`
+   if bpy.ops.grease_pencil.select_linked.poll():
+       bpy.ops.grease_pencil.select_linked()
+   bpy.ops.grease_pencil.delete(mode='ALL')
 
-**Toggle Fade Layers**
-^^^^^^^^^^^^^^^^^^^^^^
+*Blender API:* :func:`select_linked <blender_api:bpy.ops.grease_pencil.select_linked>`,
+:func:`delete <blender_api:bpy.ops.grease_pencil.delete>`
 
-``bpy.ops.wm.context_toggle(data_path="space_data.overlay.use_gpencil_fade_layers")``
+.. note::
 
-    *Blender Manual:* :doc:`Fading Layers<blender_manual:grease_pencil/properties/layers>` (See ``Visibililty``)
+   **GP3 API Change:** The ``grease_pencil`` namespace replaced the old ``gpencil`` namespace
+   for most operators. ``bpy.ops.gpencil.select_linked`` → ``bpy.ops.grease_pencil.select_linked``.
 
-    Fades layers that are not currently active.
+.. _ref-join-smooth-v2:
 
-    *Blender API:* :class:`SpaceView3D<blender_api:bpy.types.SpaceView3D>`
+**Join & Smooth Strokes**
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Toggle Onion Skins**
-^^^^^^^^^^^^^^^^^^^^^^
+.. code-block:: python
 
-``bpy.ops.wm.context_toggle(data_path="space_data.overlay.use_gpencil_onion_skin")``
+   bpy.ops.grease_pencil.join_selection(type='JOINSTROKES')
+   bpy.ops.grease_pencil.stroke_smooth(iterations=10, factor=0.5)
 
-    *Blender Manual:* :doc:`Onion Skinning<blender_manual:grease_pencil/properties/onion_skinning>` (See ``#Display - Fade``)
+*Blender API:* :func:`join_selection <blender_api:bpy.ops.grease_pencil.join_selection>`,
+:func:`stroke_smooth <blender_api:bpy.ops.grease_pencil.stroke_smooth>`
 
-    Toggles onion skin visibility for adjacent frames.
+.. note::
 
-    *Blender API:* :class:`SpaceView3D<blender_api:bpy.types.SpaceView3D>`
+   **GP3 API Change:** Parameters changed: ``repeat`` → ``iterations``, ``factor`` retained.
+   Namespace changed from ``gpencil`` to ``grease_pencil``.
 
-.. _ref-clear-vc:
+.. _ref-keyframe-v2:
 
-**Clear Vertex Colors**
-~~~~~~~~~~~~~~~~~~~~~~~
+**Keyframe / Marker Jump**
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Used by: :ref:`fred.op20 <utility-operators>`
+.. code-block:: python
 
-**Iterate GP Objects**
-^^^^^^^^^^^^^^^^^^^^^^
+   bpy.ops.screen.keyframe_jump(next=False)  # or True
+   bpy.ops.screen.marker_jump(next=False)    # or True
 
-``for gp in bpy.data.grease_pencils:``
+*Blender API:* :func:`keyframe_jump <blender_api:bpy.ops.screen.keyframe_jump>`,
+:func:`marker_jump <blender_api:bpy.ops.screen.marker_jump>`
 
-    *Blender Manual:* :doc:`Selecting First/Last<blender_manual:grease_pencil/selecting>`
+.. note::
 
-    Iterates through all Grease Pencil data-blocks in the file.
+   These are standard Blender operators, unchanged between GP2 and GP3. The tool wraps them
+   to add ``undo_push()`` calls so timeline navigation appears in the undo stack.
 
-    *Blender API:* :class:`GreasePencil<blender_api:bpy.types.GreasePencil>`
+.. _ref-material-set-v2:
 
-**Clear Vertex Color**
-^^^^^^^^^^^^^^^^^^^^^^
-
-``point.vertex_color = [0.0, 0.0, 0.0, 0.0]``
-
-    *Blender Manual:* :doc:`Vertex Colors<blender_manual:grease_pencil/modes/vertex_paint/editing>` (see #Reset Vertex Color)
-
-    Resets vertex color data to transparent black on all strokes and points.
-
-    *Blender API:* :class:`GPencilStrokePoint<blender_api:bpy.types.GPencilStrokePoint>`
-
-.. _ref-draw-back:
-
-**Toggle Draw on Back**
-~~~~~~~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op21 <utility-operators>`, :ref:`fred.op22 <utility-operators>`
-
-**Set Draw on Back**
-^^^^^^^^^^^^^^^^^^^^
-
-``bpy.ops.wm.context_set_value(data_path='scene.tool_settings.use_gpencil_draw_onback', value='True')``
-
-    *Blender Manual:* :doc:`Draw on Back<blender_manual:grease_pencil/modes/draw/introduction>` (see #Drawing Options, Draw-on-back)
-
-    Enables or disables drawing strokes behind existing geometry.
-
-    *Blender API:* :class:`ToolSettings<blender_api:bpy.types.ToolSettings>`
-
-.. _ref-smooth:
-
-**Smooth Stroke**
-~~~~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op24 <utility-operators>`
-
-**Smooth**
-^^^^^^^^^^
-
-``bpy.ops.gpencil.stroke_smooth(repeat=2, factor=0.5, ...)``
-
-    *Blender Manual:* :doc:`Smoothing Strokes<blender_manual:grease_pencil/modes/edit/point_menu>` (see #Smooth)
-
-    Smooths the position, thickness, and strength of selected strokes.
-
-    *Blender API:* :func:`Smooth Strokes<blender_api:bpy.ops.gpencil.stroke_smooth>`
-
-.. _ref-mat-set:
-
-**Set Material**
-~~~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op26 <utility-operators>`
-
-**Set Material**
-^^^^^^^^^^^^^^^^
-
-``bpy.ops.gpencil.material_set(mat)``
-
-    *Blender Manual:* :doc:`Materials<blender_manual:grease_pencil/materials/introduction>`
-
-    Assigns the active material to selected strokes.
-
-    *Blender API:* :func:`Set Material<blender_api:bpy.ops.gpencil.material_set>`
-
-.. _ref-view-frame:
-
-**View Frame**
-~~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op27 <utility-operators>`
-
-``bpy.ops.action.view_selected()``
-
-    *Blender Manual:* :doc:`View Frame<blender_manual:editors/dope_sheet/introduction>` (see #Frame Selected, Numpad `.`)
-    Zooms the Dope Sheet to show selected keyframes.
-
-    *Blender API:* :func:`View Selected<blender_api:bpy.ops.action.view_selected>`
-
-**View Frame**
-^^^^^^^^^^^^^^
-
-``bpy.ops.action.view_frame()``
-
-    *Blender Manual:* :doc:`View Frame<blender_manual:editors/dope_sheet/introduction>` (see #Go to Current Frame, Numpad `0`)
-
-    Centers the Dope Sheet on the current frame.
-
-    *Blender API:* :func:`View Frame<blender_api:bpy.ops.action.view_frame>`
-
-.. _ref-brush-set:
-
-**Set Brush**
-~~~~~~~~~~~~~
-
-Used by: :ref:`fred.op28 <utility-operators>`, :ref:`fred.op29 <utility-operators>`
-
-**Set Brush**
-^^^^^^^^^^^^^
-
-``bpy.context.scene.tool_settings.gpencil_paint.brush = bpy.data.brushes["01 PEN"]``
-
-    *Blender Manual:* :doc:`Data Block Menu<blender_manual:grease_pencil/modes/draw/tool_settings/brushes>`
-
-    Sets the active brush to a named brush preset.
-
-    *Blender API:* :class:`Brush<blender_api:bpy.types.Brush>`
-
-.. _ref-mat-vis:
-
-**Toggle Material Visibility**
+**Set Active Material Index**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Used by: :ref:`fred.op31 <utility-operators>`
+.. code-block:: python
 
-**Toggle Visibility**
-^^^^^^^^^^^^^^^^^^^^^
+   for i, slot in enumerate(bpy.context.active_object.material_slots):
+       if material_filter in slot.name:
+           bpy.context.active_object.active_material_index = i
+           break
 
-``obj.hide = True`` (or ``False``)
+*Blender API:* :class:`Object <blender_api:bpy.types.Object>` (see ``active_material_index``)
 
-    *Blender Manual:* :doc:`Materials<blender_manual:grease_pencil/materials/introduction>` (see Common Settings, Viewport/Render Visibility)
+.. note::
 
-    Toggles the visibility of the active Grease Pencil material.
+   **GP3 API Change:** In v1.0, materials were set via ``bpy.ops.gpencil.material_set(slot=slot.name)``.
+   In v2.0, the code iterates material slots directly and sets ``active_material_index``. This
+   avoids the ``material_set`` operator which may have changed behavior in GP3.
 
-    *Blender API:* :class:`MaterialGPencilStyle<blender_api:bpy.types.MaterialGPencilStyle>`
+.. _ref-compositor-v2:
 
-.. _ref-mat-reveal:
+**Toggle Viewport Compositor**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Reveal Material**
-~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
 
-Used by: :ref:`fred.op32 <utility-operators>`
+   for area in context.screen.areas:
+       if area.type == 'VIEW_3D':
+           shading = area.spaces.active.shading
+           if shading.use_compositor == 'ALWAYS':
+               shading.use_compositor = 'DISABLED'
+           else:
+               shading.use_compositor = 'ALWAYS'
+           break
 
-**Reveal**
-^^^^^^^^^^
+*Blender API:* :class:`View3DShading <blender_api:bpy.types.View3DShading>` (see ``use_compositor``)
 
-``bpy.ops.gpencil.material_reveal()``
+Valid values: ``'DISABLED'``, ``'CAMERA'``, ``'ALWAYS'``.
 
-    *Blender Manual:* :doc:`Materials<blender_manual:grease_pencil/materials/introduction>`
+.. _ref-timer-v2:
 
-    Makes all Grease Pencil materials visible.
+**Background Timer (Material Stroke Check)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    *Blender API:* :func:`Reveal Material<blender_api:bpy.ops.gpencil.material_reveal>`
+.. code-block:: python
 
-.. _ref-hide-fills:
+   _my_stroke_last_index = None
 
-**Hide All Fills**
-~~~~~~~~~~~~~~~~~~
+   def _my_stroke_check_material():
+       global _my_stroke_last_index
+       obj = bpy.context.object
+       if obj and obj.type == 'GREASEPENCIL':
+           index = obj.active_material_index
+           if index != _my_stroke_last_index:
+               _my_stroke_last_index = index
+               mat = obj.active_material
+               brush = bpy.data.brushes.get("MY STROKE")
+               if brush and mat:
+                   if "LINE" in mat.name.upper():
+                       brush.gpencil_settings.stroke_type = 'STROKE'
+                   elif "FILLONLY" in mat.name.upper():
+                       brush.gpencil_settings.stroke_type = 'FILL'
+                   else:
+                       brush.gpencil_settings.stroke_type = 'BOTH'
+       return 0.2
 
-Used by: :ref:`fred.op33 <utility-operators>`
+   # Registration:
+   bpy.app.timers.register(_my_stroke_check_material)
 
-**Toggle Modifier**
-^^^^^^^^^^^^^^^^^^^
+*Blender API:* :class:`app.timers <blender_api:bpy.app.timers>`
 
-``bpy.ops.wm.context_toggle(data_path="object.grease_pencil_modifiers['HIDE ALL FILLS'].show_viewport")``
+.. note::
 
-    *Blender Manual:* :doc:`Viewport Visibility<blender_manual:grease_pencil/properties/layers>`
+   The return value of ``0.2`` is the interval in seconds until the next call (5 times/second).
+   The timer checks whether the active material index has changed since the last poll, avoiding
+   unnecessary brush updates on every tick.
 
-    Toggles the viewport visibility of the "HIDE ALL FILLS" modifier.
+   **GP3 context:** This timer exists because Grease Pencil 3 removed per-material stroke/fill
+   toggle controls. Without it, artists must manually click "Stroke" or "Both" at the top of
+   the viewport every time they switch between line art and fill materials. The timer automates
+   this based on material name conventions.
 
-    *Blender API:* :class:`Modifier<blender_api:bpy.types.Modifier>` (see ``show_viewport``)
+   **5.2 LTS note:** The ``gpencil_settings.stroke_type`` property and ``brush.gpencil_settings``
+   access pattern remain valid in 5.2. The new ``fill_id`` property on strokes (added in 5.2)
+   is a separate system — it controls which fill belongs to which stroke at the data level, while
+   the timer controls which *mode* the brush is in when drawing. They are complementary, not
+   conflicting.
 
-.. _ref-fill-mode:
+.. _ref-blender-52-changes:
 
-**Set Fill Draw Mode**
-~~~~~~~~~~~~~~~~~~~~~~
+Blender 5.2 LTS — Grease Pencil Changes (Developer Reference)
+--------------------------------------------------------------
 
-Used by: :ref:`fred.op34 <utility-operators>`, :ref:`fred.op35 <utility-operators>`
+Blender 5.2 LTS was released July 14, 2026, with LTS support until July 2028. The following
+Grease Pencil changes are relevant to The Violence Tool v2.0:
 
-**Set Mode**
-^^^^^^^^^^^^
+**Breaking Changes:**
 
-``bpy.data.brushes["Fill Area"].gpencil_settings.fill_draw_mode = 'CONTROL'`` (or ``'BOTH'``)
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
 
-    *Blender Manual:* :doc:`Fill Draw Mode<blender_manual:grease_pencil/modes/draw/tool_settings/brushes>` (See #Fill Brushes)
+   * - Change
+     - Impact on Violence Tool
+   * - ``paint.eraser_brush`` and ``paint.eraser_brush_asset_reference`` API removed (``8c22be8d89``)
+     - The tool's eraser operators use ``brush.asset_activate`` instead — not affected by this removal. However, any code referencing ``paint.eraser_brush`` directly would need updating.
+   * - "Default Eraser" setting removed — last activated eraser brush is now used
+     - The tool's two eraser operators (``gpencil.erase_stroke`` / ``gpencil.erase_point``) explicitly activate the desired eraser brush before switching modes, so this change is **compatible** with the tool's approach.
 
-    Sets the fill brush to react to control lines only, or both control lines and strokes.
+**New Features (potential future use):**
 
-    *Blender API:* :class:`Brush<blender_api:bpy.types.Brush>` (see ``gpencil_settings.fill_draw_mode``)
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Feature
+     - Potential Tool Integration
+   * - **Delaunay fill algorithm** — new default, with automatic gap detection, inverse filling, zoom independence, faster performance
+     - Fill workflow may behave differently. Test whether ``fred.grease_layer_fill_switch`` results change with the new algorithm. The old flood-fill is still available under Advanced settings.
+   * - **``fill_id`` and ``hide_stroke`` properties** on strokes in the Python API (``2c7b705658``)
+     - ``fill_id`` allows per-stroke fill assignment. Could eventually replace the material-name-based timer approach if integrated. ``hide_stroke`` could replace visibility toggle operators.
+   * - **``layer.layer_masks.add`` / ``layer.layer_masks.remove``** functions (``7ff9668c49``)
+     - Could be used for programmatic mask layer management if the tool ever needs to create/modify masks dynamically.
+   * - **Line material placement settings** (Count, Density, Radius) for Dots/Squares — generated at render time
+     - If the tool's materials use Dots or Squares rendering, performance may improve significantly. No code change needed — this is automatic.
+   * - **New curve type setting** in Draw Tool (Bézier, Catmull-Rom, NURBS)
+     - Strokes created with the tool will use this setting. If specific curve types are needed for line art, the tool may want to set this programmatically in the future.
+   * - **New "Fill Strokes" option in Line Art** — generated strokes can carry fill material
+     - Relevant if the tool integrates with Blender's Line Art system. Currently the tool does its own line art, so no immediate impact.
+   * - **Vertex Paint blend modes** added (matching mesh vertex paint)
+     - If the tool ever reintroduces vertex paint operations, these new blend modes would be available.
+
+**Quality of Life:**
+
+.. list-table::
+   :widths: 40 60
+   :header-rows: 1
+
+   * - Change
+     - Notes
+   * - "Move to Layer" operator shows layer groups as menus/submenus matching tree structure
+     - Helps with manual layer organization. The tool's parameterized operators bypass this UI, but users managing layers manually benefit.
+   * - ``Shift + L`` deselects fully-selected strokes
+     - Useful for editing workflows with the tool.
+   * - Eraser uses last activated eraser brush (no more "Default Eraser" setting)
+     - Aligns with tool's approach of explicitly setting eraser brushes per operator.
+   * - New bundled Grease Pencil brushes + 19 new online brushes by Blender Studio artists
+     - Tool uses custom brushes ("MY STROKE", "MY FILL", "ERASE STROKE", "ERASE POINT") — bundled brushes are irrelevant unless the tool is adapted to use them.
+   * - **Playback Loop modes** added (Infinite, Stop at End/Start, Restore Frame, Bounce)
+     - Useful for animators reviewing their work. Not tool-specific.
+
+**Migration Notes for 5.2 LTS:**
+
+   1. The tool's ``bl_info`` declares ``"blender": (5, 1, 2)``. This is compatible with 5.2 LTS
+      since 5.2 is a superset of 5.1's API. No changes needed for 5.2 compatibility — but the
+      version number should be bumped to ``(5, 2, 0)`` or ``(2, 0)`` for the tool's own version.
+   2. The ``brush.asset_activate`` API used by the tool was introduced in 5.0 and remains
+      stable in 5.2.
+   3. The ``grease_pencil`` namespace operators used by the tool (``layer_active``,
+      ``select_linked``, ``delete``, ``join_selection``, ``stroke_smooth``,
+      ``stroke_material_set``, ``set_stroke_type``, ``sculptmode_toggle``,
+      ``paintmode_toggle``) are all present in 5.2 LTS.
+   4. The ``bpy.app.timers`` API used by the material-check timer is unchanged in 5.2.
+   5. **Asset files must be re-saved** when upgrading from 5.1 to 5.2 (same as the 5.0→5.1
+      migration). Practice files and scene files may need to be opened and re-saved in 5.2
+      to ensure compatibility.

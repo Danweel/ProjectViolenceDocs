@@ -4,7 +4,7 @@ Troubleshooting & Known Issues
 ==============================
 
 This page documents current limitations, common problems, and workarounds
-for The Violence Tool (v1.0).
+for The Violence Tool 2.0.
 
 If you are stuck in the middle of a workflow, check the **Inline Tips** in the :ref:`Use Cases <use-cases>` first (find the workflow you're in, and check where the problem is). If you have a describable problem, you can try
 finding your symptom below.
@@ -30,14 +30,23 @@ Drawing & Strokes
 **My strokes are invisible.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Cause:** The "Black Stroke" material slot is missing, unassigned, or the brush is set to "Fill".
+- **Cause:** The active material is set to "Fill" only mode, or the brush stroke mode doesn't match the material type.
 
 **Fix:**
 
-       1. Go to **Material Properties** (Red Ball icon).
-       2. Ensure a material named "Black Stroke" exists in a slot.
-       3. Click the material, ensure **Stroke** is checked (not Fill), and color is Black.
-       4. In the **Tool** tab (N-panel), ensure the brush is set to **Ink Pen**.
+       1. Check the material name in the Material Properties (Red Ball icon).
+       2. If it contains **"LINE"**, the tool should automatically set stroke-only mode.
+       3. If it contains **"FILLONLY"**, the tool will set fill-only mode.
+       4. For all other materials, both modes are enabled by default.
+       5. If strokes still appear invisible, ensure you're drawing on the correct layer
+          (visible Eye icon in the Outliner).
+
+.. note::
+
+   In Grease Pencil 3, per-material stroke/fill toggles were removed. The Violence Tool
+   uses a background timer to detect material name changes and automatically adjust
+   the brush stroke mode. Do not attempt to use alpha=0% fills as a workaround —
+   invisible fills still render and will degrade performance over time.
 
 **The fill tool says "Unable to Fill".**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -52,17 +61,6 @@ Drawing & Strokes
             2. Create a **new material** with the *background* color (e.g., White).
             3. Use the Fill tool with the new material to "punch out" the hole.
 
-**Strokes look soft, faded, or blurry.**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- **Cause:** The brush is not set to **Ink Pen** with **Hardness 1.0**.
-
-**Fix:**
-
-       1. Press **N** to open the sidebar.
-       2. Go to the **Tool** tab.
-       3. Under **Stroke**, change the pencil type to **Ink Pen**.
-       4. Set **Hardness** to **1.0**.
 
 **I can't draw on a new Grease Pencil object.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -90,10 +88,50 @@ If the problem persists, manually select the correct layer in the Grease Pencil 
 
 --------------------------------------------------------------------------------
 
-.. _trouble-materials:
+.. _trouble-automerge-stuck:
+
+Automerge Toggle Gets "Stuck" Enabled or Disabled
+--------------------------------------------------
+
+**Symptom:** Automerge stays on (or off) even after you release the ``A`` key. The toggle seems frozen.
+
+**Cause:** Blender does not register key press/release events while a stroke is actively being drawn. If you press or release ``A`` mid-stroke, the event is missed and the toggle hangs.
+
+**Fix:**
+
+   1. Lift your pen off the tablet (stop drawing)
+   2. Tap ``A`` once to reset the toggle state
+   3. Resume drawing
+
+**Prevention:**
+
+   * Always hold ``A`` **before** starting a stroke
+   * Always release ``A`` **after** lifting your pen from the tablet
+   * Never press or release any modal toggle key while a stroke is in progress
+
+.. note::
+
+   This applies to all hold-to-activate keys in The Violence Tool, including
+   ``Alt`` (sculpt mode) and ``A`` (automerge). The same Blender limitation
+   affects both.
+
+-----------------------------------------------------------------------------------
 
 Materials & Colors
 ------------------
+
+**Performance Degradation (Invisible Fills)**
+
+Drawing slows progressively as strokes grow longer.
+
+- **Cause:** Invisible fills (alpha 0% fill color) are still rendered in
+  Grease Pencil 3. These invisible shapes accumulate performance cost.
+
+**Fix:**
+      Use materials with "LINE" in the name to draw stroke-only
+      data. Do not attempt to hide fills via alpha transparency.
+
+.. _trouble-materials:
 
 **Materials look wrong after switching layers.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -198,8 +236,6 @@ Dope Sheet & Keyframes
 **The "Add Keyframes" button doesn't work.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Cause:** This may be related to the Operator #15 issue (inactive operator).
-
 **Fix:** Use Blender's standard keyframe shortcuts instead:
 
     1. Move to the desired frame on the timeline.
@@ -223,6 +259,14 @@ Dope Sheet & Keyframes
 Installation & Setup
 --------------------
 
+**Tool throws an error when trying to install**
+
+- **Cause:** The script may need to be named "TheViolenceLayerManager.py"
+
+**Fix:** Rename the file manually. If you're keeping track of multiple versions, place them in differently named folders.
+
+Make sure you've uninstalled the previous version.
+
 **The "Fred" tab doesn't appear in the sidebar.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -240,11 +284,13 @@ If it still doesn't appear, check the Blender System Console (`Window → Toggle
 
 - **Cause:** Blender version incompatibility.
 
-**Fix:** Ensure you are using **Blender 4.1.1**. Other versions may have incompatible API changes.
+**Fix:** Ensure you are using **Blender 5.1 or 5.2 LTS**. Other versions may have
+incompatible API changes.
 
 .. warning::
 
-   The tool uses Grease Pencil APIs introduced in Blender 4.1+.
+   The tool uses Grease Pencil 3 APIs introduced in Blender 4.3+ and finalized in 5.x.
+   It will not work with Blender 4.1.1 or earlier.
 
 **The script overwrites my custom changes.**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -273,46 +319,51 @@ These are common Blender issues that you might encounter.
 
 .. _trouble-known-issues:
 
-Known Issues for v1.0
+Known Issues for v2.0
 ---------------------
 
-The following are known limitations in the current version. These are being addressed in v2.0.
+The following are known limitations in the current version.
 
-**Operator #15 ("New/Clear Mouth Frames")**
+**Panel UI Not Implemented**
 
-   - Not functional, not showing in panel.
+   - The Fred Panel tab in the N-sidebar is not implemented in v2.0.
+   - All workflow is driven by keyboard shortcuts instead.
 
-   *Workaround:* Use standard Blender keyframe shortcuts (`I` → **Duplicate Active Keyframe**).
+   *Workaround:* Use the keybinds documented in :doc:`keybindings`. Panel UI
+   may be added in v2.1.
 
-**Operator #30 ("Hide & Exit")**
+**Limited Undo Support**
 
-   - Not functional, not showing in panel.
+   - Some tool actions (layer switching, modal toggles) use `undo_push()` instead
+     of `bl_options = {'REGISTER', 'UNDO'}`, so undo granularity may vary.
+   - ``gp.apply_material_and_stroke`` has full undo support.
 
-   *Workaround:* Manually hide layers in the Outliner instead.
+   *Workaround:* Save frequently before using tool operations. Most operators
+   push an undo step anyway, so basic reversal is possible.
 
-**Limited Undo**
+**No Error Feedback on Failed Operators**
 
-   - Some tool actions cannot be undone with ``Ctrl+Z``.
+   - Clicking layer keybinds without a Grease Pencil object selected does nothing
+     — no warning or message appears.
 
-   *Workaround:* Save frequently before using tool operations.
+   *Workaround:* Always select a Grease Pencil object first. If a keybind fails,
+   check the System Console for error messages.
 
-**No Error Feedback**
+**Hidden Layers Can't Be Edited**
 
-   - Clicking buttons without a GP object selected does nothing — no warning or message.
+   - Layers hidden in the Outliner (Eye icon off) are skipped by the tool,
+     even if unlocked.
 
-   *Workaround:* Always select a Grease Pencil object first.
+   *Workaround:* Make layers visible before attempting to edit them. The tool
+   does not automatically toggle Outliner visibility.
 
-**Hidden layers can't be edited**
+**Brush Size May Not Update**
 
-   - Layers hidden in the Outliner are skipped by the tool.
+   - Brush size may not reset to the expected default after switching layers,
+     especially if manually overridden.
 
-   *Workaround:* Make layers visible before attempting to edit them.
-
-**Brush size may not update**
-
-   - Brush size may not match expected layer defaults after switching.
-
-   *Workaround:* Check the Toolbar (left side of 3D Viewport) and adjust manually.
+   *Workaround:* Check the Toolbar (left side of 3D Viewport) and adjust
+   the Radius slider manually. This is a known GP3 timing issue.
 
 --------------------------------------------------------------------------------
 
@@ -330,12 +381,3 @@ If you encounter a problem not listed here:
    - Steps to reproduce
    - Any error messages from the console
 
-.. _future-improvements:
-
-Future Improvements
--------------------
-
-The following issues are (theoretically) planned to be resolved in future versions:
-
-*   **v2.0:** Integrated undo support, user error messages, known issues fixes, developer API.
-*   **v3.0:** Character switching, materials setup.

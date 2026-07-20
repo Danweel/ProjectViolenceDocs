@@ -85,4 +85,4 @@ This project follows a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, 
 | **General Questions** | [GitHub Discussions](https://github.com/Danweel/ProjectViolenceDocs/discussions) |
 | **Plugin Access** | Contact Fred via [Patreon](https://www.patreon.com/AFoxInSpace) or the Fox in Space Discord. |
 
-*Last updated: April 2026*
+*Last updated: May 20 2026*

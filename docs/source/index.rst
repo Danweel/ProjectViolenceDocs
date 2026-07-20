@@ -1,17 +1,31 @@
 .. _index:
 
-=========================================
 The Violence Tool - User Documentation
 =========================================
 
 Welcome to documentation for **The Violence Tool**, a Grease Pencil layer management system designed for 2D animation workflows in Blender.
 
 .. note::
-   **Version:** This documentation covers **v1.0** of the tool.
+   **Version:** This documentation covers **v2.0** of the tool, updated for
+   compatibility with Blender 5.x and Grease Pencil 3.
 
-   Docs for 1.0 of the tool will **always** be available alongside any new builds with versioning provided by the Read the Docs infrastructure. This will allow you to view the correct docs for the version of the tool that you prefer using. For example, Blender's own docs run on the same system.
+   Docs for previous versions of the tool are available using the version
+   selector in the bottom-left corner of this page. Right now, v1.0
+   documentation can be found by selecting "Stable" and covers the original
+   workflow for Blender 4.1.1 if still preferred.
 
-   See :doc:`user/versioning` for the roadmap.
+   See :doc:`user/versioning` for the full roadmap and version comparison.
+
+.. warning::
+
+   **v2.0 Documentation — In Progress**
+
+   This documentation is being updated for The Violence Tool v2.0. Some
+   content may still reflect v1.0 workflows and has not yet been audited
+   against the v2.0 codebase. If something doesn't match what you see in
+   Blender, please report it at:
+   <https://github.com/Danweel/ProjectViolenceDocs/issues>
+   or in the GreasePencil channel on Discord (which is faster if you have access).
 
 Quick Start
 -----------
@@ -20,7 +34,7 @@ Quick Start
 
 2. **Ready to Install?** Follow the :doc:`user/setup` guide to get the tool running.
 
-3. **Ready Start Animating?** Learn the esablished workflow in :doc:`user/usage`.
+3. **Ready to Start Animating?** Learn the established workflow in :doc:`user/usage`.
 
 .. toctree::
    :maxdepth: 2
@@ -34,6 +48,7 @@ Quick Start
    user/troubleshooting
    user/operators
    user/versioning
+   user/tests
 
 ---
 
