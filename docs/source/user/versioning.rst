@@ -9,9 +9,11 @@ i.e. Pre and Post- Grease Pencil 3.
 Please ensure you are using the documentation that matches your installed release:
 
 Stable = Documentation aimed primarily at "Revisions 5", the newest version of the tool for Blender 4.1.1.
-Latest = Documentation for the Tool aimed at compatibility with Grease Pencil 3 as it evolved post- Blender 5 and for Blender 5.2 LTS. (may work with 5.1 as well)
+Latest = Documentation for the Tool aimed at compatability with Grease Pencil 3 as it evolved post- Blender 5 and for Blender 5.2 LTS. (may work with 5.1 as well)
 
-Dan says: I haven't figured out yet how to rename these labels to something more sensible, bear with that, thanks!
+.. admonition:: Dan's Note
+
+   I haven't figured out yet how to rename these labels to something more sensible, bear with that, thanks!
 
 .. warning::
 
@@ -80,9 +82,11 @@ How to Switch Documentation Versions
 
 This site currently hosts **Release 5** (for 4.1.1) documentation and **v2.0** development in anticipation 5.2 LTS.
 
-Minor improvements to 2.0 will be noted in this version of the docs. 3.0 will appear if significant changes 
+Minor improvements to 2.0 will be noted in this version of the docs. 3.0 will appear if significant changes
 are made to Blender's Grease Pencil and the tool receives **significant** workflow and/or internal changes.
 
 A version selector is in the bottom-left corner of this page, allowing you to switch between documentation for different versions of the tool.
 
 Until then, please use the **"Stable"** documentation if you are using Blender 4.1.1 version of the tool and **"Latest"** if you are using Blender 5/Grease Pencil 3.
+
+See the site's repo for a detailed CHANGELOG.md.

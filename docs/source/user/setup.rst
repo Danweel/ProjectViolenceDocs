@@ -3,58 +3,24 @@
 Installation & Setup
 ====================
 
-.. _prerequisites:
-
-Prerequisites
--------------
-
-* **Blender 5.2 LTS or 5.1** (required — other versions will cause compatibility issues)
-* A Grease Pencil object already created in your scene (typically provided by Fred with pre-set layers and keyframes)
-* A **monitor tablet** with pressure sensitivity is recommended but not required
-* **Discord**: To get access to the file for now, updates, and the community for help.
-
 .. note::
 
-   You don't need to 'install' the tool on files that are already set up by
-   Fred (such as inbetween or test files). However, when a revision comes
-   out, you may want to update, in which case you'll need to re-run the
-   script as described below.
+   **This guide covers The Violence Tool v2.0 for Blender 5.1.2 (or testing 5.2)**
+   If you're using Blender 4.1.1, see the "Stable" documentation version instead.
+   You can switch between versions in the lower right corner.
 
---------------------------------------------------------------------------------
+Before installing, verify your environment:
 
-.. _requirements-warnings:
-
-Requirements & Warnings
------------------------
-
-.. important::
-
-   The Violence Layer Manager is designed for a specific Grease Pencil
-   workflow. It will **not work** with arbitrary GP objects.
-
-   This Grease Pencil Object must have:
-
-   1. **Multi-layer format** — Layers named and organized according to the Violence Tool convention (Body, Head, Eyes, Mouth, etc.)
-
-   2. **Material slot setup** — The ``1234/QWER/ASDF`` material slot configuration
-
-   3. **Blender 5.2 LTS or 5.1** — The add-on now uses GPencil conventions introduced in Blender 4.3 and finalized in 5.0+.
-
-**If your object doesn't match this format:**
-
-   - The layer switching operators will fail (silently, as of now)
-   - The panel buttons won't select the correct layers, or possibly any
-   - You may see errors in the Blender console, or, it could fail silently depending on the issue.
-   - If you're getting trouble like this on one of Fred's files, report it right away in the GreasePencil channel.
-
---------------------------------------------------------------------------------
+   * **Blender Version**: 5.1 or 5.2 LTS (Grease Pencil 3 required)
+   * **Download**: Fred's Grease Pencil Layer Manager (v2.0) py script as a plugin
+   * **Also**: Rex's Keymap.py file to import to keybinds in preferences.
 
 .. _getting-the-tool:
 
-Getting the Tool
-----------------
+Getting these files
+-------------------
 
-The Violence Tool is currently distributed exclusively through **Fred's Discord server**.
+The Violence Tool and supporting files are currently distributed exclusively through **Fred's Discord server**.
 
    1. **Join the Server:** If you haven't already, join the Discord community linked on the project homepage.
    2. **Ask for access to the Grease Pencil channel:** Resources and the py file are pinned to the channel.
@@ -66,118 +32,145 @@ The Violence Tool is currently distributed exclusively through **Fred's Discord 
    Access is restricted to the Discord community for early testing and workflow development.
    If you are not a member, please contact Fred directly to request an invitation. We're friendly!
 
+.. _prerequisites:
+
+Prerequisites
+-------------
+
+* **Blender 5.2 LTS or 5.1** (required — other versions will cause compatibility issues)
+* A Grease Pencil object already created in your scene (typically provided by Fred with pre-set layers and keyframes)
+* A **monitor tablet** with pressure sensitivity is recommended but not required
+* **Discord**: To get access to the file for now, updates, and the community for help.
+
+*Advanced Prerequisites* for a _blank_ file can be found in :doc:`/user/troubleshooting`.
+You'll almost always have this set up for you in advance when working on AFIS.
+
 --------------------------------------------------------------------------------
 
-.. _installation:
+.. _install-addon:
 
-Installing the Tool
--------------------
+Installing the Addon
+--------------------
 
-There are two ways to install The Violence Tool, as a plugin, or running it through the Text Editor.
+**Step 1: Open Addons Preferences**
 
-Method 1: Run from the Text Editor (Quick Start)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   1. Launch Blender
+   2. Go to **Edit → Preferences**
+   3. Select the **Add-ons** tab
 
-The script runs directly in Blender's Text Editor. But you'll have to load it each time, and its operators won't be available for keybinds.
+**Step 2: Install the Script**
 
-Step 1: Open the Text Editor
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   1. Click the **Install...** button (top-right)
+   2. Navigate to where you downloaded ``fredlayermanager.py``
+   3. Select it and click **Open**
+   4. Find the addon in the list (search: "Fred")
+   5. **Enable the checkbox** next to it
 
-   1. In Blender, switch any window to the **Text Editor** (click the editor type icon in the top-left corner and select "Text Editor").
+**Step 3: Verify Installation**
 
-.. image:: ../_static/images/text-editor-location.png
-   :alt: Text Editor location in Blender
-   :width: 400
-   :align: center
-
-*Figure 1: Switch a window to the Text Editor*
-
-Step 2: Load the Script
-^^^^^^^^^^^^^^^^^^^^^^^
-
-   1. Click **Open** in the Text Editor toolbar.
-   2. Navigate to the ``.py`` file for The Violence Tool.
-   3. Select the file and click **Open**.
-
-Alternatively, you can drag and drop the ``.py`` file directly into the Text Editor window.
-
-.. image:: ../_static/images/script-loaded.png
-   :alt: Script loaded in Text Editor
-   :width: 600
-   :align: center
-
-*Figure 2: The script loaded in the Text Editor*
-
-Step 3: Run the Script
-^^^^^^^^^^^^^^^^^^^^^^
-
-   1. Click the **Play Button** (▶️) at the top of the Text Editor toolbar.
-
-.. image:: ../_static/images/play-button.png
-   :alt: Play button in Text Editor
-   :width: 400
-   :align: center
-
-*Figure 3: Click the Play button to run the script*
+   * Open the **Text Editor** workspace
+   * You should see ``fredlayermanager.py`` loaded
+   * Check the **System Console** (Window → Toggle System Console) for any errors
 
 .. warning::
 
-   Running the script will overwrite any unsaved changes to the script
-   file. Always save your modifications before running.
+   **The addon must be enabled every time Blender starts.** While Blender saves addon preferences,
+   some users report the addon needs re-enabling after updates.
+
+   **Persistent timer issue:** See :ref:`known-issue-timer-addon` if stroke mode switching doesn't work automatically.
 
 --------------------------------------------------------------------------------
 
-Method 2: Install as a Blender Add-on (Recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _install-keymap:
 
-This method installs the tool permanently so it loads every time you open Blender, via the N menu.
+Importing the Keymap
+--------------------
 
-Step 1: Save the Script
-^^^^^^^^^^^^^^^^^^^^^^^
+**Crucial Step** — The addon does NOT include keybinds by default. You must import Rex's keymap manually.
 
-Save the ``TheViolenceLayerManager.py`` file (or however it's currently named), to a location on your computer. 
+**Step 1: Locate the Keymap File**
 
+   * Download ``REX_keymap_rev1.py`` from the Discord #GreasePencil channel
+   * Expected size: ~15 KB
 
-Step 2: Install via Preferences
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+**Step 2: Import in Keymap Preferences**
 
-   1. In Blender, go to **Edit** → **Preferences**.
-   2. Click the **Add-ons** tab.
-   3. Click the **Install...** button (top left).
-   4. Navigate to your saved ``.py`` file and select it.
+   1. In Preferences, switch to the **Keymap** tab
+   2. Click the **Import** button (near the search bar)
+   3. Select ``REX_keymap_rev1.py``
+   4. Click **Import Keymap File**
 
-Step 3: Enable the Add-on
-^^^^^^^^^^^^^^^^^^^^^^^^^
+**Step 3: Verify Keybinds Loaded**
 
-   1. Find "The Violence: Grease Pencil Layer Manager" in the list (or search for "Violence").
-   2. **Check the box** to enable it.
-   3. Click **Save Preferences** (bottom left) to ensure it loads on startup.
+   1. Search for ``fred.grease_layer_switch`` in the search bar
+   2. Expand the entry — you should see multiple bindings (Shift+0–9, Ctrl+1–4, etc.)
+   3. If nothing appears, the import failed
 
-Verifying Installation
-~~~~~~~~~~~~~~~~~~~~~~
+**Step 4: Save Preferences**
 
-**The Fred Tab is currently not implemented in this version**
+   * Click **Save Preferences** at the bottom-left of the Preferences window
 
-Regardless of which method you chose:
+.. warning::
 
-   1. Switch to the **3D Viewport**.
-   2. Press **N** to open the sidebar (if not already visible).
-   3. Look for the **"Fred"** tab.
+   **If you close Blender without clicking "Save Preferences," all keybind changes are lost.**
+   This is the #1 cause of "my keybinds stopped working" complaints.
 
-.. image:: ../_static/images/fred-tab-appears.png
-   :alt: Fred tab in the sidebar
-   :width: 300
-   :align: center
+--------------------------------------------------------------------------------
 
-*Figure 4: The "Fred" tab appears in the sidebar*
+.. _verifying-setup:
 
-If you see the panel with layer buttons, the installation was successful!
+Verifying Your Setup
+--------------------
+
+**Test 1: Layer Switching**
+
+   1. Open any .blend file with a Grease Pencil object
+   2. Select the GP object
+   3. Press **Shift+1** — you should instantly switch to Layer 1 and Draw Mode
+   4. Press **Shift+Alt+1** — you should switch to Fill Layer 1 and see a material popup
+
+**Test 2: Timer Auto-Switch**
+
+   1. Draw a stroke with a "LINE" material
+   2. Switch to a material WITHOUT "LINE" in the name
+   3. The brush should automatically change stroke type (Stroke → Fill → Both)
+   4. If it doesn't, see :ref:`known-issue-timer-addon`
+
+**Test 3: Modal Toggles**
+
+   1. In Draw Mode, press and hold **A** (Auto-Merge)
+   2. Start drawing — strokes should snap together
+   3. Release A while NOT drawing — toggle should turn off
+   4. If toggle hangs, see :ref:`trouble-modal-toggles`
+
+**Test 4: Erase Keys**
+
+   1. Press **E** (tap once) — should switch to point eraser
+   2. Press **E** (hold down) — should switch to stroke eraser
+   3. Release — should remain on point eraser
+   4. Tap E again — should cycle back to stroke eraser
 
 .. note::
 
-   The Fred Panel is **not yet implemented** in v2.0. To verify the tool is running,
+   If you're looking for the 1.0/4.1.1 Fred Panel, it is **not yet implemented** in v2.0. To verify the tool is running,
    press ``F3`` and search for one of the tool's operators (e.g., ``gpencil.draw_mode``).
-   If it appears in the search results, the tool is installed and active.
+   If it appears in the search results, the tool is installed and active, or the above.
+
+--------------------------------------------------------------------------------
+
+.. _configuring:
+
+Configuring Keybindings
+-----------------------
+
+For optimal workflow, we highly recommend configuring specific keyboard shortcuts. See :doc:`keybindings` for detailed setup instructions on:
+
+   - Holding **Alt** to nudge lines while drawing (often referred to as 'sculpt'ing lines)
+   - Using **F** to change sculpt radius
+   - Quick-switching between Draw, Erase, Sculpt, and Fill modes with single keys
+   - Toggling "Fade Inactive Layers"
+
+And everything else!
 
 --------------------------------------------------------------------------------
 
@@ -200,28 +193,112 @@ When a new version of the script is released:
 
 If you receive an error, try changing the name to TheViolenceLayerManager.py.
 
+.. _first-file:
+
+Opening Your First File
+------------------------
+
+**Using the Practice File**
+
+The practice file (``TheViolence_Practice_File_v2.blend``) comes with:
+
+   * All brushes pre-installed
+   * Correct layer structure
+   * Material slots configured
+   * Test character ready to animate
+
+Steps:
+
+   1. Download the practice file from releases
+   2. Open it in Blender
+   3. Ensure addon is enabled (Edit → Preferences → Add-ons)
+   4. **If stroke mode auto-switching doesn't work**, see below
+
+**Timer Issue on File Load**
+
+.. warning::
+
+   **If you switch materials but the stroke mode doesn't auto-update (still draws fills when it should draw strokes)**,
+   the background timer didn't initialize.
+
+   **Immediate fix:**
+
+      1. Open the **Text Editor** workspace
+      2. Find ``fredlayermanager.py`` in the dropdown
+      3. Click the **▶ Play** button
+
+   The timer should now run, and material switching will work automatically.
+
+   This is a known bug. See :ref:`known-issue-timer-addon` for permanent workarounds and future fixes.
+
+**Creating a New File from Scratch**
+
+If you want to start fresh:
+
+   1. Create a new Grease Pencil object
+   2. Add layers following the naming pattern above
+   3. Add materials in the correct slot order
+   4. Assign the four required brushes
+   5. Save the file as a template for future projects
+
+Alternatively, start from the practice file and delete James's layers to get a blank slate with everything configured.
+
+See :doc:`/user/troubleshooting` for detailed instructions on what the Fred tool requires in a document.
+
 --------------------------------------------------------------------------------
 
-.. _configuring:
+.. _preferences-save:
 
-Configuring Keybindings
------------------------
+Saving Preferences
+------------------
 
-For optimal workflow, we highly recommend configuring specific keyboard shortcuts. See :doc:`keybindings` for detailed setup instructions on:
+After completing the setup:
 
-   - Holding **Alt** to nudge lines while drawing (often referred to as 'sculpt'ing lines)
-   - Using **F** to change sculpt radius
-   - Quick-switching between Draw, Erase, Sculpt, and Fill modes with single keys
-   - Toggling "Fade Inactive Layers"
+   1. **Save Preferences** in Add-ons tab
+   2. **Save Preferences** in Keymap tab
+   3. **Save your .blend file** with all brushes and materials
 
-And others!
+**Create a Template (.blend file)**
 
-.. tip::
+   1. With everything configured, go to **File → Defaults → Save Startup File**
+   2. Or save as ``violence_tool_template.blend``
+   3. Future projects: File → New → General, then append the template
 
-   These keybindings are optional but are important for efficiency when using The Violence Layer Manager.
-   You can bind as many or few as you prefer - and to any key you want - the keybindings here are just suggestions.
+This eliminates the need to reinstall everything for each new animation project.
 
 --------------------------------------------------------------------------------
+
+.. _common-setup-problems:
+
+Common Setup Problems
+---------------------
+
+**Addon installs but keybinds don't work**
+
+   1. Keymap wasn't imported (go back to :ref:`install-keymap`)
+   2. Preferences weren't saved (click "Save Preferences" button)
+   3. GP object isn't selected (keybinds require active GP object)
+
+**All keybinds switch to Layer 1**
+
+   1. Keymap properties didn't resolve on startup
+   2. Go to Edit → Preferences → Keymap
+   3. Find the layer switch entries
+   4. Check that ``layer_filter`` values are correct (e.g., "01L", "02L", etc.)
+   5. If they're all "01L", delete and re-import the keymap
+
+**Material menu opens but is empty**
+
+   1. No materials assigned to the GP object
+   2. Add material slots via the Material Properties panel (green sphere icon)
+   3. Assign brushes to each material slot
+
+**Cursor location matters**
+
+Some keybinds require the mouse to be in the **3D Viewport**. If a key does nothing:
+
+   1. Move your cursor into the 3D Viewport
+   2. Try the key again
 
 .. _setup-faq:
 
@@ -245,13 +322,9 @@ This is welcome, but could involve some organization that might be unique to you
 Next Steps
 ----------
 
-Once installed, head to :doc:`usage` to learn the daily workflow and
-practice with the provided scene files.
+Once setup is complete:
 
-Definately set a few :doc:`keybindings`!
-
-See :doc:`blender-basics` if you are new to Blender in general.
-
-:doc:`use-cases` explains how-tos by user goal, which might be helpful.
-
-:doc:`troubleshooting` is a collection of symptom-based help. :doc:`use-cases` has troubleshooting sorted by goal 'step' instead.
+   1. Review the :doc:`keybindings` reference for all shortcuts
+   2. See :doc:`blender-basics` if you are new to Blender in general. Be sure to watch the linked videos!
+   2. Read :doc:`usage` for daily workflow and how to practice with the provided scene file.
+   3. Keep :doc:`troubleshooting` handy for common issues

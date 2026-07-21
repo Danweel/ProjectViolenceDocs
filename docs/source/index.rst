@@ -40,15 +40,27 @@ Quick Start
    :maxdepth: 2
    :caption: User Guide
 
-   user/setup
-   user/blender-basics
-   user/usage
-   user/keybindings
-   user/use-cases
-   user/troubleshooting
-   user/operators
-   user/versioning
-   user/tests
+   intro
+   setup
+   keybindings
+   usage
+   troubleshooting
+   blender-basics
+   versioning
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developer & Reference
+
+   operators
+   use-cases
+   tests
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Resources
+
+   keybinds-cheat-sheet  # If you want the md visible in docs too
 
 ---
 
@@ -60,4 +72,4 @@ If you encounter issues, check the :doc:`user/troubleshooting` page or join the 
 
 This documentation is open source, see our README.md and LICENCE files.
 
-If you find errors or have suggestions, please open an issue on `GitHub <https://github.com/Danweel/ProjectViolenceDocs/issues>`_.
+If you find errors or have suggestions, please open an issue on `GitHub <https://github.com/Danweel/ProjectViolenceDocs/issues>`_ after reading our CONTRIBUTING.md.

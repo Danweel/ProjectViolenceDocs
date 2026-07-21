@@ -1,590 +1,399 @@
 .. _usage:
 
-Main Features
-=============
+AFIS Workflow Guide
+===================
 
-.. _getting-started:
+.. note::
 
-Getting Started
----------------
+   **This guide covers The Violence Tool v2.0 for Blender 5.1.2 and 5.2 LTS.**
+   If you're using Blender 4.1.1, see the "Stable" documentation version instead.
 
-Before diving into the workflow, ensure you have the correct practice files to follow along.
-The tool requires a specific Grease Pencil object setup:
+Before beginning, download and open the practice files to follow along:
 
-**Download the Practice Files**
+* **Practice File (v2.0)**: [5.1.2]NEW_SCRIPT.blend pinned in the #GreasePencil channel on Discord.
+* **Expected size**: ~6 MB | **Format**: .blend
 
-.. raw:: html
+also:
 
-   <div style="margin-top: 1rem; margin-bottom: 1rem;">
-     <a href="https://github.com/Danweel/ProjectViolenceDocs/releases/download/practice-files-v1/TheViolence_Practice_File_v1.blend"
-        style="background-color: #1C8E85; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: bold; font-family: sans-serif;">
-       Download Practice File (v2.0)
-     </a>
-     <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
-       File size: ~45 MB | Format: .blend
-     </div>
-   </div>
+* **REX_keymap_rev1**: A keymap file for starting out. See :doc:`keybindings` for details.
 
-*If the button above does not work, visit the `GitHub Releases page <https://github.com/Danweel/ProjectViolenceDocs/releases>`_ directly.*
-TODO #35 Confirm training files
+Once opened, verify your setup:
 
-First Steps
------------
+1. Select the Grease Pencil object in the **Outliner**
+2. Press ``N`` to open the Sidebar
+3. Look for the **"Fred"** tab (note: FRED panel is not yet implemented in v2.0; use keybinds instead)*
 
-1.  **Open the File**: Launch Blender, go to **File → Open**, and select the downloaded file "FILE PLACEHOLDER TODO #31 #30".
-
-.. Note::
-
-   If you see a "Missing Libraries" warning, click "Ignore" (this can happen for practice files).
-
-2.  **Verify the Setup**:
-
-   * Look at the :doc:`Outliner<blender_manual:editors/outliner/introduction>` area. You should see a Grease Pencil object named "FILE PLACEHOLDER".
-   * Select it.
-   * Press ``N`` to open the Sidebar.
-   * Click the **Fred** tab. You should see the **LAYER SELECTOR** panel. (The layer selector is currently unavailable, use keybinds)
-
-3.  **Try It Out**:
-
-   * Click a **LINE** button in the panel. Draw a line.
-   * Click a **FILL** button. Draw a closed circle around the line.
-   * Switching back to the body, you'll see how the layers change automatically.
-   * Ctrl-Z will undo most operations.
-
-.. _interface-overview:
-
-If you are unfamiliar with Blender navigation, see :doc:`blender-basics` before proceeding.
-
-Interface Overview
-------------------
+If you see layer buttons, the tool is active. For verification, press ``F3`` and search for ``gpencil.draw_mode`` — if it appears, the addon is installed correctly.
 
 .. warning::
 
-   The **Fred** Panel is currently not implemented, you'll need to use keybinds and other interfaces for now.
+    Because the panel isn't implemented yet, check if the script is working by pressing **Shift-1**. This should highlight several lines on-screen.
 
+--------------------------------------------------------------------------------
 
-The Violence Tool :ref:`installation` adds a panel called **"Fred"** to the 3D Viewport sidebar (press **N** to toggle this sidebar's visibility).
+.. _workflow-prerequisites:
 
-.. image:: ../_static/images/panel-overview.png
-   :alt: Full Fred Panel
-   :width: 350
-   :align: center
+Prerequisites: Gap Settings & Visual Aids
+-----------------------------------------
 
-*Figure 1: The Fred Panel in the 3D Viewport sidebar*
+Before drawing, configure two critical fill settings to avoid frustration:
 
-The panel is organized into sections:
+**Gap Closure**
+~~~~~~~~~~~~~~~
 
-   * **Effects** - Highlights, shadows, and special effects
-   * **Mouth** - Mouth lines, mask, and jaw controls
-   * **Jaws** - Upper and lower teeth layers
-   * **Layers 01-10** - Body, head, eyes, and miscellaneous layers
-   * **Toggles** - Visibility and fade controls
+   1. Select the **Bucket Fill** tool
+   2. In the **Tool Settings** panel (left side), expand **Advanced**
+   3. Find **Gap Closure** (default: 0)
+   4. Set to **5** or higher for automatic gap bridging
 
-Selecting Drawing Layers
-------------------------
+   *Higher values bridge larger gaps but may "leak" into adjacent areas.*
 
-Each section contains buttons for different layer types:
+**Visual Aids**
+~~~~~~~~~~~~~~~
 
-   * **LINES** - Switches to the stroke/line art layer (uses "Ink Pen" brush)
-   * **FILLS** - Switches to the fill/color layer (uses "Fill Area" brush)
-   * **BOTH** - Unlocks both line and fill layers at the same time for 'sculpting' lines
+   1. In the same **Advanced** section
+   2. Enable **Visual Aids**
+   3. This shows extension lines when clicking to fill, helping you close shapes
 
-.. image:: ../_static/images/layer-buttons.png
-   :alt: Layer selector buttons
-   :width: 300
-   :align: center
+   *If Visual Aids feel too aggressive, disable them and rely on the gap closure slider instead.*
 
-*Figure 2: Layer buttons for Body (01 - Body)*
+**Cross over existing strokes by 2-3 pixels** while drawing. This creates a physical overlap that guarantees fills work without relying on gap closure.
 
-When you click a layer button:
+.. admonition:: Fred's Tip
 
-   1. The tool automatically selects the correct Grease Pencil layer
-   2. The appropriate brush is activated (Draw or Fill)
-   3. The correct material is assigned
-   4. Other layers are locked to prevent accidental edits
+    Make sure you're always on Dope Sheet, not the Timeline.
 
-.. note::
+--------------------------------------------------------------------------------
 
-   Brush sizes are preset for each layer type. If the size seems wrong, check the Toolbar on the left side of the 3D Viewport.
+.. _core-drawing-workflow:
 
-.. _core-workflow:
+Core Drawing Workflow
+---------------------
 
-Core Workflow: Drawing & Filling
---------------------------------
+The v2.0 workflow is built around **keyboard-driven layer switching**. Instead of clicking buttons, you use key combinations to instantly jump between line and fill layers.
 
-**Material Naming and Stroke Mode (Important)**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Basic Principle**
+~~~~~~~~~~~~~~~~~~~
 
-Due to changes in Grease Pencil 3, per-material controls for toggling stroke
-and fill data have been removed. To work around this, the tool uses a
-background timer (polling 5 times/second) that automatically adjusts your
-brush mode based on the active material's name:
+   * **Shift+[0-9]**: Switch to line layer (e.g., ``Shift+1`` = Layer 1 Lines)
+   * **Shift+Alt+[0-9]**: Switch to fill layer (opens material picker)
+   * **Ctrl+1-4**: Special face/head layers (Mouth, Mask, Teeth)
 
-   - Materials containing **`LINE`** in their name → Strokes Only mode
-   - All other materials → Strokes and Fills mode
+.. warning::
 
-**Important:** Do not attempt to bypass this by setting fill color alpha to 0%.
-Invisible fills are still rendered and will progressively slow down your
-drawing as strokes grow longer and more complex.
+   If keybinds don't work after restarting Blender, you likely need to **re-import the keymap**:
 
-If you're creating your own materials, follow this naming convention to ensure
-the brush mode switches correctly.
+   1. Edit → Preferences → Keymap
+   2. Delete existing Violence Tool keymap entries
+   3. Click **Import**, select ``REX_keymap_rev1.py``
+   4. **Save Preferences** (bottom left)
 
+--------------------------------------------------------------------------------
 
-.. tip::
+.. _drawing-techniques:
 
-   **Quick Reference:** To switch layers, click the **LINES**, **FILLS**, or **BOTH** button next to any section (Body, Head, Eyes, etc.). The tool automatically selects the correct layer, activates the right brush, and locks other layers.
+Drawing Techniques
+------------------
 
-This section walks you through drawing a single frame of animation.
-
-**Switching to a Line Layer**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-   1. Decide what part you want to draw. For example, the **body**
-   2. Click the **LINES** button next to **01 - Body**
-
-   *What happens:*
-
-   * You enter Paint Mode automatically.
-   * The active layer switches to the body lines layer.
-   * Your brush is set to the line material.
-
-   3. Draw your lines
-
-**Switching Between Parts**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When you finish the body and want to draw the head:
-
-   1. Click **LINES** next to **02 - Head**
-   2. Draw the head
-
-That is it. One click switches you instantly. No menus, no scrolling.
-
-.. tip::
-
-   If you accidentally draw on the wrong layer, just click the correct button. Your strokes stay on whatever layer was active when you drew them.
-
-**Filling with Color**
-~~~~~~~~~~~~~~~~~~~~~~
-
-   1. Click the **FILLS** button next to the part you want to fill
-
-      For example, **01 - Body** → **FILLS**
-
-      *What happens:*
-
-      * The active layer switches to the body fill layer.
-      * Your brush is set to the fill material.
-
-   2. Use the **Bucket Fill** tool or draw closed shapes to fill the area
-
-**The Mouth Mask**
-~~~~~~~~~~~~~~~~~~
-
-The mouth uses a special technique to prevent the tongue from showing through the teeth.
-
-   1. Draw the teeth on the **Mouth Lines** layer
-   2. Click **MOUTH: Mask** to switch to the mask layer
-   3. Draw a filled shape *behind* the teeth but *in front* of the background
-
-The mask material is opaque, so it hides the tongue layer behind it while the teeth layer stays visible in front.
-
-.. note::
-
-   This only works if your materials are set up correctly. See :doc:`troubleshooting` if the mask does not look right.
-
-**The Automerge Toggle** (During Drawing)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-When set up, as you draw a new stroke that touches an existing one, Blender automatically merges
-the vertices at the contact point. This creates a "closed" shape, allowing fills to work automatically.
-
-Fred uses a Hold-to-Activate for this:
-
-   1. Go to Edit → Preferences → Keymaps
-   2. Search for "fred.op16", which is the tool's automerge function
-   3. Bind it to ``A`` (or your own preferred key) with event type "**Press**" TODO Doublecheck OP16 keybind
-   4. Search for "fred.op17" (Disable automerge)
-   5. Bind it to ``A`` with event type "**Release**"
-
-This will set holding the key down automatically activating automerge, and releasing it disables it, so the
-function is not on all the time.
-
-**Method**:
-
-   1. Be in Draw Mode
-   2. Hold ``A`` and start drawing (TODO #29 can you start drawing and then hold it?)
-   3. Overlap the previous stroke
-   4. Release ``A`` - Let go immediately after the stroke is finished
-
-.. tip:: Draw the line in one continuous motion if possible.
-
-You have to draw slightly past the intersection point of your lines. The tool needs physical overlap to calculate the
-merge. If you go only up to the line it might not trigger; doing this can sometimes leave a microscopic gap. Make sure
-to draw 2-3 pixels over the existing line.
-
-.. admonition:: Fred's notes
-
-   You MUST hold the toggle key down BEFORE you start drawing, and you MUST wait until you lift your pen up from drawing before you let go of the key. If you let go of the press/release toggle for anything while you're still drawing or erasing a stroke, the toggle will 'hang' because Blender doesn't register press/releases in the middle of drawing a stroke.
-   If that happens and the toggle gets stuck enabled, just lift your pen and tap the toggle key once.
-
-**Visual Check**: If Automerge worked, the vertices at the junction will look like a single point. If you zoom in ``Ctrl``+ ``Middle Mouse``
-and see two distinct dots touching, the merge failed.
-
-.. warning:: If you keep A held while drawing within a shape, you might accidentally merge lines you didn't intend to (e.g., merging the chin line with the neck line). (TODO #28 I need a few more examples/tests unintended merges)
-
-The "Join" Operator (for after drawing)
+**Stroke Overlap (Critical for Fills)**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you forgot to use Automerge, or if the lines are close but not touching, you can still manually join them.
+When drawing closed shapes (eyes, body parts, etc.):
 
-Fred's Bind: ``Alt`` + ``F`` Joins and Smooths via OP03 in the tool. See :doc:`keybindings` on how to set this to a key press.
-Native Blender: ``M`` → By Distance (Merges vertices) OR ``F`` (Creates a new edge between two selected vertices).
+   1. Start your stroke slightly **before** the intended endpoint
+   2. Continue **past** the starting point by 2-3 pixels
+   3. Release
 
-   1. Be in Edit Mode ``Tab``
-   2. Select the Vertices
-   3. Click the two vertices at the gap (or box select ``B`` around the gap)
-   4. Join:
+This creates a guaranteed overlap. Even if lines look disconnected at first glance, the fill tool will recognize them as closed.
 
-      - If using Fred's keybind: Press ``Alt`` + ``F`` - this also smooths the joint so it doesn't look jagged.
-      - With regular Blender functions: Press ``M`` and select By Distance (merges them into one) OR press ``F`` (creates a new line segment connecting them).
+**Automerge Toggle (Hold-to-Activate)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can also use this to make a clean up pass after the rough sketch.
+The ``A`` key toggles **Auto-Merge**, which snaps new strokes to existing ones at contact points.
 
-.. _advanced-workflows:
-
-Advanced Workflows
-------------------
-
-**Mouth Animation**
-~~~~~~~~~~~~~~~~~~~
-
-The mouth section has specialized controls for lip-sync work.
-
-**Mouth: Lines, Fills, Both** - Unlocks related mouth layers for keyframing. These buttons work similarly to any other layer.
-
-**Jaws: 'Upper' and 'Lower'** - Unlocks all mouth-related layers for that area
-
-   * **LINES** - Mouth outline strokes
-   * **MASK** - Throat/tongue mask layer (0 alpha)
-   * **BOTH** - Generally for nudging lines and fills together
-
-   * **UPPER** - Upper teeth
-   * **LOWER** - Lower teeth and tongue
-
-.. image:: ../_static/images/mouth-section.png
-   :alt: Mouth material section
-   :width: 300
-   :align: center
-
-*Figure 4: Mouth material buttons*
-
-Click the various "Frames" buttons to unlock the various mouth layers for editing. This allows
-you better control to draw on the Mouth and Mask layers simultaneously without accidentally
-editing the Body or Head. The Jaw buttons unlock the Jaw layers, though these are typically
-mainly used for the lead animator(s), so you may not have to worry about it too much
-for AFIS work. This will come into play on your own projects.
-
-
-
-**Stroke Simplification**
-~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Drawing like this often makes too many vertices and creates a huge file size, once the basic shapes are defined,
-you can simplify the strokes to have fewer points to represent the same shape. The fewer points you have to
-describe the shape though, the more angular the line will look.
-
-   1. Select all strokes (or use multi-frame Editing)
-   2. Press ``F3``
-   3. Search "Adaptive"
-   4. Select "Simplify Stroke" (or "Adaptive Point Reduction")
-   5. A popup appears with a slider or input field
-
-      - Set "Threshold": Start with 0.001
-      - Higher value = More simplification (fewer vertices, but will lose detail the fewer there are)
-      - Lower value = Less simplification (preserves more of the original gesture you drew)
-
-   6. Click OK or press ``Enter``
+   * **Press and hold** ``A`` before starting your stroke
+   * **Draw** your shape (vertices will snap on contact)
+   * **Release** ``A`` only after lifting your pen/stylus
 
 .. warning::
 
-   Simplification is **destructive**. It permanently removes vertices from your
-   strokes. Press ``Ctrl+Z`` immediately to undo if you don't like the result.
-   Once you save or clear the undo history, the original detail is gone.
+   **Toggle Hang Warning**: If you release ``A`` *while still drawing*, Blender may not register the release event, leaving you stuck in Auto-Merge mode.
 
+   **Fix**: Lift your pen, then **tap** ``A`` once to reset the toggle state.
 
-**Multi-Frame Editing**
-~~~~~~~~~~~~~~~~~~~~~~~
+.. _fill-workflow:
 
-A feature that allows you to select and edit strokes across multiple frames at once.
+Fill Workflow
+-------------
 
-   1. Enable Multi-Frame:
+**Standard Fill (Closed Shapes)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-      - In the Grease Pencil properties (green icon), look for the multi-frame section
-      - Check Enable
-      - Set the Range (e.g., -5 to +5 to see 5 frames before and after).
+   1. Switch to fill layer: ``Shift+Alt+[layer number]``
+   2. Bucket fill the enclosed area
+   3. If fill leaks: Increase **Gap Closure** or redraw with better overlaps
 
-   Alternatively: In the Timeline or Dope Sheet, you can select multiple frames (``Shift``+ ``Click``) to enable multi-frame editing
+**Fill Zoom Bug Workaround**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   2. Select Strokes:
+Blender 5.2 has a known bug where fill detection varies by zoom level. If fills fail at certain zooms:
 
-      - Enter Edit Mode
-      - Select a stroke. It will now select the same stroke on all visible frames in the range
+   1. **Zoom out** to approximately 50-75% viewport size
+   2. Retry the fill
+   3. This is a screen-space detection issue; a fix is expected in future Blender updates
 
-   3. Edit:
+.. _special-workflows:
 
-      - Move, scale, or delete the stroke. It applies to all selected frames.
+Special Workflows
+-----------------
 
-**Simplify (Adaptive)** with multi-frame editing:
+**Pupils & Small Elements**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-      1. With multi-frame active, select all ``A``
-      2. Press ``F3``, search Adaptive
-      3. Set the threshold
+Instead of creating separate Line/Fill layers for pupils:
 
-This simplifies every frame in the range instantly.
+   1. Switch to the **Eye Line Layer**: ``Shift+3`` (Layer 3)
+   2. Press ``4`` to open the **Material Menu**
+   3. Select **Black Fill Material** (Slot 2)
+   4. Draw the pupil as a single circle
 
+   *Result*: One stroke with both stroke and fill data, movable as a single unit.
 
+With this technique, the pupil moves instantly with a single selection.
 
-**Effects & Special Tools**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-There is a plan to offer a button for applying noise to an object via the Fred panel, but in 1.0 this isn't yet implemented. Here's how to do it via Blender's native interface:
-
-In Edit Mode:
-
-1. Select your Grease Pencil object and select all strokes with ``A``.
-2. Go to the Modifiers Tab (Wrench icon).
-3. Click Add Modifier → Effect → Randomize.
-4. Adjust Position (jitter amount) and Scale (detail level).
-
-
-**Sculpting the Shape** (Butter-knifing)
+**Mouth Construction (Complex Anatomy)**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Sometimes you need to push and pull the whole shape instead of redrawing it.
+The mouth uses a **four-layer system** for editability during lip-sync:
 
-   1. Click **BOTH** next to the part you want to adjust. i.e., **01 - Body** → **BOTH**
+   * **Ctrl+1**: Mouth Lines (outer muzzle outline)
+   * **Ctrl+2**: Mouth Mask (invisible 0-alpha layer)
+   * **Ctrl+3**: Upper Teeth
+   * **Ctrl+4**: Lower Teeth + Tongue + Throat
 
-      *What happens:* That layer is isolated for easier editing
+**Step-by-Step Mouth Build**:
 
-   2. Use the **Grab** ``G`` or **Smooth** brush modifier ``Shift`` to adjust the shape
-   3. Click any **LINES** or **FILLS** button to return to drawing
+1. **Draw the muzzle outline**:
+   - Press ``Ctrl+1`` (Mouth Lines)
+   - Select muzzle material via ``4`` key (or whichever colour suits this part of the face)
+   - Draw the top half of the muzzle
+   a. **Draw the lower jaw:**
+   - Hold ``B`` (Draw Behind) *before* drawing if jaw overlaps other facial elements
+   b. **Draw the nose.**
+   - You can use the same method as for the pupil for the black nose-shape.
+
+2. **Create the mask**:
+   - Draw a **temporary closing line** at the throat opening - just a regular black line is fine
+   - Press ``Ctrl+2`` (Mouth Mask)
+   - Tap to fill the enclosed area (mask is invisible but functional)
+   - Return to ``Ctrl+1``, erase the temporary line with ``E``
+
+3. **Draw the teeth**:
+   - Press ``Ctrl+3`` (Upper Teeth)
+   - Draw teeth (they only appear through the mask)
+   - Press ``Ctrl+4`` (Lower Teeth)
+   - Draw lower teeth
+
+4. **Add tongue/throat (optional)**:
+   - On ``Ctrl+4``, press ``4`` to change material
+   - Select **Throat Material**
+   - Hold ``B`` to draw behind the teeth
+   - Draw a large oval representing the throat cavity
+
+.. note::
+
+   **Why separate layers?**: During animation, the upper jaw rarely moves (it's part of the skull). The lower jaw moves significantly. Separating these allows animators to move just the lower jaw without redrawing the upper teeth every frame.
+
+.. admonition:: Fred's Tip
+
+    You don't have to do all of these steps if the muzzle doesn't go outside the frame of the face. Then you just need outlines. This longer process is to hide the face contour lines. Experiment!
+
+**Sculpt Mode (Butter-Knifing)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+"Sculpting" or "butter-knifing" refers to nudging existing strokes with the Grab brush to refine shapes without redrawing.
+
+   1. **Temporary Sculpt**: Hold ``Alt`` while hovering over a stroke
+   2. **Full Sculpt Mode**: Press ``S`` to enter Sculpt Mode
+   3. **Selection Mode Toggle**: Press ``Ctrl+Shift+R`` to switch between "Selected Only" and "All Visible"
+
+.. admonition:: Fred's Tip
+
+    *Hold ``Alt`` - if you see gray "edit lines" appearing — this indicates Selected Only mode. Press ``Ctrl+Shift+R`` to remove them (affects all strokes).*
+
+**Join & Smooth (Post-Drawing Cleanup)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If strokes are close but not connected:
+
+   1. Enter **Edit Mode**: ``Tab``
+   2. Select the two endpoints you want to join
+   3. Press ``Alt+F`` (Fred's operator: joins AND smooths simultaneously)
+   4. Alternatively, use native Blender: ``M`` → **By Distance**
+
+.. warning::
+
+   ``Alt+F`` (Join & Smooth) is different from ``C`` (Trim Tool). Join connects endpoints; Trim cuts strokes at intersections.
+
+--------------------------------------------------------------------------------
+
+.. _layer-management:
+
+Layer Management
+----------------
+
+**Organizational Philosophy**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Violence Tool uses a **multi-layer format** where each anatomical feature has dedicated Line and Fill layers:
+
+   * ``01L`` / ``01F``: Body Lines / Body Fills
+   * ``02L`` / ``02F``: Head Lines / Head Fills
+   * ``03L`` / ``03F``: Eyes Lines / Eyes Fills
+   * (etc. - further layers sometimes depends on the character.)
+
+.. admonition:: Dan's Tip
+
+   Blender groups material ownership by character (in essence) - if there's more than one character, don't worry - when you select them and start drawing,
+   these values update and show you the right materials for that character. Setting this up is something Fred's done for us in these scenes (and will be documented seperately).
+
+**Why so many layers?**
+
+The short answer is close to traditional reasons - for animation 'holds':
+
+.. admonition:: Fred's Tip
+
+    "If he's standing still and it's just his arm that's moving, you can adjust the arm and leave the body and the head and everything else alone (if those are on another layer).
+    If a character turns a little bit and the wrinkles change on their shirt, you can interpolate that and tween it and it saves so much time.
+    If all the arms and hands and heads and everything are all on one layer, you won't be able to do that. It'll get messy really quick."
+
+    (That said,) If the character is doing a blackflip or something, then I might draw everything on one layer, since it's all moving every frame.
+
+**Why separate Line and Fill?**
+
+* **Material independence**: Line and fill materials are separate slots.
+     Changing the fill color in a material slot updates every frame using
+     that slot instantly — no re-filling required.
+
+.. admonition:: Fred's Tip
+
+   "If I wanted to make Peppy here, if I wanted to make him blue, all I've got to do is go to his main fur color here and change it. [Plays animation back] [...] now he's blue on every single frame."
 
 
+**Layer Ordering ("Z-Depth")**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-**Toggle Controls**
-~~~~~~~~~~~~~~~~~~~
+Layers are rendered in Outliner order. To change drawing order:
 
-At the very bottom of the panel, there are two TOGGLE buttons:
+   * **Page Up / Page Down**: Move layer up or down
 
-   * **Hide All Fills** - Toggles visibility of fill layers.
-   * **Fade Inactive Layers** - Fades layers that are not currently active.
+.. warning::
 
+    **Bug Warning**: Page Down is broken currently. This has been flagged (and recognized) to the Blender devs.
 
+Alternatively:
 
-**Fixing Mistakes**
-~~~~~~~~~~~~~~~~~~~
+   1. Select the layer in the **Outliner**
+   2. Right-click → **Move to Top/Bottom**
+   3. Or use the arrow buttons in the layer properties
 
-* **Erasing**: Press ``E`` or select the Eraser tool. You only erase on the **active layer**. Check which button is highlighted before erasing.
-* **Undo**: Press ``Ctrl``+ ``Z`` to undo your last action.
-* **Moving lines to a new layer**: If you notice you drew on the wrong layer your strokes can be reused: (TODO #32 test copy pasting strokes)
+.. important::
 
-   1.  Select and copy the errant strokes
-   2.  Cut (or copy)
-   3.  Click the correct layer button
-   4.  Paste on the correct layer
-   5.  Switch to the wrong layer and erase the misplaced strokes if needed
+   **Always keep Fill layers UNDER their corresponding Line layers** (e.g., ``01F`` below ``01L``). Otherwise, fills may obscure line art. (or not fill properly with taps)
 
+**Fade Inactive Layers**
+~~~~~~~~~~~~~~~~~~~~~~~~
 
+Dimming non-active layers helps focus on the current element.
+
+   * **Rex's Binding**: ``Ctrl+F``
+   * **Fred's Personal Binding**: ``W``
+
+This also automatically enables **Overlays** (``show_overlays = True``) if they were disabled.
+
+--------------------------------------------------------------------------------
+
+.. _animation-prep:
+
+Animation Preparation
+---------------------
 
 **Keyframes**
 ~~~~~~~~~~~~~
 
-.. note:: The tool does not create keyframes. Use Blender's standard keyframe shortcut, ``I``.
+The Violence Tool does not create keyframes — use Blender's standard workflow:
 
-How to add keyframes:
+   1. Select your Grease Pencil object
+   2. In the **Dope Sheet** (set to Grease Pencil mode)
+   3. Position cursor over the timeline area
+   4. Press ``I`` → Select **Duplicate Active Keyframe**
 
-1. Make sure you're in the Dope Sheet
-2. Press ``I`` with your cursor over that area of the screen
-3. Select Duplicate Active Keyframe
+This copies all unlocked layers to the next frame. Lock layers you don't want to carry forward before duplicating.
 
-This will duplicate all unlocked layers onto the next frame and set that frame active. This means you'll want to have certain layers
-locked or unlocked depending on what of your frame and what you want to copy forward.
+**Multi-Frame Editing**
+~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _tips-tricks:
+Edit strokes across multiple frames simultaneously:
 
-Tips & Tricks
--------------
+   1. In the **Timeline**, Shift-click multiple frames to select them
+   2. Enter **Edit Mode**
+   3. Select a stroke — it now selects across all frames in the range
+   4. Move, scale, or delete — changes apply to all selected frames
 
-*   **Resize the Panel**: Go to the panel you want to change, hold ``CTRL``, and hold the ``Middle Mouse Button``. Move your mouse up to make buttons bigger, or down to make them smaller.
-*   **Restore Default Size**: Move the mouse cursor over the panel and press ``HOME``.
-*   **Save Frequently**: Undo support is limited in the current version.
-*   **Check Layer Visibility**: Hidden layers cannot be edited (see :doc:`/user/troubleshooting`).
-*   **Erasing**: For precision erasing, use Edit Mode ``Tab`` and delete points ``X``.
-*   **Ink Pen**: Fred sets his brush to Ink Pen with Hardness 1.0 for vector-like lines.
+**Stroke Simplification (Adaptive Reduction)**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. _concepts:
+Reduce vertex count for cleaner files:
 
-Concepts
---------
-
-**Material Slots vs. Materials**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Changing a material in a slot changes it on every frame that uses that slot.
-
-**Benefit**: You don't have to refill every frame. Change the color in the material slot, and the whole animation updates instantly.
-
-.. tip::
-
-   To make a unique color for one part, you must create a Unique Copy of the material (using the "New" button with the icon of two overlapping circles) and assign it to a new slot.
-
-**The difference between Dope Sheet and Timeline**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-**Timeline**: Controls object movement (Location, Rotation, Scale) and global scene changes.
-
-**Dope Sheet** (Grease Pencil Mode): Controls the actual drawing frames (artwork changes).
-
-You can have a character standing still (no Timeline keys) while their mouth moves (Dope Sheet keys).
-
-**Changing a Color for a Specific Layer**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This involves creating a **Unique Material Copy**:
-
-In Grease Pencil, a Layer is a container for strokes. Each layer has one active material slot. By changing the
-slot assigned to the layer, you change the color of every stroke on that layer instantly, across all keyframes.
+   1. Select all strokes (``A``)
+   2. Press ``F3`` → Search **"Adaptive"** or **"Simplify Stroke"**
+   3. Set threshold: Start with **0.001**
+      - Higher = more reduction (fewer vertices, more angular)
+      - Lower = preserve detail
+   4. Press **Enter**
 
 .. warning::
 
-   This is an edge case, probably not something you'll be doing for AFIS, but it helps clarify how materials are assigned and work for troubleshooting and setting up your own projects.
+   **Destructive Operation**: Once you save or clear undo history, simplified strokes cannot be restored. Use ``Ctrl+Z`` immediately if dissatisfied.
 
-If you need to change the color of a specific part (e.g., a red jacket) without affecting the rest of the project:
+--------------------------------------------------------------------------------
 
-**Step 1**: Create the Unique Copy
+.. _troubleshooting-tips:
 
-Be in **Object Mode**:
+Common Issues & Solutions
+-------------------------
 
-   1. Select the Grease Pencil Object
-   2. Go to the Material Properties tab (Red Sphere in the Properties Editor)
-   3. Locate the material you want to duplicate (e.g., Body Fill)
-   4. Click the "New" Button (Two overlapping circles, to the right of the material name)
+**Key Doesn't Work After Restart**
+   Re-import the keymap and **Save Preferences**. See :doc:`setup` for steps.
 
-      **Note**: This will create a copy of the current material in a new slot.
+**Toggle Hang (A, B, or E keys stuck)**
+   Tap the affected key once while in Draw Mode.
 
-      Do not click the "New" button that creates a *blank* material; click the one that *copies* the current one.
+**Fill Won't Close (Gaps persist)**
+   Increase Gap Closure to 5-10, or redraw with better overlaps.
 
-   5. A new slot appears with the copy (e.g., Body Fill.001)
-   6. Double-click and rename to something clear
-   7. Change the Base Color of this new material to your new color:
+**Timer Not Auto-Switching Brush Mode**
+   Open the **Text Editor**, load ``FRED LAYER MANAGER.py``, and click **Play**. The persistent timer should now work.
 
-**Step 2**: Assign the Material to the Layer
+**Alt+~ Doesn't Center Timeline (Ubuntu Studio)**
+   Ubuntu's desktop environment hijacks Alt+~. Remap to ``Home`` or brackets in System Settings → Keyboard.
 
-Be in **Object Mode** or **Draw Mode**:
+**Pen Pressure Not Working**
+   Restart Blender. This is often a tablet driver issue.
 
-   1. Open the Grease Pencil tab in the Properties Editor (Green Pencil tab in the Properties Editor)
-   2. Expand the Layers list
-   3. Find the layer you want to change (e.g., Body Fill)
-   4. Look for the Material dropdown menu next to the layer name
-   5. Click the dropdown and select your new material
+There's even more troubleshooting, and more elaborate explanations of these issues here: :doc:`troubleshooting`
 
-   **Create a Unique Copy:**
+--------------------------------------------------------------------------------
 
-      1. In **Object Mode**, go to **Material Properties**.
-      2. Select the material slot you want to change.
-      3. Click the **"New" button** (two overlapping circles) to create a copy.
-      4. Rename it (e.g., "Jacket Red") and change its color.
+.. _next-steps:
 
-   **Assign to the Layer:**
+Next Steps
+----------
 
-      5. Go to the **Grease Pencil Properties** tab (Green Pencil icon).
-      6. Find the layer you want to change (e.g., "Jacket Fill").
-      7. In the **Material** dropdown next to the layer name, select your new material ("Jacket Red").
+With these fundamentals mastered, you can:
 
-   .. note::
+1. **Practice with provided scene files** to build muscle memory
+2. **Experiment with your own character designs** using the same layer format
+3. **Share in the Discord Grease Pencil channel** for feedback and troubleshooting
 
-      This changes the color for **all strokes/fills** on that layer.
-
-**Brush Size Auto-Change feature**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The tool attempts to set the brush size when you switch layers. Sometimes this fails, or the user's manual override sticks. Currently,
-this won't always be clear why this happens. Here's some notes about that issue:
-
-   - If you manually change the brush size in the Toolbar, the tool might not reset it on the next switch.
-   - If you switch from Draw to Sculpt and back, the brush settings might reset to defaults.
-   - New Project: If you start a new project, the tool will not have the presets loaded yet (or will have the wrong ones - right now, the default is Fox' materials).
-
-   .. admonition:: Fred's Tip
-
-      "The tool attempts to set the correct brush size automatically when you switch layers. If the size looks incorrect, check the Toolbar (left side of the 3D Viewport) and adjust the Radius slider manually."
-
-.. warning::
-
-   You probably won't have to do that for AFIS files, though. Double check with Fred if the file seems to be giving you the wrong thing.
-
-**Pressure Sensitivity for brushes**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Here's how you work with pressure sensitivity, for your own projects, or to help understand better how this feature interacts with Grease Pencil and the tool.
-
-In **Draw Mode**:
-
-   1. Press N to open Properties → Tool Tab.
-   2. Click Brush Settings
-   3. Look for **Radius** (Size slider) and/or **Strength** (Opacity slider):
-
-      Click the toggle button next to these (the Pin with Ripple icon). This will enable pressure sensitivity for the corresponding element.
-
-   4. Calibrate: Adjust the slider to your minimum desired size. The tablet pressure settings will compound with this.
-
-The Violence Tool is supposed to control pen settings for you though, so this should be preset using tool layer buttons. For now, this requires going into the tool script itself and changing the numbers if you want to make them different. You'll want
-to save your version for your project seperately. Use whatever version of the tool is already in the scene provided by Fred, it'll have the right settings set up.
-
-.. _practice-files:
-
-Practice Files & Next Steps
----------------------------
-
-It's a good idea to practice with the following files before jumping into your own project. They've been selected to cover most of the quirks of how the tool works with different
-kinds of scenes. 3D animation is already complete, and in most cases, the keyframes as well, so you only need to practice controlling your art.
-
-**Available Practice Files:**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1.  **Full body workfile** — Good for getting the hang of how to draw in this Grease Pencil workflow, and start building skills on matching the artstyle.
-
-   *   *placeholder for practice file*
-
-2.  **Simple animation** — Good for starting to work with multiple frames, applying jitter and getting better with in-betweening.
-
-   *   *placeholder for practice file*
-
-3.  **Transparency layers and jaw movement** — Covers the special masking that is used for the teeth (such as Wolf's), tongue and muzzle masks.
-
-   *   *placeholder for practice file*
-
-4.  **Head turn** — Introduces the way layers switch hierarchy when a character is turning to or away from the 'camera'.
-
-   *   *placeholder for practice file*
-
-**Extras:**
-~~~~~~~~~~~
-
-Extra practice files, such as for specific characters or other useful oddities.
-
-   *   *placeholder for practice file*
-
-.. tip::
-
-   Post your results in the Grease Pencil #channel on Discord for feedback.
-
-.. seealso::
-
-   :ref:`keybindings` To make your life easier, try Fred's recommended binds.
-
-   :ref:`troubleshooting` Having trouble? Try taking a look here.
-
-   :ref:`use-cases` These are intended as goal-oriented how-tos, and as basic technical documentation. Includes process-based troubleshooting.
+For keyboard shortcuts reference, see :doc:`keybindings`. For installation help, see :doc:`setup`. For unresolved issues, check :doc:`troubleshooting`.

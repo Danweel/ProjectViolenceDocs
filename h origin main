@@ -1,0 +1,41 @@
+[33mcommit bead65c755a82064efcb765d2f67aef2a44ce781[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Danweel <daniil.woodland@pm.me>
+Date:   Mon Jul 20 02:40:53 2026 -0400
+
+    docs(v2.0): user guide overhaul for 2.0 pre-meeting
+
+    - usage.rst: rewrite for changes to tool
+    - keybindings.rst: Update operators, remove v1.0-only references, adjust OP29
+    - setup.rst: Typos, clarify Fred Panel status
+    - troubleshooting.rst: Update known issues for v2.0, fix brush/version refs
+    - versioning.rst: Typos, mark v2.0 as current release
+    - index.rst: Typos
+    - blender-basics.rst: Typos
+    - operators.rst: Formatting fixes, outdated wawrning added
+
+ CHANGELOG.md                                    |   65 [32m+++++++[m[31m-[m
+ README.md                                       |    2 [32m+[m[31m-[m
+ docs/source/_static/images/01_PEN.png           |  Bin [31m0[m -> [32m54209[m bytes
+ docs/source/_static/images/01_PEN_settings.png  |  Bin [31m0[m -> [32m48399[m bytes
+ docs/source/_static/images/PENP_settings.png    |  Bin [31m0[m -> [32m43940[m bytes
+ docs/source/_static/images/PENSTRENGTHP.png     |  Bin [31m0[m -> [32m42466[m bytes
+ docs/source/_static/images/eraser_point.png     |  Bin [31m0[m -> [32m48688[m bytes
+ docs/source/_static/images/eraser_stroke.png    |  Bin [31m0[m -> [32m50005[m bytes
+ docs/source/_static/images/holdR.png            |  Bin [31m0[m -> [32m47641[m bytes
+ docs/source/_static/images/jiggle-dialog.png    |  Bin [31m0[m -> [32m7467[m bytes
+ docs/source/_static/images/luigiwiskers.png     |  Bin [31m0[m -> [32m107790[m bytes
+ docs/source/_static/images/op29_keys.png        |  Bin [31m0[m -> [32m46012[m bytes
+ docs/source/_static/images/op9_10_keys.png      |  Bin [31m0[m -> [32m95972[m bytes
+ docs/source/_static/images/penpressureonoff.png |  Bin [31m0[m -> [32m15033[m bytes
+ docs/source/index.rst                           |   25 [32m++[m[31m-[m
+ docs/source/user/blender-basics.rst             |   37 [32m+++[m[31m--[m
+ docs/source/user/keybindings.rst                |  556 [32m+++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m[31m----------[m
+ docs/source/user/operators.rst                  | 1434 [32m+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m[31m------------------------------------------------------------------------------------------------------------[m
+ docs/source/user/setup.rst                      |  107 [32m++++++++[m[31m-----[m
+ docs/source/user/tests.rst                      |  138 [32m+++++++++++++++++[m
+ docs/source/user/troubleshooting.rst            |  150 [32m+++++++++++[m[31m-------[m
+ docs/source/user/usage.rst                      |   48 [32m++++[m[31m--[m
+ docs/source/user/use-cases.rst                  |  952 [32m++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m[31m-------------------------------------[m
+ docs/source/user/versioning.rst                 |  129 [32m+++++++[m[31m---------[m
+ live_preview.sh                                 |   41 [32m+++++[m
+ 25 files changed, 2205 insertions(+), 1479 deletions(-)

@@ -117,7 +117,7 @@ Modal Toggle Operators
 
    Modal toggle operators have no undo support (obviously, I guess, but as a note). Toggles are instantaneous
    state changes that don't produce discrete operations to undo. **However**, if a toggle "hangs" due to
-   Blender not registering press/release during a stroke, see :ref:`trouble-automerge-stuck`.
+   Blender not registering press/release during a stroke, see :ref:`trouble-modal-toggles`.
 
 Brush & Material Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
