@@ -142,14 +142,12 @@ See :ref:`trouble-installation` for addon activation issues.
 
 See :ref:`quick-menu-keys` for details.
 
-
-
---------------------------------------------------------------------------------
+---
 
 .. _trouble-modal-toggles:
 
 Modal Toggles Getting "Stuck" (Auto-Merge, Draw Behind, Sculpt)
-----------------------------------------------------------------
+---------------------------------------------------------------
 
 **Symptom:** Auto-merge, draw-behind, or sculpt mode stays enabled even after releasing the key (``A``, ``B``, or ``Alt``).
 
@@ -177,7 +175,7 @@ See also: :ref:`known-issue-timer-addon` (timer issues can cause stroke-mode aut
 
 The ``C`` key is a tool swap (via ``wm.tool_set_by_id``), not a boolean toggle. It doesn't have a press/release pair — holding it just keeps the Trim tool active, releasing it returns to the Brush tool.
 
---------------------------------------------------------------------------------
+---
 
 .. _trouble-fills:
 
@@ -224,7 +222,7 @@ Fills Not Working ("Unable to Fill")
 
 See also: :ref:`known-issue-fill-zoom-bug` (zoom-dependent fill failures).
 
---------------------------------------------------------------------------------
+---
 
 .. _trouble-installation:
 
@@ -283,8 +281,8 @@ See also: :ref:`trouble-keymaps` (if keymaps reset, you may need to reload them 
 
 **Fix:** Select your Grease Pencil object in the Outliner or 3D Viewport before testing keybinds.
 
-I'm in a blank file and the tool doesn't do anything.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**I'm in a blank file and the tool doesn't do anything.**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. important::
 
@@ -388,7 +386,7 @@ The material slots must be arranged in the Property Panel in this order:
 
 Material order affects the material popup behavior when switching layers.
 
---------------------------------------------------------------------------------
+---
 
 .. _trouble-performance:
 
@@ -396,7 +394,7 @@ Performance & File Size
 -----------------------
 
 **Blender is slowing down progressively**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Cause:** Invisible fills (alpha=0% colors) still render and accumulate performance cost in GP3.
 
@@ -426,7 +424,7 @@ Performance & File Size
    3. Press **F3**, search for **"Reproject Strokes"**.
    4. Choose **"Project from View"**.
 
---------------------------------------------------------------------------------
+---
 
 .. _trouble-layer-ordering:
 
@@ -434,7 +432,7 @@ Layer Management Issues
 -----------------------
 
 **Page Down doesn't reorder multiple selected layers**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Cause:** Bug in Blender 5.1 — Page Down only moves one layer at a time, even with multi-select.
 
@@ -461,12 +459,12 @@ Layer Management Issues
 
 See also: :ref:`trouble-keymaps` (incorrect filter values cause wrong layers to activate).
 
---------------------------------------------------------------------------------
+---
 
 .. _known-issues:
 
 Known Issues for v2.0 (and Blender 5.1.2)
---------------------------------------------
+-----------------------------------------
 
 The following are confirmed limitations and bugs. Some are being fixed upstream
 by the Blender development team for the 5.2 release.
@@ -487,7 +485,7 @@ between Stroke/Fill/Both based on material name.
 .. _known-issue-cyclic-stroke:
 
 **Strokes Default to Cyclic When Using "Both" Mode (Blender 5.2)**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In Blender 5.2, strokes drawn with "Both" stroke mode default to **cyclic state**, creating
 closed loops unintentionally. There is no user setting to disable this behavior, forcing
@@ -532,7 +530,7 @@ dialog appears but no movement occurs. Page Up works normally for multi-select.
 .. _known-issue-fill-zoom-bug:
 
 **Fill Tool Fails When Zoomed In Too Far (Screen-Based Detection)**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The Fill tool's gap detection is partially screen-based. At high zoom levels, "unable to fill"
 errors occur even when strokes are closed.
@@ -544,7 +542,7 @@ errors occur even when strokes are closed.
 .. _known-issue-no-smooth-auto:
 
 **Alt+F Doesn't Auto-Smooth Connections (GP3 Regression)**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 In GP3 (Blender 4.3+), connecting strokes with **C** no longer auto-smooths the join.
 Additionally, the joined strokes don't stay selected after connecting, unlike Blender 4.1.1.
@@ -557,7 +555,7 @@ Additionally, the joined strokes don't stay selected after connecting, unlike Bl
 
 **Status:** Unknown regression. No official fix timeline.
 
---------------------------------------------------------------------------------
+---
 
 Reporting New Issues
 --------------------
@@ -577,7 +575,7 @@ If you encounter a problem not listed here:
 You can also DM or @ Danweel directly on the AFIS sever. Can be faster!
 
 Appendix: Blender-Side Bug Summary
------------------------------------
+----------------------------------
 
 These are bugs in Blender itself, not the Violence Tool. All reported to the Blender team.
 

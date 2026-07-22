@@ -23,7 +23,7 @@ The Violence Tool consists of two components intended to be used together:
      Blender Operators. A couple are available tailored to slightly different preferences.
      The vast majority of the keys are the same though.
 
---------------------------------------------------------------------------------
+---
 
 .. _context-and-modes:
 
@@ -98,7 +98,7 @@ The **S key** provides an alternative to Alt-hold for entering Sculpt Mode:
    - Use this when you want to do extended sculpting work without holding a modifier
    - To exit, press **Tab** (return to Edit Mode) or use the mode pie menu (Ctrl+Tab)
 
---------------------------------------------------------------------------------
+---
 
 .. _keymap-sources:
 
@@ -150,7 +150,7 @@ Two keymap files are available from the community. Check out the pins in the Dis
    just for these animation projects. Different blender versions are easily installed in parallel (either by Portable exes or .tar.xz), so one won't interfere with
    your other potential Blender projects or experiments as long as they're different versions. Handy if you have the space!
 
---------------------------------------------------------------------------------
+---
 
 .. _binding-instructions:
 
@@ -229,7 +229,7 @@ hold a key down. To set this up in Blender:
 
    If you forget a shortcut, hit F3 and type the function name. It shows you the shortcut and lets you search for it.
 
---------------------------------------------------------------------------------
+---
 
 .. _core-workflow-keybinds:
 
@@ -458,7 +458,7 @@ If you want the "3" key to open the Change Active Layer popup:
 4. Set key to **3**
 5. Save preferences
 
---------------------------------------------------------------------------------
+---
 
 .. _secondary-keybinds:
 
@@ -592,7 +592,7 @@ You might wonder why we have ``gp.next_keyframe`` when Blender uses the arrow ke
 
    ``gp.prev_keyframe``, ``gp.next_marker``, and ``gp.prev_marker`` all work the same way.
 
---------------------------------------------------------------------------------
+---
 
 .. _advanced-config:
 
@@ -686,7 +686,7 @@ You can bind these yourself if you find them useful:
 
 You can artificially grow points with stroke thickness until it looks like there's pen pressure, but it's artificial.
 
---------------------------------------------------------------------------------
+---
 
 .. _keymap-context:
 
@@ -756,7 +756,7 @@ If you imported Fred's personal keymap instead of Rex's, you may experience navi
 Rex's keymap binds view rotation to both ``Middle Mouse`` and ``Ctrl+Alt+LMB`` for tablet/trackpad users.
 This is intentional and compatible with MMD navigation schemes.
 
---------------------------------------------------------------------------------
+---
 
 .. _workflow-tips:
 
@@ -832,12 +832,12 @@ To reorder:
    * Right-click layer → Move to Top/Bottom
    * Use arrow buttons in the layer properties panel
 
---------------------------------------------------------------------------------
+---
 
-.. _next-steps:
+.. _keybindings-next-steps:
 
-Next Steps
-----------
+Keybinding Next Steps
+---------------------
 
 Once you've got your keybinds done, head to :doc:`usage` to learn the daily workflow and
 practice with the provided scene files.

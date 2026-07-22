@@ -40,27 +40,26 @@ Quick Start
    :maxdepth: 2
    :caption: User Guide
 
-   intro
-   setup
-   keybindings
-   usage
-   troubleshooting
-   blender-basics
-   versioning
+   user/setup
+   user/keybindings
+   user/blender-basics
+   user/usage
+   user/troubleshooting
 
 .. toctree::
    :maxdepth: 1
    :caption: Developer & Reference
 
-   operators
-   use-cases
-   tests
+   user/operators
+   user/use-cases
+   user/tests
+   user/versioning
 
 .. toctree::
    :maxdepth: 1
    :caption: Resources
 
-   keybinds-cheat-sheet  # If you want the md visible in docs too
+   user/cheat-sheet
 
 ---
 

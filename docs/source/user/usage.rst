@@ -29,7 +29,7 @@ If you see layer buttons, the tool is active. For verification, press ``F3`` and
 
     Because the panel isn't implemented yet, check if the script is working by pressing **Shift-1**. This should highlight several lines on-screen.
 
---------------------------------------------------------------------------------
+---
 
 .. _workflow-prerequisites:
 
@@ -63,7 +63,7 @@ Before drawing, configure two critical fill settings to avoid frustration:
 
     Make sure you're always on Dope Sheet, not the Timeline.
 
---------------------------------------------------------------------------------
+---
 
 .. _core-drawing-workflow:
 
@@ -88,7 +88,7 @@ The v2.0 workflow is built around **keyboard-driven layer switching**. Instead o
    3. Click **Import**, select ``REX_keymap_rev1.py``
    4. **Save Preferences** (bottom left)
 
---------------------------------------------------------------------------------
+---
 
 .. _drawing-techniques:
 
@@ -148,7 +148,7 @@ Special Workflows
 -----------------
 
 **Pupils & Small Elements**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Instead of creating separate Line/Fill layers for pupils:
 
@@ -235,7 +235,7 @@ If strokes are close but not connected:
 
    ``Alt+F`` (Join & Smooth) is different from ``C`` (Trim Tool). Join connects endpoints; Trim cuts strokes at intersections.
 
---------------------------------------------------------------------------------
+---
 
 .. _layer-management:
 
@@ -311,7 +311,7 @@ Dimming non-active layers helps focus on the current element.
 
 This also automatically enables **Overlays** (``show_overlays = True``) if they were disabled.
 
---------------------------------------------------------------------------------
+---
 
 .. _animation-prep:
 
@@ -356,7 +356,7 @@ Reduce vertex count for cleaner files:
 
    **Destructive Operation**: Once you save or clear undo history, simplified strokes cannot be restored. Use ``Ctrl+Z`` immediately if dissatisfied.
 
---------------------------------------------------------------------------------
+---
 
 .. _troubleshooting-tips:
 
@@ -383,12 +383,12 @@ Common Issues & Solutions
 
 There's even more troubleshooting, and more elaborate explanations of these issues here: :doc:`troubleshooting`
 
---------------------------------------------------------------------------------
+---
 
-.. _next-steps:
+.. _usage-next-steps:
 
-Next Steps
-----------
+Usage Next Steps
+----------------
 
 With these fundamentals mastered, you can:
 

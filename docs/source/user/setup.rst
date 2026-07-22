@@ -45,7 +45,7 @@ Prerequisites
 *Advanced Prerequisites* for a _blank_ file can be found in :doc:`/user/troubleshooting`.
 You'll almost always have this set up for you in advance when working on AFIS.
 
---------------------------------------------------------------------------------
+---
 
 .. _install-addon:
 
@@ -79,7 +79,7 @@ Installing the Addon
 
    **Persistent timer issue:** See :ref:`known-issue-timer-addon` if stroke mode switching doesn't work automatically.
 
---------------------------------------------------------------------------------
+---
 
 .. _install-keymap:
 
@@ -115,7 +115,7 @@ Importing the Keymap
    **If you close Blender without clicking "Save Preferences," all keybind changes are lost.**
    This is the #1 cause of "my keybinds stopped working" complaints.
 
---------------------------------------------------------------------------------
+---
 
 .. _verifying-setup:
 
@@ -156,7 +156,7 @@ Verifying Your Setup
    press ``F3`` and search for one of the tool's operators (e.g., ``gpencil.draw_mode``).
    If it appears in the search results, the tool is installed and active, or the above.
 
---------------------------------------------------------------------------------
+---
 
 .. _configuring:
 
@@ -172,7 +172,7 @@ For optimal workflow, we highly recommend configuring specific keyboard shortcut
 
 And everything else!
 
---------------------------------------------------------------------------------
+---
 
 .. _updating:
 
@@ -245,7 +245,7 @@ Alternatively, start from the practice file and delete James's layers to get a b
 
 See :doc:`/user/troubleshooting` for detailed instructions on what the Fred tool requires in a document.
 
---------------------------------------------------------------------------------
+---
 
 .. _preferences-save:
 
@@ -266,7 +266,7 @@ After completing the setup:
 
 This eliminates the need to reinstall everything for each new animation project.
 
---------------------------------------------------------------------------------
+---
 
 .. _common-setup-problems:
 
@@ -315,16 +315,16 @@ This is welcome, but could involve some organization that might be unique to you
 
    As the community grows, we hope to share your invented workflows, keybinds, and guides.
 
---------------------------------------------------------------------------------
+---
 
-.. _next-steps
+.. _setup-next-steps:
 
-Next Steps
-----------
+Setup Next Steps
+----------------
 
 Once setup is complete:
 
    1. Review the :doc:`keybindings` reference for all shortcuts
    2. See :doc:`blender-basics` if you are new to Blender in general. Be sure to watch the linked videos!
-   2. Read :doc:`usage` for daily workflow and how to practice with the provided scene file.
-   3. Keep :doc:`troubleshooting` handy for common issues
+   3. Read :doc:`usage` for daily workflow and how to practice with the provided scene file.
+   4. Keep :doc:`troubleshooting` handy for common issues
