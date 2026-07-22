@@ -45,6 +45,7 @@ sphinx-copybutton = "^0.5.2"
 myst-parser = "^5.0.0"
 sphinx-design = "^0.7.0"
 sphinx-autobuild = "^2024.10.3"
+linkify-it-py = "^2.0"
 
 [tool.poetry.group.dev.dependencies]
 # Inherits from docs, plus extra tools
