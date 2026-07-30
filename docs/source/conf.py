@@ -22,9 +22,9 @@ sys.path.insert(0, pathlib.Path(__file__).parents[2].resolve().as_posix())
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'The Violence Tool'
-copyright = '2024-2026, Fred, Daniil'
+copyright = '2024-2026, Fred'
 author = 'Daniil, Contributors'
-release = '1.0'
+release = '2.0'
 
 # ----------------------------------------------------------------------------
 

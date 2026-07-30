@@ -1,0 +1,2 @@
+Requirement already satisfied: linkify-it-py in ./projectviolencedocs-CjdI7n0o-py3.12/lib/python3.12/site-packages (2.1.0)
+Requirement already satisfied: uc-micro-py in ./projectviolencedocs-CjdI7n0o-py3.12/lib/python3.12/site-packages (from linkify-it-py) (2.0.0)

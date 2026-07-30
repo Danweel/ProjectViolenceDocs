@@ -37,7 +37,7 @@ The Violence Tool and supporting files are currently distributed exclusively thr
 Prerequisites
 -------------
 
-* **Blender 5.2 LTS or 5.1** (required — other versions will cause compatibility issues)
+* **Blender 5.1.2 or 5.2 LTE** (required — other versions will cause compatibility issues)
 * A Grease Pencil object already created in your scene (typically provided by Fred with pre-set layers and keyframes)
 * A **monitor tablet** with pressure sensitivity is recommended but not required
 * **Discord**: To get access to the file for now, updates, and the community for help.
@@ -90,19 +90,19 @@ Importing the Keymap
 
 **Step 1: Locate the Keymap File**
 
-   * Download ``REX_keymap_rev1.py`` from the Discord #GreasePencil channel
+   * Download Rex's Keybinds from the Discord #GreasePencil channel
    * Expected size: ~15 KB
 
 **Step 2: Import in Keymap Preferences**
 
    1. In Preferences, switch to the **Keymap** tab
    2. Click the **Import** button (near the search bar)
-   3. Select ``REX_keymap_rev1.py``
+   3. Select Rex's Keybinds
    4. Click **Import Keymap File**
 
 **Step 3: Verify Keybinds Loaded**
 
-   1. Search for ``fred.grease_layer_switch`` in the search bar
+   1. Search for Rex's Keybinds in the search bar
    2. Expand the entry — you should see multiple bindings (Shift+0–9, Ctrl+1–4, etc.)
    3. If nothing appears, the import failed
 

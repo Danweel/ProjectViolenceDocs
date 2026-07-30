@@ -141,10 +141,10 @@ Press ``Tab`` to toggle between modes.
 
 --------------------------------------------------------------------------------
 
-.. _further-learning:
+.. _basics-next-steps:
 
-Further Learning
-----------------
+Basics Next Steps
+-----------------
 
 :doc:`setup`
 

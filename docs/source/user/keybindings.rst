@@ -19,9 +19,13 @@ The Violence Tool consists of two components intended to be used together:
 
    * **Fred's Layer Manager script** (``FRED LAYER MANAGER.py``) — defines the
      operators and their behavior. Installed as a Blender addon.
-   * **(optional) A community keymap file** — binds keys to Fred's Operators and to native
+   * **(optional) CLEAN_512_11_REX.py** — binds keys to Fred's Operators and to native
      Blender Operators. A couple are available tailored to slightly different preferences.
      The vast majority of the keys are the same though.
+
+These operators listed here are for reference if you're building your own
+keymap from scratch. Rex's keymap (CLEAN_512_11_REX.py) binds all of them. If you're using Rex's keymap,
+you can ignore those — it's here for reference and for users who want to assign different keys.
 
 ---
 
@@ -87,28 +91,19 @@ These keys are set by default in Blender natively and are useful to the workflow
 +-----------------------+------------------------------------------+-----------------------------+--------------------------------+------------------------------------+
 | ``I``                 | Insert Keyframe                          | Timeline / Dope Sheet       | ``anim.keyframe_insert_menu``  | Timeline / Dope Sheet              |
 +-----------------------+------------------------------------------+-----------------------------+--------------------------------+------------------------------------+
-| ``S``                 | Switch to Sculpt Mode                    | Any Mode                    | ``object.mode_set``            | Window                             |
+| ``~``                 | Hide Gizmos                              | 3D Viewport                 |                                |                                    |
 +-----------------------+------------------------------------------+-----------------------------+--------------------------------+------------------------------------+
-
-**About the S Key**
-
-The **S key** provides an alternative to Alt-hold for entering Sculpt Mode:
-
-   - **S (press)** → Enters Sculpt Mode and **stays there** (no automatic return)
-   - Use this when you want to do extended sculpting work without holding a modifier
-   - To exit, press **Tab** (return to Edit Mode) or use the mode pie menu (Ctrl+Tab)
 
 ---
 
 .. _keymap-sources:
 
-**Hotkeys that need to be set**
--------------------------------
+**Hotkeys that you may want to know**
+-------------------------------------
 
 Efficient animation with The Violence Tool relies on a combination of tool-specific shortcuts and standard Blender navigation.
 Most animators will only need to set up the keys listed in this section — Fred provides a keymap file so you don't have
 to bind each one manually.
-
 
 About Rex's Keymap vs. Fred's Personal Keymap
 ---------------------------------------------
@@ -147,7 +142,9 @@ Two keymap files are available from the community. Check out the pins in the Dis
 .. note::
 
    Since the tool requires a lot of unique keybinds, it can be helpful to have a separate installation of Blender
-   just for these animation projects. Different blender versions are easily installed in parallel (either by Portable exes or .tar.xz), so one won't interfere with
+   for different projects, particularly if you have a lot of addons - or, have different keybind files you can switch between.
+
+   Different blender versions are easily installed in parallel (either by Portable exes or .tar.xz), so one won't interfere with
    your other potential Blender projects or experiments as long as they're different versions. Handy if you have the space!
 
 ---
@@ -206,7 +203,7 @@ hold a key down. To set this up in Blender:
 
 2.  **Locate the Operator**
     In the search bar at the top, type the operator name (e.g., ``gp.auto_merge_on``).
-    * *Tip:* If you don't see it, ensure the addon is enabled and you are searching in the correct category (usually **3D Viewport** or **Grease Pencil Stroke Paint Mode**).
+    * *Tip:* If you don't see it, ensure the addon is enabled and you are searching in the correct category (usually **3D Viewport** or **Grease Pencil Paint Mode**).
 
 3.  **Add a New Binding**
     Click the **+** (plus) icon next to the operator name to add a new keybinding.
@@ -223,7 +220,7 @@ hold a key down. To set this up in Blender:
     *   *This ensures the action stops when you let go of the key.*
 
 6.  **Verify Context**
-    * Ensure the **Context** column matches your workflow (e.g., **3D Viewport** or **Grease Pencil Stroke Paint Mode**).
+    * Ensure the **Context** column matches your workflow (e.g., **3D Viewport** or **Grease Pencil Paint Mode**).
 
 .. admonition:: Fred's Tip
 
@@ -271,6 +268,18 @@ regardless of the current mode. That's the point!
 +-------------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
 | ``Ctrl-F`` (Rex) ``W`` (Fred) | Toggle **Fade Inactive Layers** Overlay                  | 3D Viewport > Any Mode                 | ``gp.toggle_fade``                       | Window                            |
 +-------------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
+| ``S``                         | Switch to Sculpt Mode                                    | Any Mode                               | ``object.mode_set``                      | Window                            |
++-------------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
+| ``W``                         | Isolate Visibility                                       | 3D Viewport > Draw/Edit Mode           |                                          |                                   |
++-------------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
+
+**About the S Key**
+
+The **S key** provides an alternative to Alt-hold for entering Sculpt Mode:
+
+   - **S (press)** → Enters Sculpt Mode and **stays there** (no automatic return)
+   - Use this when you want to do extended sculpting work without holding a modifier
+   - To exit, press **Tab** (return to Edit Mode) or use the mode pie menu (Ctrl+Tab)
 
 .. note::
 
@@ -339,17 +348,17 @@ above for setup instructions.
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
 | **Shortcut**               | **Action**                                               | **Context**                            | **Operator ID**                          | **Keymap Section Path**           |
 +============================+==========================================================+========================================+==========================================+===================================+
-| ``A`` (Press/Hold)         | Enable **Automerge**                                     | 3D Viewport > Draw Mode                | ``gp.auto_merge_on``                     | Grease Pencil → Stroke Paint Mode |
+| ``A`` (Press/Hold)         | Enable **Automerge**                                     | 3D Viewport > Draw Mode                | ``gp.auto_merge_on``                     | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``A`` (Release)            | Disable **Automerge**                                    | 3D Viewport > Draw Mode                | ``gp.auto_merge_off``                    | Grease Pencil → Stroke Paint Mode |
+| ``A`` (Release)            | Disable **Automerge**                                    | 3D Viewport > Draw Mode                | ``gp.auto_merge_off``                    | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``B`` (Press/Hold)         | Enable **Draw Behind**                                   | 3D Viewport > Draw Mode                | ``gp.draw_behind_on``                    | Grease Pencil → Stroke Paint Mode |
+| ``B`` (Press/Hold)         | Enable **Draw Behind**                                   | 3D Viewport > Draw Mode                | ``gp.draw_behind_on``                    | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``B`` (Release)            | Disable **Draw Behind**                                  | 3D Viewport > Draw Mode                | ``gp.draw_behind_off``                   | Grease Pencil → Stroke Paint Mode |
+| ``B`` (Release)            | Disable **Draw Behind**                                  | 3D Viewport > Draw Mode                | ``gp.draw_behind_off``                   | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``Alt`` (Press/Hold)       | Enter **Sculpt Mode** temporarily                        | 3D Viewport > Draw Mode                | ``gp.sculpt_mode_on``                    | Grease Pencil → Stroke Paint Mode |
+| ``Alt`` (Press/Hold)       | Enter **Sculpt Mode** temporarily                        | 3D Viewport > Draw Mode                | ``gp.sculpt_mode_on``                    | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``Alt`` (Release)          | Return to **Draw Mode**                                  | 3D Viewport > Sculpt Mode              | ``gp.sculpt_mode_off``                   | Grease Pencil → Stroke Paint Mode |
+| ``Alt`` (Release)          | Return to **Draw Mode**                                  | 3D Viewport > Sculpt Mode              | ``gp.sculpt_mode_off``                   | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
 
 While in sculpt mode via ``Alt``, press ``F`` to change brush size.
@@ -372,15 +381,15 @@ If you see gray edit lines while nudging → "selected only" is ON.
 +============================+==========================================================+========================================+====================================================+===================================+
 | ``D``                      | Switch to **Draw Mode** + "MY STROKE" brush              | 3D Viewport > Any Mode                 | ``gpencil.draw_mode``                              | 3D View → 3D View (Global)        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+----------------------------------------------------+-----------------------------------+
-| ``E`` (tap)                | Switch to **Erase Point** brush                          | 3D Viewport > Draw Mode                | ``gpencil.erase_point``                            | Grease Pencil → Stroke Paint Mode |
+| ``E`` (tap)                | Switch to **Erase Point** brush                          | 3D Viewport > Draw Mode                | ``gpencil.erase_point``                            | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+----------------------------------------------------+-----------------------------------+
-| ``E`` (hold)               | Switch to **Erase Stroke** brush (full stroke erase)     | 3D Viewport > Draw Mode                | ``gpencil.erase_stroke``                           | Grease Pencil → Stroke Paint Mode |
+| ``E`` (hold)               | Switch to **Erase Stroke** brush (full stroke erase)     | 3D Viewport > Draw Mode                | ``gpencil.erase_stroke``                           | Grease Pencil → Paint Mode        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+----------------------------------------------------+-----------------------------------+
-| ``Ctrl-X``                 | Delete **all connected** strokes/fills of selection      | 3D Viewport > Edit Mode                | ``gpencil.erase_all_of_selected``                  | Grease Pencil → Stroke Edit Mode  |
+| ``Ctrl-X``                 | Delete **all connected** strokes/fills of selection      | 3D Viewport > Edit Mode                | ``gpencil.erase_all_of_selected``                  | Grease Pencil → Edit Mode         |
 +----------------------------+----------------------------------------------------------+----------------------------------------+----------------------------------------------------+-----------------------------------+
-| ``1``                      | Brush strength 100%                                      | 3D Viewport > Draw Mode                | ``gp.draw_brush_strength_full``                    | Grease Pencil → Stroke Edit Mode  |
+| ``1``                      | Brush strength 100%                                      | Grease Pencil > Paint Mode             | ``gp.draw_brush_strength_full``                    | Grease Pencil → Edit Mode         |
 +----------------------------+----------------------------------------------------------+----------------------------------------+----------------------------------------------------+-----------------------------------+
-| ``2``                      | Brush strength 0%                                        | 3D Viewport > Draw Mode                | ``gp.draw_brush_strength_none``                    | Grease Pencil → Stroke Edit Mode  |
+| ``2``                      | Brush strength 0%                                        | Grease Pencil > Paint Mode             | ``gp.draw_brush_strength_none``                    | Grease Pencil → Edit Mode         |
 +----------------------------+----------------------------------------------------------+----------------------------------------+----------------------------------------------------+-----------------------------------+
 
 .. warning::
@@ -410,8 +419,9 @@ If you want to stay on full-stroke erase after releasing, tap E twice quickly (p
 .. note::
 
    In Blender 5.2 LTS, the "Default Eraser" setting was removed. The last activated eraser brush is
-   now used automatically. The tool's two eraser operators (``gpencil.erase_stroke`` and
-   ``gpencil.erase_point``) set the specific eraser brush before switching to erase mode.
+   now used automatically. The tool's two eraser operators ``gpencil.erase_stroke`` and
+   ``gpencil.erase_point`` set the specific eraser brush before switching to erase mode. It's a
+   strictly technical change.
 
 .. _quick-menu-keys:
 
@@ -485,17 +495,19 @@ These keybinds are used less frequently but are important for specific tasks.
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
 | ``Ctrl-Shift-F``           | **Send to Front** (z-order)                              | 3D Viewport > Edit Mode                | (Blender native)                         | Grease Pencil → Stroke Edit Mode  |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``Ctrl-Shift-R``           | Toggle sculpt **selection mode** (all vs selected only)  | 3D Viewport > Sculpt Mode              | (Blender native)                         | Sculpt → Sculpt (Global)          |
+| ``Ctrl-Shift-R``           | Toggle sculpt **selection mode** (all vs selected only)  | 3D Viewport > Sculpt Mode/Edit Mode    | (Blender native)                         | Sculpt → Sculpt (Global)          |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``Shift-A``                | Apply Material & Stroke                                  | 3D Viewport > Edit Mode                | ``gp.apply_material_and_stroke``         | Grease Pencil → Stroke Paint Mode |
+| ``Shift-A``                | Apply Material & Stroke to Active Selected Object        | 3D Viewport > Edit Mode                | ``gp.apply_material_and_stroke``         | Grease Pencil → Stroke Paint Mode |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
-| ``Ctrl+Shift+Alt+C``       | Toggle realtime compositor                               | 3D Viewport > Any Mode                 | ``scene.toggle_realtime_compositor``     | 3D View → 3D View (Global)        |
+| ``Ctrl+Shift+Alt+C``       | Toggle realtime compositor in EEVEE                      | 3D Viewport > Any Mode                 | ``scene.toggle_realtime_compositor``     | 3D View → 3D View (Global)        |
++----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
+| ``Ctrl+A``                 | Simplify Stroke                                          | 3D Viewport > Edit Mode                 |                                          | 3D View → 3D View (Global)        |
 +----------------------------+----------------------------------------------------------+----------------------------------------+------------------------------------------+-----------------------------------+
 
 **About the C Key (Blender's Trimmer)**
 
 ``C`` is bound to Blender's native **Trim** operator (`grease_pencil.trim`).
-It requires **Edit Mode** (Tab). In Edit Mode, select two overlapping strokes
+It requires **Draw Mode** (Tab). In Draw Mode, select two overlapping strokes
 and press **C**. Trim cuts each stroke at their first intersection point,
 removing the excess portions. This will appear to 'connect' them there, and,
 at least for the purposes of fills, does. Just not _actually_ as a stroke.
@@ -607,23 +619,8 @@ These sections cover unbound operators, v1.0 substitutions, and platform-specifi
 These operators exist in the v2.0 code but may not have keybinds in the default keymap file.
 You can bind these yourself if you find them useful:
 
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| **Operator ID**                            | **Action**                                        | **Context**                       | **Keymap Section Path**           |
-+============================================+===================================================+===================================+===================================+
-| ``gp.prev_keyframe``                       | Jump to previous keyframe (undo-supported)        | 3D Viewport > Any Mode            | 3D View → 3D View (Global)        |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| ``gp.next_keyframe``                       | Jump to next keyframe (undo-supported)            | 3D Viewport > Any Mode            | 3D View → 3D View (Global)        |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| ``gp.prev_marker``                         | Jump to previous marker (undo-supported)          | 3D Viewport > Any Mode            | 3D View → 3D View (Global)        |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| ``gp.next_marker``                         | Jump to next marker (undo-supported)              | 3D Viewport > Any Mode            | 3D View → 3D View (Global)        |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| ``gp.center_timeline``                     | Center timeline on selected frames                | Dope Sheet (Grease Pencil)        | Dope Sheet                        |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| ``gp.apply_material_and_stroke``           | Apply active material + set stroke type           | 3D Viewport > Draw Mode           | Grease Pencil → Stroke Paint Mode |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
-| ``fred.grease_layer_fill_specific_switch`` | Switch to fill layer with specific material       | 3D Viewport > Draw Mode           | 3D View → 3D View (Global)        |
-+--------------------------------------------+---------------------------------------------------+-----------------------------------+-----------------------------------+
+
+
 
 .. note::
 
@@ -817,9 +814,11 @@ To change a color globally, edit the material in the slot rather than refilling 
 
 If your file becomes too large due to too many vertices:
 
-   1. Select all strokes (or use Multi-Frame Editing).
-   2. Press **F3** and search for **"Adaptive"**.
+   1. Select all strokes (or use Multi-Frame Editing) in Edit Mode.
+   2. Press Ctrl-A or search for **"Adaptive"** or **"Simplify Stroke"**
    3. Set the threshold (e.g., ``0.001``) to simplify strokes.
+
+You can optionally switch to another mode after selecting.
 
 **Layer Order Matters**
 ~~~~~~~~~~~~~~~~~~~~~~~

@@ -75,6 +75,10 @@ Keybinds & Shortcuts Not Working
 
 This is a known Blender startup bug where StringProperty values fail to resolve before addon operators register.
 
+**My file seems to register keybinds strangely**
+
+- Cause: This is rare, but repeated installs without 
+
 **Keybinds stop working after restarting Blender**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -332,12 +336,12 @@ If your scene doesn't follow this, the keybinds won't find the right layers.
 
 The tool relies on four brushes that must be present in your scene:
 
-| Brush Name | Purpose |
-|------------|---------|
-| ``MY STROKE`` | Primary drawing brush |
-| ``ERASE STROKE`` | Full-stroke eraser |
-| ``ERASE POINT`` | Pixel-style eraser |
-| ``MY FILL`` | Fill bucket brush |
+| Brush Name       | Purpose               |
+|------------------|-----------------------|
+| ``MY STROKE``    | Primary drawing brush |
+| ``ERASE STROKE`` | Full-stroke eraser    |
+| ``ERASE POINT``  | Pixel-style eraser    |
+| ``MY FILL``      | Fill bucket brush     |
 
 If these don't exist in your project, download the **Practice File (v2.0)** which includes them pre-configured.
 
@@ -345,13 +349,13 @@ If these don't exist in your project, download the **Practice File (v2.0)** whic
 
 Your Grease Pencil object must have material slots following this pattern:
 
-| Slot | Naming Pattern | Example |
-|------|---------------|---------|
-| Line materials | ``{number} {letter} LINE`` | ``1 I LINE`` |
-| Fill materials | ``{number} {letter} FILL`` | ``1 A FILL`` |
-| Shadow layer | ``Shadow`` | ``Shadow`` |
-| Highlight layer | ``Highlight`` | ``Highlight`` |
-| Black fill | ``BLACK FILL`` | ``BLACK FILL`` |
+| Slot            | Naming Pattern             | Example        |
+|-----------------|----------------------------|----------------|
+| Line materials  | ``{number} {letter} LINE`` | ``1 I LINE``   |
+| Fill materials  | ``{number} {letter} FILL`` | ``1 A FILL``   |
+| Shadow layer    | ``Shadow``                 | ``Shadow``     |
+| Highlight layer | ``Highlight``              | ``Highlight``  |
+| Black fill      | ``BLACK FILL``             | ``BLACK FILL`` |
 
 The tool uses substring matching on material names to determine stroke type:
 

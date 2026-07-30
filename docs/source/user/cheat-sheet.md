@@ -126,32 +126,32 @@ mode but haven't selected anything. Either select strokes first, or press
 |||
 ## Common Gotchas
 ### "My keybinds stopped working after restarting Blender"
-You didn't save preferences. Re-import the keymap file, then **Save Preferences**.
+- You didn't save preferences. Re-import the keymap file, then **Save Preferences**.
 ### "My layer keys all switch to Layer 1"
-Keymap properties didn't resolve on load. Re-select your keymap in Preferences
+- Keymap properties didn't resolve on load. Re-select your keymap in Preferences
 (or delete and re-import). This is a known Blender startup bug.
 ### "Fill says 'unable to fill unclosed areas'"
 - Increase **Gap Closure** (Fill tool → Advanced) to 5–10
 - Enable **Visual Aids** for drag handles
 - **Zoom out** — fill detection is screen-based and fails at high zoom
-- Best fix: draw strokes that **cross over halfway** to prevent gaps
+- But ultimately: draw strokes that **cross over halfway** to prevent gaps
 ### "Duplicate fills appeared"
-Tab into Edit Mode, lasso select the duplicates, press `Ctrl+X`.
+- Tab into Edit Mode, lasso select the duplicates, press `Ctrl+X`.
 ### "Toggle is stuck ON (drawing behind / auto-merging)"
-You released the key mid-stroke. Lift pen, tap the stuck key once.
+- You released the key mid-stroke. Lift pen, tap the stuck key once.
 ### "Drawing behind even though I'm not holding B"
-Same as above — the B toggle hung. Tap `B` once to reset.
+- Same as above — the B toggle hung. Tap `B` once to reset.
 ### "Pen pressure glitched"
-Restart Blender (and/or tablet driver). If a mouse draws fine but the tablet
+- Restart Blender (and/or tablet driver). If a mouse draws fine but the tablet
 doesn't, it's a driver issue, not the tool.
 ### "`3` key doesn't do anything"
-It's not bound by default in Rex's keymap. See full docs for manual binding
+- It's not bound by default in Rex's keymap. See full docs for manual binding
 instructions (~30 seconds in Preferences).
 ### "I can't zoom or pan normally"
-You likely imported Fred's personal keymap instead of Rex's. Fred's overrides
+-You likely imported Fred's personal keymap instead of Rex's. Fred's overrides
 zoom and pan. Either switch to Rex's keymap, or manually fix:
-- Zoom: change `Ctrl+Shift+LMB` → `Ctrl+MMB`
-- Pan: change `Spacebar` → `Shift+MMB`
+    - Zoom: change `Ctrl+Shift+LMB` → `Ctrl+MMB`
+    - Pan: change `Spacebar` → `Shift+MMB`
 ### "Alt+~ doesn't center my view (Linux/Ubuntu Studio)"
-Your desktop environment is intercepting it. Disable the OS shortcut, or
+- Your desktop environment is intercepting it. Disable the OS shortcut, or
 remap to `Home` or bracket keys in Blender Preferences.

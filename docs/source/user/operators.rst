@@ -85,7 +85,7 @@ Drawing & Erasing Operators
    ``paint.eraser_brush`` and ``paint.eraser_brush_asset_reference`` has been removed in 5.2.
 
 Modal Toggle Operators
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~
 
 .. list-table::
    :widths: 30 15 55

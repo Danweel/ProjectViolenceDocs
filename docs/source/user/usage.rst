@@ -11,11 +11,11 @@ AFIS Workflow Guide
 Before beginning, download and open the practice files to follow along:
 
 * **Practice File (v2.0)**: [5.1.2]NEW_SCRIPT.blend pinned in the #GreasePencil channel on Discord.
-* **Expected size**: ~6 MB | **Format**: .blend
+  **Expected size**: ~6 MB | **Format**: .blend
 
 also:
 
-* **REX_keymap_rev1**: A keymap file for starting out. See :doc:`keybindings` for details.
+* **CLEAN_512_11_REX.py**: A keymap file for starting out. See :doc:`keybindings` for details.
 
 Once opened, verify your setup:
 
@@ -47,6 +47,8 @@ Before drawing, configure two critical fill settings to avoid frustration:
    4. Set to **5** or higher for automatic gap bridging
 
    *Higher values bridge larger gaps but may "leak" into adjacent areas.*
+   *Ensure that refer is set to Layer Above and is a line layer. The way Fred has it set up, Lines always are above Fills.*
+   *It is possible to create multiple fills in a single space.
 
 **Visual Aids**
 ~~~~~~~~~~~~~~~
@@ -85,7 +87,7 @@ The v2.0 workflow is built around **keyboard-driven layer switching**. Instead o
 
    1. Edit → Preferences → Keymap
    2. Delete existing Violence Tool keymap entries
-   3. Click **Import**, select ``REX_keymap_rev1.py``
+   3. Click **Import**, select Rex's (or Fred's, or your own) keybinds file
    4. **Save Preferences** (bottom left)
 
 ---
@@ -183,7 +185,7 @@ The mouth uses a **four-layer system** for editability during lip-sync:
    - You can use the same method as for the pupil for the black nose-shape.
 
 2. **Create the mask**:
-   - Draw a **temporary closing line** at the throat opening - just a regular black line is fine
+   - Draw a **temporary closing line** at the throat opening on Ctrl+1/Line layer - just a regular black line is fine
    - Press ``Ctrl+2`` (Mouth Mask)
    - Tap to fill the enclosed area (mask is invisible but functional)
    - Return to ``Ctrl+1``, erase the temporary line with ``E``
@@ -305,6 +307,9 @@ Alternatively:
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 Dimming non-active layers helps focus on the current element.
+Requires Solid View:
+
+IMAGE HERE
 
    * **Rex's Binding**: ``Ctrl+F``
    * **Fred's Personal Binding**: ``W``
@@ -346,11 +351,13 @@ Edit strokes across multiple frames simultaneously:
 Reduce vertex count for cleaner files:
 
    1. Select all strokes (``A``)
-   2. Press ``F3`` → Search **"Adaptive"** or **"Simplify Stroke"**
+   2. Press Ctrl+A or Search **"Adaptive"** or **"Simplify Stroke"**
    3. Set threshold: Start with **0.001**
       - Higher = more reduction (fewer vertices, more angular)
       - Lower = preserve detail
    4. Press **Enter**
+
+You can optionallly switch to another mode after selecting.
 
 .. warning::
 
@@ -364,7 +371,7 @@ Common Issues & Solutions
 -------------------------
 
 **Key Doesn't Work After Restart**
-   Re-import the keymap and **Save Preferences**. See :doc:`setup` for steps.
+   Re-select the keymap and **Save Preferences**. See :doc:`setup` for steps.
 
 **Toggle Hang (A, B, or E keys stuck)**
    Tap the affected key once while in Draw Mode.
