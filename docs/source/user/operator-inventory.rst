@@ -3,6 +3,10 @@
 Operator Inventory
 ==================
 
+------------------------------------------------------------------------------
+
+.. _operators_v2:
+
 v2.0 (Blender 5.x / Grease Pencil 3)
 -------------------------------------
 
@@ -26,6 +30,8 @@ and the native Blender operations it wraps.
 
 Active Operators (v2.0)
 -----------------------
+
+.. _layer-switching-operators:
 
 Layer Switching Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -53,6 +59,8 @@ Layer Switching Operators
 .. note::
 
    All four layer-switching operators share a common pattern: iterate layers, find matching name via substring filter, lock all, unlock target, set active. The code is **duplicated within each operator** (the layer-finding loop runs twice in succession). This is a workaround for a timing issue in GP3's layer activation. I believe the Blender team has been informed.
+
+.. _drawing-erasing-operators:
 
 Drawing & Erasing Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,6 +91,8 @@ Drawing & Erasing Operators
    eraser brush is now used automatically. The tool's two eraser operators work around this by explicitly
    activating the desired eraser brush before switching to erase mode. Also note: the Python API for
    ``paint.eraser_brush`` and ``paint.eraser_brush_asset_reference`` has been removed in 5.2.
+
+.. _modal-toggle-operators:
 
 Modal Toggle Operators
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -119,6 +129,8 @@ Modal Toggle Operators
    state changes that don't produce discrete operations to undo. **However**, if a toggle "hangs" due to
    Blender not registering press/release during a stroke, see :ref:`trouble-modal-toggles`.
 
+.. _brush-material-operators:
+
 Brush & Material Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -141,6 +153,8 @@ Brush & Material Operators
    * - ``gp.join_and_smooth``
      - ``undo_push``
      - Joins selected strokes (``grease_pencil.join_selection(type='JOINSTROKES')``), smooths (``grease_pencil.stroke_smooth(iterations=10, factor=0.5)``).
+
+.. _nav-timeline-operators:
 
 Navigation & Timeline Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,6 +182,8 @@ Navigation & Timeline Operators
      - None
      - Centers timeline: ``action.view_selected()`` + ``action.view_frame()``.
 
+.. _viewport-overlay-operators:
+
 Viewport & Overlay Operators
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -184,6 +200,8 @@ Viewport & Overlay Operators
    * - ``scene.toggle_realtime_compositor``
      - None
      - Iterates screen areas, finds VIEW_3D, toggles ``shading.use_compositor`` between ``DISABLED`` and ``ALWAYS``.
+
+.. _background-timer:
 
 Background Timer (Not an Operator)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -208,6 +226,8 @@ Background Timer (Not an Operator)
    Fred's timer restores the old workflow: materials with ``"LINE"`` in their name automatically get stroke-only mode.
    All other materials get both mode. Setting fill color alpha to 0% does NOT work as a workaround — invisible fills
    are still rendered and progressively slow down drawing as strokes grow longer.
+
+.. _global-variables:
 
 Global Variables
 ~~~~~~~~~~~~~~~~~
@@ -671,31 +691,25 @@ Grease Pencil changes are relevant to The Violence Tool v2.0:
    :widths: 40 60
    :header-rows: 1
 
-   * - Change
-     - Notes
-   * - "Move to Layer" operator shows layer groups as menus/submenus matching tree structure
-     - Helps with manual layer organization. The tool's parameterized operators bypass this UI, but users managing layers manually benefit.
+   * - **Change**
+     - **Notes**
+   * - **Move to Layer** Blender operator shows layer groups as menus/submenus matching tree structure
+     - Supposed to help with manu*al layer organization. The tool's parameterized operators bypass this UI, but users managing layers manually benefit.
    * - ``Shift + L`` deselects fully-selected strokes
      - Useful for editing workflows with the tool.
-   * - Eraser uses last activated eraser brush (no more "Default Eraser" setting)
-     - Aligns with tool's approach of explicitly setting eraser brushes per operator.
+   * - Eraser uses last activated eraser brush (no more "Default Eraser" setting, not sure that's good, might need operator)
+     - Competes? with tool's approach of explicitly setting eraser brushes per operator.
    * - New bundled Grease Pencil brushes + 19 new online brushes by Blender Studio artists
-     - Tool uses custom brushes ("MY STROKE", "MY FILL", "ERASE STROKE", "ERASE POINT") — bundled brushes are irrelevant unless the tool is adapted to use them.
+     - Tool uses custom brushes, so this doesn't really matter ("MY STROKE", "MY FILL", "ERASE STROKE", "ERASE POINT").
    * - **Playback Loop modes** added (Infinite, Stop at End/Start, Restore Frame, Bounce)
-     - Useful for animators reviewing their work. Not tool-specific.
+     - Useful reviewing work. Not Fred-tool-specific.
 
-**Migration Notes for 5.2 LTS:**
+**(Known) Migration Notes for 5.2 LTS:**
 
-   1. The tool's ``bl_info`` declares ``"blender": (5, 1, 2)``. This is compatible with 5.2 LTS
-      since 5.2 is a superset of 5.1's API. No changes needed for 5.2 compatibility — but the
-      version number should be bumped to ``(5, 2, 0)`` or ``(2, 0)`` for the tool's own version.
-   2. The ``brush.asset_activate`` API used by the tool was introduced in 5.0 and remains
+   1. The ``brush.asset_activate`` API used by the tool was introduced in 5.0 and remains
       stable in 5.2.
-   3. The ``grease_pencil`` namespace operators used by the tool (``layer_active``,
+   2. The ``grease_pencil`` namespace operators used by the tool (``layer_active``,
       ``select_linked``, ``delete``, ``join_selection``, ``stroke_smooth``,
       ``stroke_material_set``, ``set_stroke_type``, ``sculptmode_toggle``,
       ``paintmode_toggle``) are all present in 5.2 LTS.
-   4. The ``bpy.app.timers`` API used by the material-check timer is unchanged in 5.2.
-   5. **Asset files must be re-saved** when upgrading from 5.1 to 5.2 (same as the 5.0→5.1
-      migration). Practice files and scene files may need to be opened and re-saved in 5.2
-      to ensure compatibility.
+   3. The ``bpy.app.timers`` API used by the material-check timer is unchanged in 5.2.

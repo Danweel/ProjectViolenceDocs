@@ -1,5 +1,5 @@
 {
-    "python.defaultInterpreterPath": "/home/danweel/Documents/VSCodiumFiles/ProjectViolenceDocs/projectviolencedocs-CjdI7n0o-py3.12/bin/python",
+    "python.defaultInterpreterPath": "/home/danweel/.cache/pypoetry/virtualenvs/projectviolencedocs-CjdI7n0o-py3.12",
     "esbonio.server.enabled": true,
     "esbonio.server.pythonPath": "/home/danweel/Documents/VSCodiumFiles/ProjectViolenceDocs/projectviolencedocs-CjdI7n0o-py3.12/bin/python",
     "python.analysis.extraPaths": [],
@@ -16,7 +16,8 @@
     "workbench.tree.indent": 20,
     "workbench.colorCustomizations": {
         "tree.indentGuidesStroke": "#ff0000",
-        "editorIndentGuide.background": "#ff00ff"
+        "editorIndentGuide.background1": "#ff00ff"
     },
-    "python.terminal.activateEnvironment": true
-}
+    "python.terminal.activateEnvironment": true,
+    "esbonio.sphinx.pythonCommand": "null",
+    }

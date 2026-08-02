@@ -1,3 +1,51 @@
+# Docs Version 2.2 (July 2026)
+## Post Meeting 2 Additions
+
+New
+- EasyGP Creator section to `usage.rst`
+- camera marker system documentation
+- holdout/shadow workflow section
+- tinting/Vertex Paint section
+- interpolation/stroke order section
+- "Disable Lights" OP
+- Driver section/visibility driver
+- "Practice Without 3D Models" section
+- `glossary.rst`
+- Easy GP Creator
+- Donut fills
+
+Notes
+- Add file size/compression note for GP3
+- Added left-handed workflow notes
+- Noted Moving Hold as "informational label only"
+- Fixes for a few new/different property and OP names
+- Use Channel Group colors & How to
+- Left handed tips for Keybinds
+
+Troubleshooting
+- Camera pass index trouble documented
+- Stuck in Draw Mode
+- Materials not copying (GPCreator)
+- How to fix Holdout Punches Through Everything
+- Can't Select Object When Invisible
+- Alt-P Doesnt Run Script
+- Key Doing Unexpected Things
+- Interpolation Produces Garbed Results
+- Every New Layer Has "Use Lights" Enabled
+- Cannot Switch Away from Layer 1
+- New 'Fill Tool Won't Fill' addition
+
+Technical
+- Add to `use-cases.rst` with all Meeting 2 workflows (11)
+- Removed `tests.rst`
+- Rewrite `operators.rst` with new name conventions, remove old OPs
+- Update API change log
+
+
+# Docs Version 2.1.1 (July 2026)
+- Small fixes, sanity check with Sonder.
+
+
 # Docs Version 2.1 (July 2026)
 
 "Post meeting re-write"

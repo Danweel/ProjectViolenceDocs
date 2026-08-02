@@ -3,6 +3,8 @@
 Troubleshooting & Known Issues
 ==============================
 
+------------------------------------------------------------------------------
+
 Quick Reference Table
 ---------------------
 
@@ -21,6 +23,10 @@ Quick Reference Table
 +----------------------------+-------------------------------------------+
 | Layer reordering broken    | :ref:`known-issue-page-down`              |
 +----------------------------+-------------------------------------------+
+| Copy-paste not working     | :ref:`copy-paste-issues`                  |
++----------------------------+-------------------------------------------+
+
+------------------------------------------------------------------------------
 
 .. _trouble-keymaps:
 
@@ -77,7 +83,8 @@ This is a known Blender startup bug where StringProperty values fail to resolve 
 
 **My file seems to register keybinds strangely**
 
-- Cause: This is rare, but repeated installs without 
+- Cause: This is rare, but repeated installs without uninstalling the previous version may lead to file... being displeased.
+  Always take care to uninstall before installing a new one.
 
 **Keybinds stop working after restarting Blender**
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -179,7 +186,7 @@ See also: :ref:`known-issue-timer-addon` (timer issues can cause stroke-mode aut
 
 The ``C`` key is a tool swap (via ``wm.tool_set_by_id``), not a boolean toggle. It doesn't have a press/release pair — holding it just keeps the Trim tool active, releasing it returns to the Brush tool.
 
----
+------------------------------------------------------------------------------
 
 .. _trouble-fills:
 
@@ -226,7 +233,7 @@ Fills Not Working ("Unable to Fill")
 
 See also: :ref:`known-issue-fill-zoom-bug` (zoom-dependent fill failures).
 
----
+------------------------------------------------------------------------------
 
 .. _trouble-installation:
 
@@ -390,7 +397,7 @@ The material slots must be arranged in the Property Panel in this order:
 
 Material order affects the material popup behavior when switching layers.
 
----
+---------------------------------------------------------------------------------
 
 .. _trouble-performance:
 
@@ -428,7 +435,7 @@ Performance & File Size
    3. Press **F3**, search for **"Reproject Strokes"**.
    4. Choose **"Project from View"**.
 
----
+------------------------------------------------------------------------------
 
 .. _trouble-layer-ordering:
 
@@ -463,7 +470,7 @@ Layer Management Issues
 
 See also: :ref:`trouble-keymaps` (incorrect filter values cause wrong layers to activate).
 
----
+------------------------------------------------------------------------------
 
 .. _known-issues:
 
@@ -559,7 +566,24 @@ Additionally, the joined strokes don't stay selected after connecting, unlike Bl
 
 **Status:** Unknown regression. No official fix timeline.
 
----
+-------------------------------------------------------------------------------
+
+.. _copy-paste-issues:
+
+**I can't copy stuff from one layer to a different one**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you draw on the wrong layer and want to move the stuff on that layer to another one, it isn't done
+with copy paste:
+
+**Steps:**
+
+   1. Right click in the 3D window view in Draw Mode.
+   2. In the right-click context menu, find Move to Layer
+   3. Select the Layer you wish to move it to
+
+
+------------------------------------------------------------------------------
 
 Reporting New Issues
 --------------------
@@ -578,6 +602,8 @@ If you encounter a problem not listed here:
 
 You can also DM or @ Danweel directly on the AFIS sever. Can be faster!
 
+-------------------------------------------------------------------------------
+
 Appendix: Blender-Side Bug Summary
 ----------------------------------
 
@@ -594,3 +620,5 @@ These are bugs in Blender itself, not the Violence Tool. All reported to the Ble
 +----------------------------------------+----------------------------------+------------------+
 | Alt+F auto-smooth regression           | 4.3+, 5.1, 5.2                   | Unknown          |
 +----------------------------------------+----------------------------------+------------------+
+
+------------------------------------------------------------------------------

@@ -1,7 +1,9 @@
-.. _use-cases:
+.. _process-docs:
 
-User Scenarios
-==============
+Process Documentation
+=====================
+
+-----------------------------------------------------------
 
 OLD, NEEDS REVISION for 2.0
 
@@ -9,13 +11,12 @@ Needs:
 - Map all v1.0→v2.0 operator names,
 - convert panel-button instructions to keybinds,
 - update API references (grease_pencil.*, tool_settings.*)
+- Sub processes should probably be noted seperately than full processes.
 
 .. admonition:: Dan's Notes
 
-   User walkthroughs and tutorials are intended to be written from these 'use cases', which capture functionality
-   in a structured way. They're just a starting-point, readability-wise, until I can get to writing friendlier guides
-   (after testing functionality paths with these and making sure everything is recorded right, and works as intended).
-   Tests and failure messages can also be written from these, so they are multipurpose (and therefore no good themselvles
+   Traditional Use Cases capture functionality in a structured way.
+   Tests and failure messages can also be written from these, so they are multipurpose (and therefore no good themselves
    for specific needs).
 
 The following workflows describe how to use **The Violence Tool** in a **Fred-prepared scene**.
@@ -47,7 +48,7 @@ These workflows focus on setting up the correct layer, brush, and material befor
 
 .. _uc-draw-frame:
 
-Draw on a Specific Layer
+Draw on the next frame
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Goal:** Draw the next frame of the character's body lines.
@@ -610,23 +611,17 @@ BUG: **The operator crashes on the second click.**
     4. **Actor** must restart Blender or reload the addon to recover.
     5. **Actor** avoids clicking the button twice in rapid succession.
 
-    *Future Fix:* Inline the logic without registering a nested class.
-
-
+    *Future Fix:* Inline the logic without registering a nested class? (check if this is still the case)
 
 --------------------------------------------------------------------------------
 
-Setup & Utilities
------------------
+Utilities that start a file from scratch
+----------------------------------------
 
-.. _uc-create-fox:
+.. _uc-create-character:
 
-Create a New Rig
-~~~~~~~~~~~~~~~~
-
-.. _warning:
-
-   This only creates a 'Fox' GP object, for now. OP25 replaces OP11, which only creates 1 layer and 1 material.
+Create a New Character/Object
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Goal:** Create a new Grease Pencil object pre-configured with the correct layers, materials, and brushes.
 
@@ -647,7 +642,7 @@ Create a New Rig
     - Sets up custom brush presets.
     - Makes the new object active.
 
-2.  **Actor** may drawing immediately.
+2.  **Actor** may draw immediately.
 
 
 .. _uc-hide-layer:
@@ -856,47 +851,9 @@ Toggle Stroke Strength
     2. **Actor** checks the **Material Properties** for the active slot.
     3. **Actor** adjusts the material's alpha if needed.
 
-Unavailable Operators (v5.0)
+Unavailable Operators (v2.0)
 -------------------------------
 
-The following operators exist in the code but are **not recommended** or require caution for use.
+None so far.
 
-+----------------------+------------+-----------------------------------------------------------+
-| Operator             | Status     | Issue                                                     |
-+======================+============+===========================================================+
-| ``fred.op11``        | Deprecated | Superseded by ``fred.op25``. Creates incomplete object.   |
-+----------------------+------------+-----------------------------------------------------------+
-| ``fred.op26``        | Broken     | Passes Material object instead of string to               |
-|                      |            | ``gpencil.material_set()``. Raises TypeError.             |
-+----------------------+------------+-----------------------------------------------------------+
-| ``fred.op30``        | Broken     | Treats ``hide_viewport`` as callable operator             |
-|                      |            | instead of property. Raises AttributeError.               |
-+----------------------+------------+-----------------------------------------------------------+
-| ``fred.op36``        | Broken     | Calls ``mesh.vertices_smooth`` on GP objects.             |
-|                      |            | Raises context error. Works on Mesh only.                 |
-+----------------------+------------+-----------------------------------------------------------+
-| ``fred.op38``        | Placeholder| Loops through all GP objects but performs no action.      |
-+----------------------+------------+-----------------------------------------------------------+
-| ``fred.op39``        | Partial    | Works on first click. Nested class registration causes    |
-|                      |            | RuntimeError on second click.                             |
-+----------------------+------------+-----------------------------------------------------------+
-
-.. admonition:: Dan's Notes
-
-    Use case statuses and what to do with them for user facing instructions:
-
-+------------------+------------------------------------------------------------------+
-| Status           | Action for User Guides                                           |
-+==================+==================================================================+
-| Working          | Write full tutorial                                              |
-+------------------+------------------------------------------------------------------+
-| Partial          | Write tutorial with workaround note                              |
-+------------------+------------------------------------------------------------------+
-| Keybind Required | Write tutorial with setup instructions                           |
-+------------------+------------------------------------------------------------------+
-| Broken           | Omit from user guides, or include as "experimental" with warning |
-+------------------+------------------------------------------------------------------+
-| Placeholder      | Omit entirely                                                    |
-+------------------+------------------------------------------------------------------+
-| Deprecated       | Omit, or mention only as "don't use this"                        |
-+------------------+------------------------------------------------------------------+
+-----------------------------------------------------------

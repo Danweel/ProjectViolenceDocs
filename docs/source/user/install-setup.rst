@@ -1,7 +1,9 @@
-.. _setup:
+.. _install-setup:
 
 Installation & Setup
 ====================
+
+------------------------------------------------------------------------------
 
 .. note::
 
@@ -14,6 +16,8 @@ Before installing, verify your environment:
    * **Blender Version**: 5.1 or 5.2 LTS (Grease Pencil 3 required)
    * **Download**: Fred's Grease Pencil Layer Manager (v2.0) py script as a plugin
    * **Also**: Rex's Keymap.py file to import to keybinds in preferences.
+
+------------------------------------------------------------------------------
 
 .. _getting-the-tool:
 
@@ -32,6 +36,8 @@ The Violence Tool and supporting files are currently distributed exclusively thr
    Access is restricted to the Discord community for early testing and workflow development.
    If you are not a member, please contact Fred directly to request an invitation. We're friendly!
 
+------------------------------------------------------------------------------
+
 .. _prerequisites:
 
 Prerequisites
@@ -45,7 +51,7 @@ Prerequisites
 *Advanced Prerequisites* for a _blank_ file can be found in :doc:`/user/troubleshooting`.
 You'll almost always have this set up for you in advance when working on AFIS.
 
----
+------------------------------------------------------------------------------
 
 .. _install-addon:
 
@@ -79,7 +85,7 @@ Installing the Addon
 
    **Persistent timer issue:** See :ref:`known-issue-timer-addon` if stroke mode switching doesn't work automatically.
 
----
+------------------------------------------------------------------------------
 
 .. _install-keymap:
 
@@ -115,7 +121,7 @@ Importing the Keymap
    **If you close Blender without clicking "Save Preferences," all keybind changes are lost.**
    This is the #1 cause of "my keybinds stopped working" complaints.
 
----
+------------------------------------------------------------------------------
 
 .. _verifying-setup:
 
@@ -156,7 +162,7 @@ Verifying Your Setup
    press ``F3`` and search for one of the tool's operators (e.g., ``gpencil.draw_mode``).
    If it appears in the search results, the tool is installed and active, or the above.
 
----
+------------------------------------------------------------------------------
 
 .. _configuring:
 
@@ -172,7 +178,7 @@ For optimal workflow, we highly recommend configuring specific keyboard shortcut
 
 And everything else!
 
----
+------------------------------------------------------------------------------
 
 .. _updating:
 
@@ -245,7 +251,7 @@ Alternatively, start from the practice file and delete James's layers to get a b
 
 See :doc:`/user/troubleshooting` for detailed instructions on what the Fred tool requires in a document.
 
----
+------------------------------------------------------------------------------
 
 .. _preferences-save:
 
@@ -266,7 +272,7 @@ After completing the setup:
 
 This eliminates the need to reinstall everything for each new animation project.
 
----
+------------------------------------------------------------------------------
 
 .. _common-setup-problems:
 
@@ -307,15 +313,16 @@ What if I want to use this for my own project?
 
 This is welcome, but could involve some organization that might be unique to your project, depending on your style. Here's what we recommend to start:
 
-   1. Practice with the provided scene files using the default setup for AFIS to get an idea of how the system works
+   1. Practice with the provided scene files using the default setup for AFIS to get an idea of how the system works.
    2. Play around and find your personal workflow
    3. Consider sharing with us what you discovered!
+   4. Then check out :doc:`creating-from-scratch`
 
 .. note::
 
    As the community grows, we hope to share your invented workflows, keybinds, and guides.
 
----
+------------------------------------------------------------------------------
 
 .. _setup-next-steps:
 

@@ -1,5 +1,5 @@
-#type: ignore
-#Pylance doesn't need to check this Sphinx
+# type: ignore
+# Pylance doesn't need to check this Sphinx
 
 # Configuration file for the Sphinx documentation builder.
 # For the full list of built-in configuration values, see the documentation:
@@ -34,13 +34,14 @@ release = '2.0'
 
 # Mock imports for modules that don't exist:
 autodoc_mock_imports = ['pymodulefordocs',]
-# ISSUE: The python script these docs are about isn't included, so this is to prevent a stopping error
+# ISSUE: The python script these docs are about isn't included, so this is to prevent a stopping error.
+# Sphinx by default wants to analyze a python script, we're doing this manually.
 
 templates_path = ['_templates']
 
 root_doc = 'index'
 
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_troubleshooting/*.rst']
+exclude_patterns = ['_build', 'build', 'Thumbs.db', '.DS_Store']
 
 extensions = [
     'sphinx.ext.intersphinx',      # Allows sphinx to interact with other Read the Docs pages
@@ -137,8 +138,7 @@ myst_enable_extensions = [
     'deflist',          # Definition lists
 #   'dollarmath',       # LaTeX math syntax
     'html_admonition',  # HTML admonitions
-    'linkify',          # Auto-link URLs
-]
+    ]
 
 # Optional: Configure how MyST handles certain syntax
 myst_heading_anchors = 4  # Add anchors to headings up to level 3

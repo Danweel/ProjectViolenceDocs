@@ -1,14 +1,14 @@
 .. _blender-basics:
 
-Blender Basics for Animators
-============================
+Blender Basics
+==============
 
 .. note::
 
    **New to Blender?** If you have never used Blender before, you can still use the tool. Grease Pencil is a unique feature within Blender, and not the worst place to start. As a 3D program though, Blender has its own ways of handling navigation and shortcuts.
    This page covers the navigation, shortcuts, and Blender concepts you need to use Fred's plugin Tool and Blender's Grease Pencil mode together.
 
-   If you are already comfortable with Blender, you can safely skip this page and head to :doc:`setup`.
+   If you are already comfortable with Blender, you can safely skip this page and head to :doc:`install-setup`.
 
 This guide is adapted in part from Fred's "Blender Crash Course" for animators, which you can watch below. You can consider this page much briefer notes for reference.
 
@@ -20,7 +20,7 @@ The following is all the parts of Blender that is relevant to Grease Pencil. Som
 When learning Blender, or any very complicated program, it's good to have a goal (like this!) in mind as you work, or you could lose yourself in learning how to do things in it you'll never even use.
 Few can do _everything_ in Blender.
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 .. _navigation:
 
@@ -54,7 +54,7 @@ Before drawing, you need to know how to move around the scene. Generally, you wi
 
 *Figure 1: The multi-coloured navigation gizmo in the top-right corner. Shading modes can be seen above it.*
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
 .. _quick-nav-reference:
 
@@ -115,22 +115,27 @@ These are the three most important keys for :doc:`moving, rotating, and scaling<
 
 *   **Reset:** Press ``Alt`` + ``G`` (Location), ``Alt`` + ``R`` (Rotation), or ``Alt`` + ``S`` (Scale) to reset to default.
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 
-.. _object-modes:
+.. _blender-modes:
 
-Object Modes
-------------
+Blender Modes
+-------------
 
-Understanding the difference between modes is critical.
+Each "Mode" in Blender has different things it allows you to do, and tools associated with it. You'll find that
+keybinds might do different things in each mode, and certain actions are only possible in one or the other.
 
 * **Object Mode:** You manipulate the object as a whole. (See :doc:`Object Mode<blender_manual:grease_pencil/modes/object/index>`)
 
-* **Edit Mode:** You manipulate the *geometry* inside the object. In the context of GP, these are the points (vertex) that make up each stroke. This is the same as in vector layers in art programs. (See :doc:`Edit Mode<blender_manual:grease_pencil/modes/edit/introduction>`)
+* **Edit Mode:** You manipulate the *geometry* inside the object. In the context of GP,
+  these are the points (vertex) that make up each stroke. This is the same as in vector layers in art programs.
+  (See :doc:`Edit Mode<blender_manual:grease_pencil/modes/edit/introduction>`)
 
 * **Draw Mode:** Use this mode for accessing and using brushes. Switching is generally handled by Fred's Tool, but it is helpful to understand what it is doing. (See :doc:`Draw Mode<blender_manual:grease_pencil/modes/draw/introduction>`)
 
-Press ``Tab`` to toggle between modes.
+Press ``Tab`` to toggle between your last mode and Edit Mode.
+Press ``Ctrl-Tab`` to call up the Modes pie menu, which you can swipe with your pen.
+Press ``Shift-Tab`` to return to Object mode from any mode.
 
 .. image:: ../_static/images/object-vs-edit-mode.png
    :alt: Object Mode vs Edit Mode comparison
@@ -139,15 +144,33 @@ Press ``Tab`` to toggle between modes.
 
 *Figure 2: Location of Object Mode, Edit Mode, and Draw mode, top left*
 
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+
+.. _other-tips:
+
+Misc Helpful Tips
+-----------------
+
+.. admonition:: Sonder's Tip
+
+Dragging a PNG into a workspace in Object Mode while not viewing the scene through the Active Camera will bring in the image
+as a full on Image Object. It has Image Object data like normal objects have object mesh data, but icon is red here, not green.
+There, you can tick Opacity and change its transparency and other neat shit.
+
+.. image:: ../_static/images/dragging-in-image.png
+   :alt: Dragging a PNG into 3D view.
+   :scale: 100
+   :align: center
+
+------------------------------------------------------------------------------
 
 .. _basics-next-steps:
 
 Basics Next Steps
 -----------------
 
-:doc:`setup`
+Continue to: :doc:`install-setup`
 
 :doc:`keybindings`: Recommended shortcuts and suggested keybinds
 
-:doc:`usage`: AFIS Workflow instruction
+:doc:`afis-workflows`: AFIS Workflow instruction
